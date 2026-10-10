@@ -38,7 +38,7 @@
 - [x] Original yatai illustration, six savoury dishes, Japanese names/readings, polite ordering model, 4-choice memory game.
 - [x] Separate localStorage record for ordered dishes; existing V1-V4 progress untouched; optional Japanese voice fallback.
 - [x] Node 20/20 unit/static tests; local Chromium desktop/mobile: food ordering and persistence, all V2/V3/V4 regression flows, no console errors or horizontal overflow.
-- [ ] PR, staged checks and isolated production deploy if all green; record real deployment SHA, rollback and field-testing limits.
+- [x] PR #9 merged, application commit `b8fb6631840fc6480e9c9e4852b5794af3a08b34` deployed in isolated existing container (`nihongo-web`). Container healthy; HTTPS verified (200 for page, `/healthz`, modules and original SVG). All V2/V3/V4 and food-lane browser flows passed on the **public domain** (desktop/mobile simulation, 0 detected page errors). Rollback Docker image retained as `nihongo-rollback:58c5d17`.
 - [ ] Real-device touch/audio and fluent Japanese culinary copy review.
 
 ## Next slices
