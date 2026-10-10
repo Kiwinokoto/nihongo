@@ -39,11 +39,11 @@
         <div class="map-frame">
           <div class="map-topbar"><div class="map-name"><span aria-hidden="true">⌖</span> A quiet corner of Japan</div><span class="map-hint">CHOOSE A PLACE TO EXPLORE</span></div>
           <div class="illustrated-map">
-            <img class="map-art" src="/assets/landscape.svg" alt="Illustrated Japanese valley with winding trails, a cherry blossom garden, a tea house, a small shrine and a mountain train" />
+            <img class="map-art" src="/assets/landscape.svg" alt="Illustrated Japanese valley with winding trails, a cherry blossom garden, a food-stall lane, a small shrine and a mountain train" />
             <svg class="journey-road" viewBox="0 0 900 550" preserveAspectRatio="none" aria-hidden="true"><path d="M145 415 C225 480 310 405 355 330 S515 375 580 280 S740 300 785 155" /></svg>
             <button class="map-stop start-stop" data-place="start" aria-label="Starting village, available"><span class="stop-icon" aria-hidden="true">🏡</span><span class="stop-label">Starting village</span></button>
             <button class="map-stop garden-stop current" data-place="garden" aria-label="Hiragana garden, available"><span class="stop-icon" aria-hidden="true">あ</span><span class="stop-label">Hiragana garden</span></button>
-            <button class="map-stop tea-stop locked" data-place="tea" aria-label="Tea house, locked"><span class="stop-icon" aria-hidden="true">🍵</span><span class="stop-label">The tea house</span></button>
+            <button class="map-stop tea-stop" data-place="tea" aria-label="The little food lane, available"><span class="stop-icon" aria-hidden="true">🍢</span><span class="stop-label">The food lane</span></button>
             <button class="map-stop shrine-stop locked" data-place="shrine" aria-label="Shrine of kanji, coming later"><span class="stop-icon" aria-hidden="true">⛩</span><span class="stop-label">Shrine of kanji</span></button>
             <button class="map-stop train-stop locked" data-place="train" aria-label="Katakana station, coming later"><span class="stop-icon" aria-hidden="true">🚃</span><span class="stop-label">Katakana station</span></button>
           </div>
@@ -88,6 +88,13 @@
       </div>
       <div class="kana-picker" id="kana-picker" aria-label="Choose a hiragana"></div>
       <section class="lesson-panel" id="lesson-panel" role="tabpanel" tabindex="0" aria-live="polite"></section>
+    </div>
+  </dialog>
+  <dialog id="food-dialog" aria-labelledby="food-title">
+    <div class="modal-head"><span class="eyebrow">THE LITTLE FOOD LANE · やたい</span><button id="close-food" class="icon-button" type="button" aria-label="Close the food lane">×</button></div>
+    <div class="modal-content">
+      <div class="food-modal-title"><h2 id="food-title">A little taste of Japan.</h2><p>Come for the grilled fish. Stay for the small discoveries.</p></div>
+      <div id="food-content"></div>
     </div>
   </dialog>
   <dialog id="journal-dialog" aria-labelledby="journal-title">

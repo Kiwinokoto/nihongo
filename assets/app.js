@@ -5,6 +5,7 @@ import {
   isRowUnlocked, completedInRow, dueKana, markTraced, markCorrect, markIncorrect
 } from "./progression.js";
 import {renderWordPostcards,learnedWordCount} from "./word-postcards.js";
+import {renderFoodLane} from "./food-lane.js";
 
 const $ = (id) => document.getElementById(id);
 const STARTER_COUNT = ALL_KANA.length;
@@ -40,7 +41,7 @@ function updateProgress(){
 const PLACES={
   start:{n:"WELCOME · YOUR JOURNEY BEGINS",emoji:"🏡",title:"The starting village",jp:"はじまりの村",description:"Every adventure begins with a small hello. Take the first path towards the blossoms and meet your first sounds.",fact:"Your first steps",status:"READY",button:"Let's begin"},
   garden:{n:"STOP 01 · THE HIRAGANA GARDEN",emoji:"🌸",title:"The hiragana garden",jp:"ひらがなの庭",description:"Follow ten little paths of sounds. Listen, learn their stroke order, trace and collect all 46 basic hiragana.",fact:"46 hiragana to discover",status:"READY",button:"Enter the garden"},
-  tea:{n:"A LITTLE FURTHER · SOON",emoji:"🍵",title:"The tea house",jp:"おちゃや",description:"Warm tea, beautiful wagashi and little everyday conversations. This stop is being prepared.",fact:"Speaking & listening",status:"COMING SOON",button:"The tea house is not ready yet"},
+  tea:{n:"STOP 02 · A TASTY LITTLE DETOUR",emoji:"🍢",title:"The little food lane",jp:"やたいのこみち",description:"Follow the savoury aromas: grilled fish, chicken skewers, octopus bites and wonderfully sticky nattō. Learn to order a favourite.",fact:"6 dishes to discover",status:"READY",button:"Explore the food lane"},
   shrine:{n:"BEYOND THE FOREST · SOON",emoji:"⛩️",title:"The kanji shrine",jp:"かんじの神社",description:"Learn meaningful characters among quiet trees and lanterns. This stop is being prepared.",fact:"Meaning & writing",status:"COMING SOON",button:"The shrine is not ready yet"},
   train:{n:"THE NEXT JOURNEY · SOON",emoji:"🚃",title:"Katakana station",jp:"カタカナのえき",description:"Catch a little train towards the world of katakana. This stop is being prepared.",fact:"A new alphabet",status:"COMING SOON",button:"The station is not ready yet"}
 };
@@ -59,6 +60,10 @@ function selectPlace(id){
     b.classList.toggle("current",b.dataset.place===id);
     b.setAttribute("aria-pressed",String(b.dataset.place===id));
   });
+}
+function openFoodLane(){
+  renderFoodLane($("food-content"),speakJapanese);
+  $("food-dialog").showModal();
 }
 function openLesson(nextTab="discover"){
   rowIndex=currentRow(progress);
@@ -87,7 +92,7 @@ function speakJapanese(text){
   const output=$("audio-feedback");
   if(!("speechSynthesis" in window)){output.textContent="Japanese audio isn't available in this browser.";return;}
   const voice=speechSynthesis.getVoices().find(v=>v.lang?.toLowerCase().startsWith("ja"));
-  if(!voice){output.textContent="No Japanese voice is installed on this device. You can still read and trace.";return;}
+  if(!voice){output.textContent="No Japanese voice is installed on this device. You can still read and practise.";return;}
   speechSynthesis.cancel();
   const utterance=new SpeechSynthesisUtterance(text);
   utterance.lang="ja-JP";utterance.voice=voice;utterance.rate=.72;
@@ -410,10 +415,11 @@ function redraw(){
   }
 }
 document.querySelectorAll("[data-place]").forEach(b=>b.addEventListener("click",()=>selectPlace(b.dataset.place)));
-$("place-action").addEventListener("click",()=>{if(place==="start"||place==="garden")openLesson();});
+$("place-action").addEventListener("click",()=>{if(place==="start"||place==="garden")openLesson();else if(place==="tea")openFoodLane();});
 $("start-journey").addEventListener("click",()=>{selectPlace("garden");openLesson();});
 $("open-journal").addEventListener("click",renderJournal);
 $("close-lesson").addEventListener("click",()=>$("lesson-dialog").close());
+$("close-food").addEventListener("click",()=>$("food-dialog").close());
 $("close-journal").addEventListener("click",()=>$("journal-dialog").close());
 $("journal-garden").addEventListener("click",()=>{
   const due=dueKana(progress).length;
@@ -427,6 +433,7 @@ document.querySelectorAll(".lesson-tabs [role=tab]").forEach((b,i,all)=>b.addEve
   e.preventDefault();const next=all[(i+(e.key==="ArrowRight"?1:all.length-1))%all.length];
   selectTab(next.dataset.tab);next.focus();
 }));
+$("food-dialog").addEventListener("close",()=>{if("speechSynthesis" in window)speechSynthesis.cancel();});
 $("lesson-dialog").addEventListener("close",()=>{
   if("speechSynthesis" in window)speechSynthesis.cancel();
   if(canvasObserver){canvasObserver.disconnect();canvasObserver=null;}

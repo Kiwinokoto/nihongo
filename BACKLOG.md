@@ -33,10 +33,18 @@
 - [x] PR #7 merged and app commit `58c5d17564992f551253102da81c4fda0edac02a` deployed. Isolated container healthy; HTTPS/TLS 200 for page, modules and all three SVGs. All V2, V3 and V4 browser scenarios passed on actual public domain (desktop/mobile simulation), no JS errors or progress changes. Previous Docker image saved as `nihongo-rollback:a39a1ba`.
 - [ ] Fluent-human review of dialogue; field-test on Angela's phone and obtain accessibility/audio feedback.
 
+## Fifth pass — savoury food lane (2026-10-10)
+- [x] Retain same map art/positions; only activate the former tea-house stop as a little food lane.
+- [x] Original yatai illustration, six savoury dishes, Japanese names/readings, polite ordering model, 4-choice memory game.
+- [x] Separate localStorage record for ordered dishes; existing V1-V4 progress untouched; optional Japanese voice fallback.
+- [x] Node 20/20 unit/static tests; local Chromium desktop/mobile: food ordering and persistence, all V2/V3/V4 regression flows, no console errors or horizontal overflow.
+- [ ] PR, staged checks and isolated production deploy if all green; record real deployment SHA, rollback and field-testing limits.
+- [ ] Real-device touch/audio and fluent Japanese culinary copy review.
+
 ## Next slices
 - Optional evaluated handwriting matcher for free drawing; automatic writing verification is **not implemented**
 - More hiragana rows, adaptive review and spaced repetition
-- Tea-house conversations around food and everyday phrases
+- Broader food-lane dialogues and restaurant roleplay (initial savoury ordering mini-game implemented in Pass 5)
 - Katakana station and first contextual kanji in the forest/shrine
 - Optional progress export/backup or sync with a considered privacy model
 
