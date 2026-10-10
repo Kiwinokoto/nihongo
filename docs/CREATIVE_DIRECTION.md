@@ -63,6 +63,22 @@ designs, named cameos, logos, lines, panels or imitation of a living artist's
 identifiable style. All shipped artwork and narratives must be independently made
 and properly licensed. The original SVG map is not to be overwritten casually.
 
+## Food and everyday cultural discoveries
+
+The food strand should be **savoury-first**, not exclusively sweets or tea:
+fish grilled over charcoal, chicken skewers, octopus dishes, Japanese home
+cooking, and distinctive fermented or sticky textures are central. Beautiful
+wagashi can still appear, but only as one part of Japanese cuisine.
+
+Pass 5 activates the old tea-house map stop as a small food lane without
+changing the map's scenery or location. Its six menu items support a simple
+`Xをください` ordering game. The street scene is original procedural SVG,
+not borrowed food photography or artwork.
+
+A learner may try food vocabulary regardless of hiragana level. Keep any
+food quizzes separate from foundational literacy progress, and avoid turning
+private food interests into individual tracking/profiles.
+
 ## Before implementing another easter egg
 
 - Gather the intended learner's opinion of overall site navigation, audio, and

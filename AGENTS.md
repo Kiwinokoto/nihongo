@@ -39,6 +39,14 @@ Public, lighthearted Japanese-learning microsite for Angela: gentle storybook ma
 - Use device-provided Japanese voice only when installed. The phrases are beginner-friendly glimpses, **not** automatically mastered vocabulary. Request fluent-human proofreading before formal curriculum use. Do not claim writing or spoken-proficiency assessment.
 - Regression tests must demonstrate clean V1-V3 progress and unchanged homepage/map, keyboard navigation, three scenes on desktop/mobile, image decoding and zero external assets.
 
+## Fifth pass — small savoury food lane (2026-10-10)
+- The former locked `tea` map stop becomes a **playable little food lane**, at the SAME location and without changing scenery, hero layout or other map stops.
+- Food experience is **savoury-first**: grilled fish, yakitori, takoyaki, nattō with sticky strands, okonomiyaki and eel. This is an editorial/product direction, not a personal profile; do not record identifiable learner preferences in the public repo or browser.
+- `assets/food-lane-data.js` is the pure six-dish menu and optional saved orders; `assets/food-lane.js` is the dialog-driven UI. `assets/food-lane.svg` is original art generated with `tools/draw_food_lane.py`.
+- Food activity is available without gating kana; it must never modify the V1-V4 kana, word-postcard or story records. Its only localStorage key is `kotoba-no-tabi.food-lane.v1`.
+- The ordering quiz demonstrates `Xをください`. The browser's Japanese TTS voice is optional; fallback must be clear. Do not claim complete conversational training, native audio recordings or mastery of kanji from this activity.
+- Keep module independent and rollback-safe. Test current hiragana, postcards, lantern story and food lane together (desktop and simulated mobile).
+
 ## Checks
 `node --check assets/app.js`
 `node --test tests/*.test.mjs`
