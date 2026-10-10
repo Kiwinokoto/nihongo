@@ -22,7 +22,7 @@
 - [x] Document future tasteful opt-in original BL easter eggs, references and copyright safeguards in `docs/CREATIVE_DIRECTION.md`; **not** added to the application.
 - [x] Keep map unchanged; optional hiragana-only vocabulary postcards are reached from My collection and use a separate browser storage key.
 - [x] 13/13 Node tests; local Chromium desktop and mobile simulation: locked/unlocked cards, meaning quiz, separate persistence and unchanged kana progression; earlier V2 full smoke also passed.
-- [ ] PR and isolated deploy only after checks; update the actual deployed SHA and public URL verification.
+- [x] PR #5 merged. Production application commit `a39a1ba34666b9f7e0b392a5d8ef06ec57ecd9a6`; verified healthy isolated container, HTTPS (valid certificate), HTTP 200 for new modules and full original hiragana + word-postcard Chromium desktop/mobile flows with no page errors. Previous Docker image retained as `nihongo-rollback:b3abfbf`.
 - [ ] Let Angela evaluate the current gentle atmosphere and accessibility/audio on her own device before adding story characters.
 
 ## Next slices
