@@ -30,7 +30,7 @@
 - [x] Optional one-word-postcard bonus, no main-map change, no forced side story; three short Japanese lines with English translation and browser-audio fallback.
 - [x] No storage of story reading or BL preferences; kana and word progress remain separate, unchanged.
 - [x] 16/16 model/static tests and local Chromium smoke for desktop and mobile, with three-scene navigation, story gate, stable progress and decoded SVG images.
-- [ ] Merge PR, deploy to isolated personal VPS and test the actual public domain, record app commit.
+- [x] PR #7 merged and app commit `58c5d17564992f551253102da81c4fda0edac02a` deployed. Isolated container healthy; HTTPS/TLS 200 for page, modules and all three SVGs. All V2, V3 and V4 browser scenarios passed on actual public domain (desktop/mobile simulation), no JS errors or progress changes. Previous Docker image saved as `nihongo-rollback:a39a1ba`.
 - [ ] Fluent-human review of dialogue; field-test on Angela's phone and obtain accessibility/audio feedback.
 
 ## Next slices
