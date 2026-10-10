@@ -147,3 +147,39 @@ dialog{border:1px solid #e1e4d7;background:#fffdf7;border-radius:21px;color:#2c5
 .word-choices button.wrong{background:#fbebe3;border-color:#d1a490;color:#966f55}
 @media(max-width:800px){.word-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:560px){.word-teaser{flex-wrap:wrap}.word-teaser button{width:100%}.word-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.postcard-detail{grid-template-columns:1fr}.postcard-visual{height:100px;width:100%;font-size:52px}.word-choices{grid-template-columns:1fr}}
+
+/* Pass 4: an optional, self-contained Lantern Evening story. No map CSS changes. */
+.lantern-teaser{display:flex;align-items:center;gap:16px;margin:18px 0 3px;border:1px solid #e2d5c6;border-radius:15px;padding:17px;background:linear-gradient(118deg,#f7e9dd,#f2ebdf 54%,#e3ede2)}
+.lantern-asleep{background:#f4f2ea;border-color:#ebe8dd}
+.lantern-emblem{width:58px;min-width:58px;height:67px;background:radial-gradient(circle,#fae0b0,#e7c6af 60%,#e8dbce 100%);display:grid;place-items:center;border-radius:29px 29px 14px 14px;font-size:34px;box-shadow:0 6px 16px #9d645233}
+.lantern-asleep .lantern-emblem{filter:grayscale(.35);opacity:.7}
+.lantern-teaser-copy{flex:1}
+.lantern-teaser-copy .panel-kicker{font-size:9px}
+.lantern-teaser h4{font-family:"DM Serif Display",Georgia,serif;font-size:25px;color:#38584f;font-weight:400;margin:4px 0}
+.lantern-teaser p{font-size:12px;color:#7a8c80;line-height:1.7;margin:0}
+.lantern-teaser>button{white-space:nowrap}
+.lantern-story{background:#253b46;color:#f5ecde;border-radius:16px;padding:16px;overflow:hidden}
+.lantern-story-top{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:3px 6px 15px}
+.lantern-story .panel-kicker{color:#e2b5a4;letter-spacing:.16em;font-size:10px}
+.lantern-story .soft-button{border:1px solid #8d9e97;background:#fbf4e7;color:#365d54}
+.lantern-story .soft-button:disabled{background:#b9c0b5;opacity:.5}
+.lantern-story .soft-button:hover:not(:disabled){background:#fff}
+.lantern-story .primary{background:#dcab8a;box-shadow:0 4px 0 #a57d68,0 10px 22px #12263044;color:#223f43}
+.lantern-story .primary:hover{background:#edc49c}
+.lantern-picture{width:100%;overflow:hidden;border-radius:12px 12px 2px 2px;background:linear-gradient(130deg,#465f66,#ad887d);box-shadow:0 8px 25px #11283463}
+.lantern-picture img{display:block;max-width:100%;width:100%;height:auto;aspect-ratio:1000 / 580;object-fit:cover}
+.lantern-caption{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:25px;padding:24px 17px 12px;align-items:start}
+.lantern-caption h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:33px;line-height:1.12;color:#ffe6c7;margin:11px 0}
+.lantern-narrative{color:#d6dfd7;font-size:13px;line-height:1.9;margin:10px 0 0}
+.lantern-phrase{border-left:1px solid #f0cfb957;padding:0 5px 0 24px}
+.lantern-phrase-header{color:#e1bda6;font-size:10px;letter-spacing:.09em}
+.lantern-japanese{font-family:Georgia,serif;font-size:29px;line-height:1.35;color:#fff1d9;margin:16px 0 4px}
+.lantern-romaji{font-size:12px;color:#d9bfa8;margin:5px 0 0;font-style:italic}
+.lantern-translation{font-family:Georgia,serif;font-style:italic;font-size:18px;color:#f6d6bd;margin:12px 0}
+.lantern-phrase .feedback{font-size:11px;color:#f3d5bb;min-height:0}
+.lantern-story-controls{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:4px 11px 0;border-top:1px solid #e4dac02e;padding:20px 3px 7px}
+#lantern-counter{font-size:12px;letter-spacing:.19em;font-weight:700;color:#e4c5af}
+.lantern-endnote{font-family:Georgia,serif;font-style:italic;text-align:center;font-size:11px;color:#b7c9c1;margin:14px 0 4px}
+@media(max-width:750px){.lantern-teaser{flex-wrap:wrap}.lantern-teaser>button{margin-left:auto}.lantern-caption{gap:15px;padding:20px 8px 8px}.lantern-caption h3{font-size:26px}.lantern-phrase{padding-left:15px}}
+@media(max-width:560px){.lantern-story{padding:10px}.lantern-story-top{align-items:flex-start;flex-wrap:wrap}.lantern-story-top .panel-kicker{font-size:9px}.lantern-caption{grid-template-columns:1fr;padding:18px 10px;gap:18px}.lantern-picture{border-radius:10px}.lantern-caption h3{font-size:30px}.lantern-phrase{border-left:0;border-top:1px solid #f0cfb957;padding:17px 0 0}.lantern-story-controls{gap:8px;margin:2px 4px 0}.lantern-story-controls button{padding:10px 9px;font-size:11px;gap:4px}.lantern-teaser>button{width:100%}.lantern-phrase-header{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.lantern-story *{scroll-behavior:auto!important}}

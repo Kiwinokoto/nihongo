@@ -2,6 +2,7 @@ import {
   WORDS, WORD_STORAGE_KEY, parseWordProgress,
   isWordReady, availableWords, collectWord
 } from "./word-trails.js";
+import {renderLanternTeaser,renderLanternEvening} from "./lantern-evening.js";
 
 function getState(){
   try{return parseWordProgress(localStorage.getItem(WORD_STORAGE_KEY));}
@@ -32,9 +33,16 @@ export function renderWordPostcards(panel,masteredKana,speakJapanese,onBack){
     </div>
     <div class="word-grid" id="word-grid"></div>
     <div id="postcard-study" class="postcard-study" aria-live="polite"></div>
+    <div id="lantern-discovery"></div>
   </div>`;
   const grid=panel.querySelector("#word-grid"),study=panel.querySelector("#postcard-study");
   const feedback=()=>study.querySelector("#word-feedback");
+  const updateLantern=()=>{
+    renderLanternTeaser(panel.querySelector("#lantern-discovery"),state,()=>{
+      renderLanternEvening(panel,()=>renderWordPostcards(panel,masteredKana,speakJapanese,onBack),speakJapanese);
+    });
+  };
+  updateLantern();
   const updateCount=()=>{panel.querySelector("#postcard-count").textContent=`${state.collected.length} of ${WORDS.length} postcards collected`;};
   updateCount();
   panel.querySelector("#back-to-chart").addEventListener("click",onBack);
@@ -93,6 +101,7 @@ export function renderWordPostcards(panel,masteredKana,speakJapanese,onBack){
           card.classList.add("word-earned");
           card.querySelector("small").textContent="✓ Collected";
           updateCount();
+          updateLantern();
           feedback().textContent="A lovely new word for your journey! ✿";
         });
         area.querySelector("#word-choices").append(btn);

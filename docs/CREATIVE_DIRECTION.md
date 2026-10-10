@@ -1,6 +1,6 @@
 # Kotoba no Tabi — creative direction and future easter eggs
 
-Status: **design research only**; not a commitment to ship these elements now.
+Status: **first optional scene implemented in Pass 4**, further ideas remain design research. The BL touch is deliberately allusive; there are no explicit romantic images or mandatory stories.
 
 ## The atmosphere we are protecting
 
@@ -13,18 +13,31 @@ discoveries. They are a warm wink to readers who recognise them, not a genre lab
 splashed across the site. These preferences are project design ideas, not an identifiable
 learner profile. Do not record private reading habits or infer age from browsing.
 
-### Original, optional scene sketches (NOT yet implemented)
+### Implemented: Lantern Evening (Pass 4)
+
+After collecting any one vocabulary postcard, the learner may independently open
+a small three-moment festival scene from the vocabulary view. It is never forced
+and does not change language progress:
+1. An adult traveller finds a promise in a small notebook (`また、あした。`).
+2. Two original adult travellers recognise one another beneath festival lanterns,
+   with matching tiny charms (`ここだよ。`).
+3. A light rain starts; they share one umbrella (`いっしょに いこう。`).
+
+Three original SVGs generated reproducibly from the Python standard library,
+stored under `assets/stories/`. No copied artwork or published fictional characters.
+Romance is a possible gentle reading, but no explicit label or preference data
+appears in the learner UI. The Japanese lines should get a fluent-human check
+before being reused as formal teaching material.
+
+### Other optional scene sketches (NOT yet implemented)
 
 1. **The tea house, two cups.** Two adult travellers have ordered matching tea and
    left a folded note: `また、あした。` ("See you tomorrow"). The learner can
    practise `ふたり` ("two people", once introduced) or a natural dialogue.
-2. **Festival lanterns.** The same pair appear in the background with subtly
-   matching charms. A rain shower reveals one shared umbrella. Nothing interrupts
-   the vocabulary task; discovering them is a bonus.
-3. **Bookshop / forest path.** Two bookmarks placed side by side, a pressed flower,
+2. **Bookshop / forest path.** Two bookmarks placed side by side, a pressed flower,
    a tiny note and a knowing reply: `いっしょに いこう。` ("Let's go together").
    Could support a future short adult conversation module.
-4. **Optional "two travellers" postcards.** Only after the learner actively opens a
+3. **Optional "two travellers" postcards.** Only after the learner actively opens a
    small side story. Adult characters, warm personalities, mutual respect; romantic
    subtext can stay understated.
 
@@ -50,7 +63,7 @@ designs, named cameos, logos, lines, panels or imitation of a living artist's
 identifiable style. All shipped artwork and narratives must be independently made
 and properly licensed. The original SVG map is not to be overwritten casually.
 
-## Before implementing any easter egg
+## Before implementing another easter egg
 
 - Gather the intended learner's opinion of overall site navigation, audio, and
   story tone; don't present the future sketches as established preferences.
