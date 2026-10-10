@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f2e8">
+  <meta name="description" content="Kotoba no Tabi: a little journey through Japanese words, sounds and writing.">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <title>Kotoba no Tabi — ことばの旅</title>
+  <script type="module" src="/assets/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#journey">Skip to the journey</a>
+  <div class="page">
+    <header class="site-header" aria-label="Main navigation">
+      <a class="brand" href="#journey" aria-label="Kotoba no Tabi, home"><span class="brand-flower" aria-hidden="true">✿</span><span><strong>Kotoba no Tabi</strong><small>ことばの旅</small></span></a>
+      <div class="header-right"><span class="header-subtitle">A LITTLE JOURNEY THROUGH JAPANESE</span><button type="button" id="open-journal" class="pill muted-pill"><span aria-hidden="true">✧</span> My journal <span id="header-progress">0/5</span></button></div>
+    </header>
+
+    <main id="journey">
+      <section class="welcome" aria-labelledby="hero-title">
+        <div class="welcome-copy">
+          <div class="eyebrow"><span class="tiny-flower" aria-hidden="true">✿</span> YOUR JOURNEY BEGINS HERE</div>
+          <h1 id="hero-title">A little Japanese,<br><em>every day.</em></h1>
+          <p>Follow the lanterns, collect little discoveries, and make every new word your own. No rush. Just the joy of learning.</p>
+          <div class="welcome-actions">
+            <button class="primary" id="start-journey">Begin exploring <span aria-hidden="true">↗</span></button>
+            <span class="welcome-footnote"><span aria-hidden="true">✦</span> Your progress stays on this device</span>
+          </div>
+        </div>
+        <div class="welcome-illustration" aria-hidden="true"><img src="/assets/village.svg" alt="" loading="eager"></div>
+        <span class="hero-kanji" aria-hidden="true">旅</span>
+      </section>
+
+      <div class="section-heading"><div><span class="eyebrow">CHAPTER ONE · はじまり</span><h2>Your little world <span aria-hidden="true">🌸</span></h2></div><div class="chapter-progress"><span id="overview-progress">0 of 5 sounds collected</span><div class="progress-rail"><div class="progress-fill" id="progress-fill"></div></div></div></div>
+
+      <section class="world-layout" aria-label="Interactive journey map">
+        <div class="map-frame">
+          <div class="map-topbar"><div class="map-name"><span aria-hidden="true">⌖</span> A quiet corner of Japan</div><span class="map-hint">CHOOSE A PLACE TO EXPLORE</span></div>
+          <div class="illustrated-map">
+            <img class="map-art" src="/assets/landscape.svg" alt="Illustrated Japanese valley with winding trails, a cherry blossom garden, a tea house, a small shrine and a mountain train" />
+            <svg class="journey-road" viewBox="0 0 900 550" preserveAspectRatio="none" aria-hidden="true"><path d="M145 415 C225 480 310 405 355 330 S515 375 580 280 S740 300 785 155" /></svg>
+            <button class="map-stop start-stop" data-place="start" aria-label="Starting village, available"><span class="stop-icon" aria-hidden="true">🏡</span><span class="stop-label">Starting village</span></button>
+            <button class="map-stop garden-stop current" data-place="garden" aria-label="Hiragana garden, available"><span class="stop-icon" aria-hidden="true">あ</span><span class="stop-label">Hiragana garden</span></button>
+            <button class="map-stop tea-stop locked" data-place="tea" aria-label="Tea house, locked"><span class="stop-icon" aria-hidden="true">🍵</span><span class="stop-label">The tea house</span></button>
+            <button class="map-stop shrine-stop locked" data-place="shrine" aria-label="Shrine of kanji, coming later"><span class="stop-icon" aria-hidden="true">⛩</span><span class="stop-label">Shrine of kanji</span></button>
+            <button class="map-stop train-stop locked" data-place="train" aria-label="Katakana station, coming later"><span class="stop-icon" aria-hidden="true">🚃</span><span class="stop-label">Katakana station</span></button>
+          </div>
+          <div class="map-footer"><span><span class="legend-dot open-dot"></span> Ready to explore</span><span><span class="legend-dot locked-dot"></span> Still a little further</span><span class="map-footer-note">Made for curious hearts ♡</span></div>
+        </div>
+
+        <aside class="place-card" aria-live="polite">
+          <span class="eyebrow place-number" id="place-number">STOP 01 · YOUR FIRST ADVENTURE</span>
+          <div class="place-emoji" id="place-emoji" aria-hidden="true">🌸</div>
+          <h3 id="place-title">The hiragana garden</h3>
+          <p class="place-japanese" id="place-japanese">ひらがなの庭</p>
+          <p class="place-description" id="place-description">Five little sounds are waiting among the blossoms. Listen, recognise and draw each one.</p>
+          <div class="place-facts"><span id="place-fact"><span aria-hidden="true">✦</span> 5 sounds to discover</span><span id="place-status" class="available">READY</span></div>
+          <button type="button" class="primary full-width" id="place-action">Enter the garden <span aria-hidden="true">↗</span></button>
+          <p class="card-whisper">“Even the longest journey begins with one small step.”</p>
+        </aside>
+      </section>
+
+      <section class="below-map" aria-label="Explore your learning">
+        <div class="mini-feature"><div class="feature-icon">✍</div><div><h3>Learn by tracing</h3><p>Watch the shapes, then give your own hand a try.</p></div></div>
+        <div class="mini-feature"><div class="feature-icon">♫</div><div><h3>Listen and discover</h3><p>Hear each sound, then recognise it wherever you go.</p></div></div>
+        <div class="mini-feature"><div class="feature-icon">✧</div><div><h3>Return when you like</h3><p>Your little collection is always here to revisit.</p></div></div>
+      </section>
+    </main>
+    <footer><span>ことばの旅 <span aria-hidden="true">✿</span> A little at a time, beautifully.</span><a href="https://github.com/Kiwinokoto/nihongo" target="_blank" rel="noopener noreferrer">Open-source project ↗</a></footer>
+  </div>
+
+  <dialog id="lesson-dialog" aria-labelledby="lesson-title">
+    <div class="modal-head"><span class="eyebrow">THE HIRAGANA GARDEN · ひらがな</span><button id="close-lesson" class="icon-button" aria-label="Close the lesson">×</button></div>
+    <div class="modal-content">
+      <div class="lesson-intro"><div><h2 id="lesson-title">Little sounds, beautiful shapes.</h2><p>Discover the first five vowels. Learn at your own pace.</p></div><div class="lesson-count" id="lesson-count">0 / 5 collected</div></div>
+      <div class="lesson-tabs" role="tablist" aria-label="Practice modes">
+        <button role="tab" aria-selected="true" data-tab="discover">01 · Discover</button>
+        <button role="tab" aria-selected="false" data-tab="trace">02 · Trace</button>
+        <button role="tab" aria-selected="false" data-tab="practice">03 · Try yourself</button>
+        <button role="tab" aria-selected="false" data-tab="collection">My collection</button>
+      </div>
+      <div class="kana-picker" id="kana-picker" aria-label="Choose a hiragana"></div>
+      <section class="lesson-panel" id="lesson-panel" aria-live="polite"></section>
+    </div>
+  </dialog>
+  <dialog id="journal-dialog" aria-labelledby="journal-title">
+    <div class="modal-head"><span class="eyebrow">LITTLE DISCOVERIES</span><button id="close-journal" class="icon-button" aria-label="Close journal">×</button></div>
+    <div class="journal-content"><div class="journal-symbol">✿</div><h2 id="journal-title">Your travel journal</h2><p id="journal-description">A collection of the little things you've learned along the way.</p><div id="journal-cards" class="journal-cards"></div><button id="journal-garden" class="primary">Visit the garden <span aria-hidden="true">↗</span></button><p class="journal-warning">This early version saves progress in this browser only. Don't clear site data if you want to keep it.</p></div>
+  </dialog>
+</body>
+</html>
