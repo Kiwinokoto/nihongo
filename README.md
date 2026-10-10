@@ -12,7 +12,7 @@ A quiet little Japanese-learning journey. A public, dependency-free static websi
 - LocalStorage progress. Private to that browser/device, **not synced or backed up**
 - Full 46-character hiragana chart preview; the other 41 characters await future lessons
 
-**Important:** tracing is not automatically checked for correctness, stroke order or recognisability. The app only marks that the learner has practised; mastery is awarded by the recognition quiz.
+**Important:** tracing is not automatically checked for correctness, stroke order or recognisability. The app only marks that the learner has practised; recognition quiz success collects the sound.
 
 ## Development
 
@@ -25,18 +25,20 @@ node --test tests/*.test.mjs
 python3 -m http.server 8787
 ```
 
-Open http://localhost:8787 on a browser. The artwork generator uses only the Python standard library and its output is checked into version control for reproducible deployment.
+Open http://localhost:8787 in a browser. The artwork generator uses only the Python standard library and its output is checked into version control.
 
 ## Production
 
-Public URL: https://nihongo.kiwinokoto.fr
+Live URL: https://nihongo.kiwinokoto.fr
 
-The isolated Compose service in `deploy/compose.yml` uses `traefik_network`, the existing personal VPS Traefik HTTPS resolver `letsencrypt`, and its own nginx container. No user accounts, database or environment secrets.
+Released application revision: `e7c764f084eee0ccb94547d498060082ea2acd3a` (PR #1, 10 October 2026). Live HTTPS, assets, service health and desktop/mobile Chromium smoke tests passed. See `BACKLOG.md` for pending real-device and accessibility checks.
 
-To deploy after review, pull the audited `main` revision into `/opt/nihongo`, check the AgentCtl deployment lease, then run `docker compose -f deploy/compose.yml up -d --build`. Verify `/healthz`, HTTPS/certificate, the main page, assets and browser interactions. Do not edit existing Traefik/application containers.
+An isolated Compose service in `deploy/compose.yml` uses `traefik_network`, the existing personal VPS Traefik HTTPS resolver `letsencrypt`, and its own nginx container. No user accounts, database or environment secrets.
 
-## Security & licensing
+To deploy after review, compare audited GitHub `main` against the running revision and any local changes, acquire the AgentCtl deployment leases, update `/opt/nihongo`, then run `docker compose -f deploy/compose.yml up -d --build`. Verify `/healthz`, HTTPS/certificate, assets and browser interactions. Do not change other services.
 
-All visible SVG scenery is original code from `tools/draw_landscape.py`, not copied from reference images. No analytics and no personal information collected server-side. Google Fonts are loaded by the browser (a future privacy hardening could replace them with system fonts). All documentation and code are intended to remain public. Do not commit secrets, deployment files containing tokens or learner data.
+## Security, privacy & licensing
 
-See [AGENTS.md](AGENTS.md) for coordination and [BACKLOG.md](BACKLOG.md) for incremental roadmap.
+All SVG scenery is original code from `tools/draw_landscape.py`; no imagery was copied from reference searches. No learner accounts, user profiles, application analytics or application-side form submissions. **Normal HTTP/Traefik access logs may still record visitor IP addresses.** Progress is saved in the visitor's own browser and is not encrypted or synced. Google Fonts are requested by the visitor's browser (a future privacy hardening could replace these with system fonts). Never commit secrets, tokens, private data or deployment credentials.
+
+See `AGENTS.md` for coordination and `BACKLOG.md` for the next small increments.
