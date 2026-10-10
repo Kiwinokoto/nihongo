@@ -15,7 +15,7 @@
   <div class="page">
     <header class="site-header" aria-label="Main navigation">
       <a class="brand" href="#journey" aria-label="Kotoba no Tabi, home"><span class="brand-flower" aria-hidden="true">✿</span><span><strong>Kotoba no Tabi</strong><small>ことばの旅</small></span></a>
-      <div class="header-right"><span class="header-subtitle">A LITTLE JOURNEY THROUGH JAPANESE</span><button type="button" id="open-journal" class="pill muted-pill"><span aria-hidden="true">✧</span> My journal <span id="header-progress">0/5</span></button></div>
+      <div class="header-right"><span class="header-subtitle">A LITTLE JOURNEY THROUGH JAPANESE</span><button type="button" id="open-journal" class="pill muted-pill"><span aria-hidden="true">✧</span> My journal <span id="header-progress">0/46</span></button></div>
     </header>
 
     <main id="journey">
@@ -33,7 +33,7 @@
         <span class="hero-kanji" aria-hidden="true">旅</span>
       </section>
 
-      <div class="section-heading"><div><span class="eyebrow">CHAPTER ONE · はじまり</span><h2>Your little world <span aria-hidden="true">🌸</span></h2></div><div class="chapter-progress"><span id="overview-progress">0 of 5 sounds collected</span><div class="progress-rail"><div class="progress-fill" id="progress-fill"></div></div></div></div>
+      <div class="section-heading"><div><span class="eyebrow">CHAPTER ONE · はじまり</span><h2>Your little world <span aria-hidden="true">🌸</span></h2></div><div class="chapter-progress"><span id="overview-progress">0 of 5 in this row</span><div class="progress-rail"><div class="progress-fill" id="progress-fill"></div></div></div></div>
 
       <section class="world-layout" aria-label="Interactive journey map">
         <div class="map-frame">
@@ -68,21 +68,26 @@
         <div class="mini-feature"><div class="feature-icon">✧</div><div><h3>Return when you like</h3><p>Your little collection is always here to revisit.</p></div></div>
       </section>
     </main>
-    <footer><span>ことばの旅 <span aria-hidden="true">✿</span> A little at a time, beautifully.</span><a href="https://github.com/Kiwinokoto/nihongo" target="_blank" rel="noopener noreferrer">Open-source project ↗</a></footer>
+    <footer><span>ことばの旅 <span aria-hidden="true">✿</span> A little at a time, beautifully.</span><a href="https://github.com/Kiwinokoto/nihongo" target="_blank" rel="noopener noreferrer">Public GitHub project ↗</a></footer>
   </div>
 
   <dialog id="lesson-dialog" aria-labelledby="lesson-title">
     <div class="modal-head"><span class="eyebrow">THE HIRAGANA GARDEN · ひらがな</span><button id="close-lesson" class="icon-button" aria-label="Close the lesson">×</button></div>
     <div class="modal-content">
-      <div class="lesson-intro"><div><h2 id="lesson-title">Little sounds, beautiful shapes.</h2><p>Discover the first five vowels. Learn at your own pace.</p></div><div class="lesson-count" id="lesson-count">0 / 5 collected</div></div>
+      <div class="lesson-intro"><div><h2 id="lesson-title">Little sounds, beautiful shapes.</h2><p>Explore the hiragana one row at a time, at your own pace.</p></div><div class="lesson-count" id="lesson-count">0 / 46 collected</div></div>
       <div class="lesson-tabs" role="tablist" aria-label="Practice modes">
         <button role="tab" aria-selected="true" data-tab="discover">01 · Discover</button>
         <button role="tab" aria-selected="false" data-tab="trace">02 · Trace</button>
         <button role="tab" aria-selected="false" data-tab="practice">03 · Try yourself</button>
+        <button role="tab" aria-selected="false" data-tab="review">04 · Review</button>
         <button role="tab" aria-selected="false" data-tab="collection">My collection</button>
       </div>
+      <div class="lesson-rowbar" id="lesson-rowbar">
+        <div class="row-identity"><span class="eyebrow" id="row-number">ROW 1 OF 10</span><strong id="row-title">The first vowels</strong><small id="row-subtitle">a · i · u · e · o</small></div>
+        <div class="row-navigation"><span id="row-progress">0 / 5</span><button type="button" class="soft-button" id="previous-row" aria-label="Previous row">←</button><button type="button" class="soft-button" id="next-row" aria-label="Next unlocked row">→</button></div>
+      </div>
       <div class="kana-picker" id="kana-picker" aria-label="Choose a hiragana"></div>
-      <section class="lesson-panel" id="lesson-panel" aria-live="polite"></section>
+      <section class="lesson-panel" id="lesson-panel" role="tabpanel" tabindex="0" aria-live="polite"></section>
     </div>
   </dialog>
   <dialog id="journal-dialog" aria-labelledby="journal-title">

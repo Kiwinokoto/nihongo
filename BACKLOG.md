@@ -9,8 +9,17 @@
 - [ ] Test on Angela's real phone/touch device, including actual Japanese speech-synthesis voice
 - [ ] Audit screen-reader/keyboard accessibility, cache/performance and cross-browser appearance
 
+## Second pass — work in progress (2026-10-10)
+- [x] 46 official stroke-order animated kana SVGs from pinned AnimCJK source (attribution and LGPL texts bundled)
+- [x] Ten groups of hiragana, progressive unlock, collection rows, retained V1 progress
+- [x] Friendly number-of-strokes guidance, guide replay and deliberate no-grading writing practice
+- [x] Locally scheduled reviews and wrong-answer retry (no account/server DB)
+- [x] Node model tests and Chromium desktop/mobile smoke (pre-deployment)
+- [ ] Ship through PR, deploy isolated Docker stack and verify live browser + HTTPS + certificate
+- [ ] Field-test real device touch/voice and keyboard/screen reader
+
 ## Next slices
-- Stroke-order animated models (review third-party licenses before use); handwriting validation is **not implemented**
+- Optional evaluated handwriting matcher for free drawing; automatic writing verification is **not implemented**
 - More hiragana rows, adaptive review and spaced repetition
 - Tea-house conversations around food and everyday phrases
 - Katakana station and first contextual kanji in the forest/shrine

@@ -1,55 +1,56 @@
-// Kotoba no Tabi — intentionally dependency-free prototype.
-// Learning achievements require recognition. Drawing is practice, never automatically graded.
-const KANA = [
-  ["あ","a"],["い","i"],["う","u"],["え","e"],["お","o"],
-  ["か","ka"],["き","ki"],["く","ku"],["け","ke"],["こ","ko"],
-  ["さ","sa"],["し","shi"],["す","su"],["せ","se"],["そ","so"],
-  ["た","ta"],["ち","chi"],["つ","tsu"],["て","te"],["と","to"],
-  ["な","na"],["に","ni"],["ぬ","nu"],["ね","ne"],["の","no"],
-  ["は","ha"],["ひ","hi"],["ふ","fu"],["へ","he"],["ほ","ho"],
-  ["ま","ma"],["み","mi"],["む","mu"],["め","me"],["も","mo"],
-  ["や","ya"],["ゆ","yu"],["よ","yo"],["ら","ra"],["り","ri"],
-  ["る","ru"],["れ","re"],["ろ","ro"],["わ","wa"],["を","wo"],["ん","n"]
-];
-const STARTER = KANA.slice(0,5);
-const STORAGE_KEY = "kotoba-no-tabi.progress.v1";
+// Kotoba no Tabi — a tiny, dependency-free learning journey.
+// Tracing is ungraded practice; recognition and timed revision build a collection.
+import {
+  KANA, ROWS, ALL_KANA, STORAGE_KEY, parseProgress, currentRow,
+  isRowUnlocked, completedInRow, dueKana, markTraced, markCorrect, markIncorrect
+} from "./progression.js";
+
 const $ = (id) => document.getElementById(id);
-const safeList = (value) => Array.isArray(value) ? [...new Set(value.filter(v => typeof v === "string" && STARTER.some(([k]) => k === v)))] : [];
+const STARTER_COUNT = ALL_KANA.length;
 function loadProgress() {
-  try {
-    const data=JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-    return {mastered:safeList(data.mastered),traced:safeList(data.traced)};
-  } catch { return {mastered:[],traced:[]}; }
+  try {return parseProgress(localStorage.getItem(STORAGE_KEY));}
+  catch {return parseProgress(null);}
 }
-const progress=loadProgress();
-let selected=0, tab="discover", answered=false, strokes=[], activeStroke=null;
+const progress = loadProgress();
+let rowIndex = currentRow(progress);
+let selected = KANA.findIndex(k => k.row===rowIndex && !progress.mastered.includes(k.glyph));
+if(selected<0)selected=KANA.findIndex(k=>k.row===rowIndex);
+let tab="discover", answered=false, strokes=[], activeStroke=null, canvasObserver=null;
+let guideCounts={};
+fetch("/assets/kana-guide-counts.json")
+  .then(res=>res.ok?res.json():{})
+  .then(data=>{guideCounts=data;if(tab==="trace")updateStrokeCount();})
+  .catch(()=>{});
+
 function saveProgress() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); }
-  catch { showFeedback("Progress could not be saved. Check browser storage settings."); }
+  try {localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));}
+  catch {showFeedback("Your browser couldn't save progress. Please check your storage settings.");}
   updateProgress();
 }
-function updateProgress() {
-  const count=progress.mastered.length;
-  $("header-progress").textContent=`${count}/5`;
-  $("overview-progress").textContent=`${count} of 5 sounds collected`;
-  $("lesson-count").textContent=`${count} / 5 collected`;
-  $("progress-fill").style.width=`${count*20}%`;
+function updateProgress(){
+  const total=progress.mastered.length;
+  const rowTotal=[...ROWS[currentRow(progress)].kana].length;
+  const rowDone=completedInRow(progress,currentRow(progress));
+  $("header-progress").textContent=`${total}/${STARTER_COUNT}`;
+  $("overview-progress").textContent=`${rowDone} of ${rowTotal} in this row · ${total} total`;
+  $("lesson-count").textContent=`${total} / ${STARTER_COUNT} collected`;
+  $("progress-fill").style.width=`${Math.round(100*total/STARTER_COUNT)}%`;
 }
 const PLACES={
-  start:{n:"WELCOME · YOUR JOURNEY BEGINS",emoji:"🏡",title:"The starting village",jp:"はじまりの村",description:"Every adventure begins with a small hello. Take the first path towards the blossoms and meet your first five sounds.",fact:"Your first steps",status:"READY",button:"Let's begin"},
-  garden:{n:"STOP 01 · YOUR FIRST ADVENTURE",emoji:"🌸",title:"The hiragana garden",jp:"ひらがなの庭",description:"Five little sounds are waiting among the blossoms. Listen, recognise and draw each one.",fact:"5 sounds to discover",status:"READY",button:"Enter the garden"},
-  tea:{n:"A LITTLE FURTHER · SOON",emoji:"🍵",title:"The tea house",jp:"おちゃや",description:"Warm tea, delicious wagashi and little everyday conversations. This stop is being prepared.",fact:"Speaking & listening",status:"COMING SOON",button:"The tea house is not ready yet"},
+  start:{n:"WELCOME · YOUR JOURNEY BEGINS",emoji:"🏡",title:"The starting village",jp:"はじまりの村",description:"Every adventure begins with a small hello. Take the first path towards the blossoms and meet your first sounds.",fact:"Your first steps",status:"READY",button:"Let's begin"},
+  garden:{n:"STOP 01 · THE HIRAGANA GARDEN",emoji:"🌸",title:"The hiragana garden",jp:"ひらがなの庭",description:"Follow ten little paths of sounds. Listen, learn their stroke order, trace and collect all 46 basic hiragana.",fact:"46 hiragana to discover",status:"READY",button:"Enter the garden"},
+  tea:{n:"A LITTLE FURTHER · SOON",emoji:"🍵",title:"The tea house",jp:"おちゃや",description:"Warm tea, beautiful wagashi and little everyday conversations. This stop is being prepared.",fact:"Speaking & listening",status:"COMING SOON",button:"The tea house is not ready yet"},
   shrine:{n:"BEYOND THE FOREST · SOON",emoji:"⛩️",title:"The kanji shrine",jp:"かんじの神社",description:"Learn meaningful characters among quiet trees and lanterns. This stop is being prepared.",fact:"Meaning & writing",status:"COMING SOON",button:"The shrine is not ready yet"},
   train:{n:"THE NEXT JOURNEY · SOON",emoji:"🚃",title:"Katakana station",jp:"カタカナのえき",description:"Catch a little train towards the world of katakana. This stop is being prepared.",fact:"A new alphabet",status:"COMING SOON",button:"The station is not ready yet"}
 };
 let place="garden";
-function selectPlace(id) {
-  if (!(id in PLACES)) return;
-  place=id; const p=PLACES[id];
-  $("place-number").textContent=p.n; $("place-emoji").textContent=p.emoji;
-  $("place-title").textContent=p.title; $("place-japanese").textContent=p.jp;
+function selectPlace(id){
+  if(!(id in PLACES))return;
+  place=id;const p=PLACES[id];
+  $("place-number").textContent=p.n;$("place-emoji").textContent=p.emoji;
+  $("place-title").textContent=p.title;$("place-japanese").textContent=p.jp;
   $("place-description").textContent=p.description;
-  $("place-fact").textContent="✦ "+p.fact; $("place-status").textContent=p.status;
+  $("place-fact").textContent="✦ "+p.fact;$("place-status").textContent=p.status;
   $("place-status").className=p.status==="READY"?"available":"locked-status";
   $("place-action").disabled=p.status!=="READY";
   $("place-action").textContent=p.button+(p.status==="READY"?" ↗":"");
@@ -58,190 +59,368 @@ function selectPlace(id) {
     b.setAttribute("aria-pressed",String(b.dataset.place===id));
   });
 }
-function openLesson(){selectTab("discover");$("lesson-dialog").showModal();}
-function openJournal(){
-  $("journal-description").textContent=progress.mastered.length
-    ? `You've collected ${progress.mastered.length} little sound${progress.mastered.length===1?"":"s"}. What a lovely start!`
-    : "Your first five hiragana are waiting. Every discovery counts.";
-  $("journal-cards").replaceChildren(...STARTER.map(([glyph,romaji])=>{
-    const cell=document.createElement("span");cell.className=progress.mastered.includes(glyph)?"earned":"";
-    cell.textContent=glyph;const note=document.createElement("small");
-    note.textContent=progress.mastered.includes(glyph)?"✓ collected":romaji;
-    cell.append(note);return cell;
-  }));
+function openLesson(nextTab="discover"){
+  rowIndex=currentRow(progress);
+  const first=KANA.findIndex(k=>k.row===rowIndex&&!progress.mastered.includes(k.glyph));
+  selected=first>=0?first:KANA.findIndex(k=>k.row===rowIndex);
+  selectTab(nextTab);$("lesson-dialog").showModal();
+}
+function renderJournal(){
+  const total=progress.mastered.length,due=dueKana(progress).length;
+  $("journal-description").textContent=total
+    ? `You've collected ${total} of ${STARTER_COUNT} hiragana. ${due?due+" ready for a little review.":"The next discovery is waiting."}`
+    : "Every little discovery counts. Your first sounds are waiting.";
+  const cards=$("journal-cards");cards.replaceChildren();
+  ALL_KANA.forEach(glyph=>{
+    if(!progress.mastered.includes(glyph))return;
+    const cell=document.createElement("span");cell.className="earned";cell.textContent=glyph;
+    const note=document.createElement("small");note.textContent=dueKana(progress).includes(glyph)?"review ✧":"✓";
+    cell.append(note);cards.append(cell);
+  });
+  if(!cards.childElementCount){const n=document.createElement("p");n.textContent="Your first blossom is waiting 🌸";cards.append(n);}
+  $("journal-garden").textContent=due?"Review my sounds ↗":"Visit the garden ↗";
   $("journal-dialog").showModal();
 }
-function speakJapanese(text) {
-  const feedback=$("audio-feedback");
-  if (!("speechSynthesis" in window)) { feedback.textContent="Japanese audio isn't available in this browser.";return; }
-  const voices=speechSynthesis.getVoices();
-  const voice=voices.find(v=>v.lang?.toLowerCase().startsWith("ja"));
-  if(!voice){ feedback.textContent="Japanese voice not installed on this device. You can still practise reading and tracing.";return; }
+function speakJapanese(text){
+  const output=$("audio-feedback");
+  if(!("speechSynthesis" in window)){output.textContent="Japanese audio isn't available in this browser.";return;}
+  const voice=speechSynthesis.getVoices().find(v=>v.lang?.toLowerCase().startsWith("ja"));
+  if(!voice){output.textContent="No Japanese voice is installed on this device. You can still read and trace.";return;}
   speechSynthesis.cancel();
   const utterance=new SpeechSynthesisUtterance(text);
-  utterance.lang="ja-JP";utterance.voice=voice;utterance.rate=.75;
-  utterance.onerror=()=>{feedback.textContent="Couldn't play the Japanese voice this time.";};
-  speechSynthesis.speak(utterance); feedback.textContent="Listening…";
+  utterance.lang="ja-JP";utterance.voice=voice;utterance.rate=.72;
+  utterance.onerror=()=>{output.textContent="Couldn't play the Japanese voice this time.";};
+  speechSynthesis.speak(utterance);output.textContent="Listening…";
 }
 function showFeedback(message){const out=$("panel-feedback");if(out)out.textContent=message;}
+function setRow(index){
+  if(!isRowUnlocked(progress,index))return;
+  rowIndex=index;
+  selected=KANA.findIndex(k=>k.row===index&&!progress.mastered.includes(k.glyph));
+  if(selected<0)selected=KANA.findIndex(k=>k.row===index);
+  answered=false;strokes=[];activeStroke=null;
+  renderLesson();
+}
+function renderRowBar(){
+  const row=ROWS[rowIndex];
+  $("row-number").textContent=`ROW ${rowIndex+1} OF ${ROWS.length}`;
+  $("row-title").textContent=row.title;
+  $("row-subtitle").textContent=row.subtitle;
+  $("row-progress").textContent=`${completedInRow(progress,rowIndex)} / ${[...row.kana].length} collected`;
+  $("previous-row").disabled=rowIndex===0;
+  $("next-row").disabled=!isRowUnlocked(progress,rowIndex+1);
+}
 function renderPicker(){
-  const picker=$("kana-picker"); picker.replaceChildren();
-  STARTER.forEach(([glyph,roman],i)=>{
-    const b=document.createElement("button");b.type="button";
-    b.className=i===selected?"active":"";
+  const picker=$("kana-picker");picker.replaceChildren();
+  KANA.forEach((item,i)=>{
+    if(item.row!==rowIndex)return;
+    const b=document.createElement("button");
+    b.type="button";b.className=i===selected?"active":"";
     b.setAttribute("aria-pressed",String(i===selected));
-    b.innerHTML=`<strong>${glyph}</strong><small>${roman}${progress.mastered.includes(glyph)?" ✓":""}</small>`;
+    b.innerHTML=`<strong lang="ja">${item.glyph}</strong><small>${item.romaji}${progress.mastered.includes(item.glyph)?" ✓":""}</small>`;
     b.addEventListener("click",()=>{selected=i;answered=false;strokes=[];renderLesson();});
     picker.append(b);
   });
 }
-function selectTab(next) {
-  tab=next;answered=false;strokes=[];
+function selectTab(next){
+  tab=next;answered=false;strokes=[];activeStroke=null;
   document.querySelectorAll(".lesson-tabs [role=tab]").forEach(b=>{
     b.setAttribute("aria-selected",String(b.dataset.tab===tab));
     b.tabIndex=b.dataset.tab===tab?0:-1;
   });
   renderLesson();
 }
+function guideSrc(glyph){return `/assets/strokes/${glyph.codePointAt(0)}.svg`;}
+function guideImage(glyph){
+  return `<img class="stroke-demo" src="${guideSrc(glyph)}" alt="Animated stroke-order demonstration for ${glyph}" lang="ja">`;
+}
+function replayGuide(scope){
+  const target=scope.querySelector(".stroke-demo");
+  if(target)target.replaceWith(target.cloneNode());
+}
 function renderLesson(){
-  renderPicker();
-  const [glyph,roman]=STARTER[selected];
+  if(canvasObserver){canvasObserver.disconnect();canvasObserver=null;}
+  renderRowBar();renderPicker();
+  const {glyph,romaji}=KANA[selected];
   const panel=$("lesson-panel");
   if(tab==="discover"){
     panel.innerHTML=`<div class="discover-panel">
-      <div class="big-kana" lang="ja">${glyph}</div>
-      <div class="panel-copy"><span class="panel-kicker">MEET A NEW FRIEND · ${selected+1} OF 5</span>
-      <h3>This is <em>${roman}</em>.</h3>
-      <p>Say it gently: <strong>${roman}</strong>. Look at its shape and listen whenever you like. Then try drawing it yourself.</p>
-      <div class="actions-row"><button class="soft-button" id="hear-sound">♫ Hear the sound</button>
-      <button class="primary" id="next-to-trace">Let's draw ↗</button></div>
-      <p class="feedback" id="audio-feedback" role="status"></p></div></div>`;
+      <div class="guide-card">
+        ${guideImage(glyph)}
+        <button type="button" class="soft-button replay-guide">↻ Replay the strokes</button>
+      </div>
+      <div class="panel-copy">
+        <span class="panel-kicker">A LITTLE DISCOVERY · ${romaji.toUpperCase()}</span>
+        <h3>Meet <span lang="ja">${glyph}</span> · <em>${romaji}</em></h3>
+        <p>Watch the brush draw each stroke in order. Listen to the sound, then give your own hand a try.</p>
+        <div class="actions-row">
+          <button class="soft-button" id="hear-sound">♫ Hear the sound</button>
+          <button class="primary" id="next-to-trace">Let's draw ↗</button>
+        </div>
+        <p class="feedback" id="audio-feedback" role="status"></p>
+      </div>
+    </div>`;
+    panel.querySelector(".replay-guide").addEventListener("click",()=>replayGuide(panel));
     $("hear-sound").addEventListener("click",()=>speakJapanese(glyph));
     $("next-to-trace").addEventListener("click",()=>selectTab("trace"));
-  } else if(tab==="trace"){
+  }else if(tab==="trace"){
     panel.innerHTML=`<div class="trace-layout">
-      <div><div class="trace-box" id="trace-box"><div class="trace-ghost" id="trace-ghost" lang="ja">${glyph}</div>
-        <canvas id="trace-canvas" aria-label="Draw the Japanese character ${glyph} using your mouse, finger or pen"></canvas></div>
-        <div class="trace-controls"><button class="soft-button" id="undo-stroke">↶ Undo</button>
-        <button class="soft-button" id="clear-strokes">Clear</button><button class="soft-button" id="toggle-guide">Hide guide</button></div></div>
-      <div class="panel-copy"><span class="panel-kicker">AN INK-BRUSH MOMENT</span><h3>Trace <span lang="ja">${glyph}</span> with care.</h3>
-      <p>Follow the pale shape with your finger, stylus or mouse. This is a gentle drawing exercise, not an automatic handwriting assessment.</p>
-      <div class="actions-row"><button class="primary" id="save-trace">I've practised this ↗</button></div>
-      <p class="feedback" id="panel-feedback" role="status">${progress.traced.includes(glyph)?"You've practised this one before.":""}</p></div></div>`;
-    setupCanvas();
+      <div>
+        <div class="trace-box" id="trace-box">
+          <div class="trace-ghost" id="trace-ghost" lang="ja">${glyph}</div>
+          <canvas id="trace-canvas" aria-label="Draw the Japanese character ${glyph} using your mouse, finger or pen"></canvas>
+        </div>
+        <div class="trace-controls">
+          <button class="soft-button" id="undo-stroke">↶ Undo</button>
+          <button class="soft-button" id="clear-strokes">Clear</button>
+          <button class="soft-button" id="toggle-guide">Hide guide</button>
+        </div>
+      </div>
+      <div class="panel-copy">
+        <span class="panel-kicker">A QUIET INK-BRUSH MOMENT</span>
+        <h3>Trace <span lang="ja">${glyph}</span> with care.</h3>
+        <div class="mini-stroke-card">
+          ${guideImage(glyph)}
+          <div><strong>Stroke order</strong>
+          <p id="stroke-count-hint">Watch the guide and follow the brush.</p>
+          <button class="soft-button replay-guide">↻ Replay</button></div>
+        </div>
+        <p>Follow the pale character on the left. We count your brush movements, but <strong>we don't grade your handwriting</strong>.</p>
+        <div class="actions-row">
+          <button class="primary" id="save-trace">I've practised this ↗</button>
+          <button class="soft-button" id="skip-to-quiz">Try recognition instead →</button>
+        </div>
+        <p class="feedback" id="panel-feedback" role="status">${progress.traced.includes(glyph)?"You have practised this shape before.":""}</p>
+      </div>
+    </div>`;
+    setupCanvas();updateStrokeCount();
+    panel.querySelector(".replay-guide").addEventListener("click",()=>replayGuide(panel));
     $("undo-stroke").addEventListener("click",()=>{strokes.pop();redraw();});
     $("clear-strokes").addEventListener("click",()=>{strokes=[];redraw();});
     $("toggle-guide").addEventListener("click",()=>{
       const ghost=$("trace-ghost");ghost.hidden=!ghost.hidden;
       $("toggle-guide").textContent=ghost.hidden?"Show guide":"Hide guide";
     });
+    $("skip-to-quiz").addEventListener("click",()=>selectTab("practice"));
     $("save-trace").addEventListener("click",()=>{
-      if(!strokes.some(s=>s.length>1)){showFeedback("Draw at least one stroke first — there's no rush.");return;}
-      if(!progress.traced.includes(glyph))progress.traced.push(glyph);
-      saveProgress();showFeedback("Lovely practice! You can now test your recognition.");
+      if(!strokes.some(s=>s.length>1)){showFeedback("Draw at least one line first. There is no rush.");return;}
+      markTraced(progress,glyph);saveProgress();
+      const count=strokes.length,expected=guideCounts[glyph];
+      const suggestion=expected && count!==expected
+        ? `You used ${count} movements; the guide shows ${expected}. Feel free to retry!`
+        : "Lovely practice! Your lines are saved.";
+      showFeedback(suggestion+" This is practice, not a handwriting score.");
       $("save-trace").textContent="Practised ✓";
-      const btn=document.createElement("button");btn.className="soft-button";btn.textContent="Try a little quiz →";
-      btn.addEventListener("click",()=>selectTab("practice"));
-      $("save-trace").after(btn);
     });
-  } else if(tab==="practice"){renderPractice(glyph,roman);}
-  else {renderCollection();}
+  }else if(tab==="practice"){
+    renderPractice(glyph,romaji,false);
+  }else if(tab==="review"){
+    renderReview();
+  }else{
+    renderCollection();
+  }
 }
-function renderPractice(glyph,roman){
-  const panel=$("lesson-panel");
-  const pool=STARTER.filter(([g])=>g!==glyph).map(([g])=>g);
-  const options=[glyph,...pool.sort(()=>Math.random()-.5).slice(0,3)].sort(()=>Math.random()-.5);
-  panel.innerHTML=`<div class="practice-panel">
-    <div class="panel-copy"><span class="panel-kicker">A TINY CHALLENGE</span>
-    <h3>Which character sounds like <em>“${roman}”</em>?</h3>
-    <p>Choose the right hiragana. Mistakes are just part of the journey.</p>
-    <div class="actions-row"><button class="soft-button" id="hear-practice">♫ Listen</button></div>
-    <p class="feedback" id="audio-feedback" role="status"></p></div>
-    <div><div class="choices" id="practice-choices"></div><p class="feedback" id="panel-feedback" role="status"></p>
-    <button class="soft-button" id="next-sound" hidden>Next little sound →</button></div></div>`;
+function updateStrokeCount(){
+  const label=$("stroke-count-hint"),glyph=KANA[selected]?.glyph;
+  if(!label||!glyph)return;
+  const count=guideCounts[glyph];
+  label.textContent=count
+    ? `${count} brush stroke${count===1?"":"s"} in the example. Watch their order.`
+    : "Watch the animated strokes in their correct order.";
+}
+function shuffle(items){
+  const result=[...items];
+  for(let i=result.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [result[i],result[j]]=[result[j],result[i]];
+  }
+  return result;
+}
+function nextSound(){
+  const row=ROWS[rowIndex];
+  const next=[...row.kana].find(c=>!progress.mastered.includes(c));
+  if(next){
+    selected=KANA.findIndex(k=>k.glyph===next);
+    selectTab("discover");
+    return;
+  }
+  if(isRowUnlocked(progress,rowIndex+1)){
+    rowIndex+=1;
+    selected=KANA.findIndex(k=>k.row===rowIndex);
+    selectTab("discover");
+    return;
+  }
+  selectTab("collection");
+}
+function renderPractice(glyph,romaji,isReview){
+  const pool=KANA.filter(k=>k.glyph!==glyph && k.row<=rowIndex).map(k=>k.glyph);
+  if(pool.length<3)pool.push(...KANA.filter(k=>k.glyph!==glyph).map(k=>k.glyph));
+  const options=shuffle([glyph,...shuffle([...new Set(pool)]).slice(0,3)]);
+  $("lesson-panel").innerHTML=`<div class="practice-panel">
+    <div class="panel-copy">
+      <span class="panel-kicker">${isReview?"A LITTLE REVISIT":"A TINY CHALLENGE"}</span>
+      <h3>Which hiragana sounds like <em>“${romaji}”</em>?</h3>
+      <p>Choose the matching shape. It's fine to try again. You can listen, too.</p>
+      <button class="soft-button" id="hear-practice">♫ Listen</button>
+      <p class="feedback" id="audio-feedback" role="status"></p>
+    </div>
+    <div>
+      <div class="choices" id="practice-choices"></div>
+      <p class="feedback" id="panel-feedback" role="status"></p>
+      <button class="soft-button" id="next-sound" hidden>Next little discovery →</button>
+    </div>
+  </div>`;
   $("hear-practice").addEventListener("click",()=>speakJapanese(glyph));
   for(const option of options){
-    const b=document.createElement("button");b.type="button";b.textContent=option;
-    b.lang="ja";b.setAttribute("aria-label",`Hiragana ${option}`);
-    b.addEventListener("click",()=>{
+    const btn=document.createElement("button");btn.type="button";btn.textContent=option;
+    btn.lang="ja";btn.setAttribute("aria-label",`Hiragana ${option}`);
+    btn.addEventListener("click",()=>{
       if(answered)return;
       if(option!==glyph){
-        b.classList.add("wrong");showFeedback("Not quite. Try another one — you can do it.");return;
+        btn.classList.add("wrong");
+        markIncorrect(progress,glyph);
+        if(progress.mastered.includes(glyph))saveProgress();
+        showFeedback("Not quite. Have another try — the sound is still waiting.");return;
       }
-      answered=true;b.classList.add("correct");
-      document.querySelectorAll(".choices button").forEach(x=>x.disabled=true);
-      if(!progress.mastered.includes(glyph)){progress.mastered.push(glyph);saveProgress();}
-      showFeedback("Beautiful! ✿ You've collected this sound.");
+      answered=true;btn.classList.add("correct");
+      document.querySelectorAll(".choices button").forEach(b=>b.disabled=true);
+      const beforeRows=ROWS.map((_,i)=>isRowUnlocked(progress,i));
+      const first=markCorrect(progress,glyph);saveProgress();
+      renderRowBar();renderPicker();
+      const unlocked=ROWS.findIndex((_,i)=>!beforeRows[i]&&isRowUnlocked(progress,i));
+      showFeedback(unlocked>=0
+        ? `A new path is open! ✿ ${ROWS[unlocked].title} is ready.`
+        : first?"Beautiful! ✿ A new sound for your collection."
+          :"Nicely remembered! Your next review is scheduled.");
       $("next-sound").hidden=false;
+      $("next-sound").textContent=isReview?"Back to my reviews →":unlocked>=0?"Explore the new row →":"Next little discovery →";
     });
-    $("practice-choices").append(b);
+    $("practice-choices").append(btn);
   }
-  $("next-sound").addEventListener("click",()=>{selected=(selected+1)%5;answered=false;renderLesson();});
+  $("next-sound").addEventListener("click",()=>{
+    answered=false;
+    if(isReview){selectTab("review");return;}
+    nextSound();
+  });
+}
+function renderReview(){
+  const due=dueKana(progress);
+  const panel=$("lesson-panel");
+  panel.innerHTML=`<div class="review-header">
+    <span class="panel-kicker">A FEW MOMENTS TO REMEMBER</span>
+    <h3>${due.length?`${due.length} sound${due.length===1?" is":"s are"} ready to revisit.`:"All caught up. Lovely work!"}</h3>
+    <p>Little reviews return over time: tomorrow, then after a few more days. There is no penalty for mistakes.</p>
+    <div class="review-list" id="review-list"></div>
+    <div class="actions-row"><button class="soft-button" id="return-to-discover">Back to exploring →</button></div>
+  </div>`;
+  $("return-to-discover").addEventListener("click",()=>selectTab("discover"));
+  for(const glyph of due){
+    const item=KANA.find(k=>k.glyph===glyph);
+    const button=document.createElement("button");button.type="button";button.className="review-token";
+    button.innerHTML=`<strong lang="ja">${glyph}</strong><small>${item.romaji}</small>`;
+    button.addEventListener("click",()=>{
+      rowIndex=item.row;selected=KANA.indexOf(item);answered=false;
+      renderRowBar();renderPicker();renderPractice(item.glyph,item.romaji,true);
+    });
+    $("review-list").append(button);
+  }
 }
 function renderCollection(){
   const panel=$("lesson-panel");
-  panel.innerHTML=`<p class="collection-help">Your complete hiragana chart: the first five are ready to practise. The remaining sounds will arrive in a future chapter.</p><div class="collection-grid" id="collection-grid"></div>`;
-  KANA.forEach(([glyph,roman],i)=>{
-    const cell=document.createElement("button");cell.type="button";cell.disabled=i>=5;
-    cell.innerHTML=`<strong>${glyph}</strong><small>${i<5?(progress.mastered.includes(glyph)?"✓ collected":roman):"soon"}</small>`;
-    cell.addEventListener("click",()=>{selected=i;selectTab("discover");});
-    $("collection-grid").append(cell);
+  panel.innerHTML=`<div class="collection-intro">
+    <h3>Your hiragana collection</h3>
+    <p>Finish a row's recognition challenges to open the next. You can always return to practise an unlocked row.</p>
+  </div><div class="collection-sections" id="collection-sections"></div>`;
+  ROWS.forEach((row,i)=>{
+    const unlocked=isRowUnlocked(progress,i),done=completedInRow(progress,i);
+    const section=document.createElement("section");section.className="collection-section";
+    const label=document.createElement("div");label.className="collection-row-label";
+    const heading=document.createElement("strong");heading.textContent=`${i+1}. ${row.title}`;
+    const tally=document.createElement("small");
+    tally.textContent=unlocked?`${done}/${[...row.kana].length} collected`:"🔒 Locked";
+    label.append(heading,tally);section.append(label);
+    const grid=document.createElement("div");grid.className="collection-grid";
+    [...row.kana].forEach(glyph=>{
+      const item=KANA.find(k=>k.glyph===glyph);
+      const cell=document.createElement("button");
+      cell.type="button";cell.disabled=!unlocked;
+      cell.innerHTML=`<strong lang="ja">${glyph}</strong><small>${unlocked?(progress.mastered.includes(glyph)?"✓ collected":item.romaji):"soon"}</small>`;
+      if(unlocked)cell.addEventListener("click",()=>{
+        rowIndex=i;selected=KANA.indexOf(item);selectTab("discover");
+      });
+      grid.append(cell);
+    });
+    section.append(grid);$("collection-sections").append(section);
   });
 }
 function setupCanvas(){
-  const canvas=$("trace-canvas"), box=$("trace-box");
-  // Coordinates are normalised so changing zoom or device pixel ratio keeps the strokes.
-  const point=event=>{
+  const canvas=$("trace-canvas"),box=$("trace-box");
+  const point=e=>{
     const r=canvas.getBoundingClientRect();
-    return {x:Math.max(0,Math.min(1,(event.clientX-r.left)/r.width)),
-            y:Math.max(0,Math.min(1,(event.clientY-r.top)/r.height))};
+    return {x:Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)),
+            y:Math.max(0,Math.min(1,(e.clientY-r.top)/r.height))};
   };
-  canvas.addEventListener("pointerdown",event=>{
-    if(event.button!==0 && event.pointerType==="mouse")return;
-    event.preventDefault();canvas.setPointerCapture(event.pointerId);
-    activeStroke=[point(event)];strokes.push(activeStroke);redraw();
+  canvas.addEventListener("pointerdown",e=>{
+    if(e.pointerType==="mouse"&&e.button!==0)return;
+    e.preventDefault();canvas.setPointerCapture(e.pointerId);
+    activeStroke=[point(e)];strokes.push(activeStroke);redraw();
   });
-  canvas.addEventListener("pointermove",event=>{
-    if(!activeStroke)return;
-    activeStroke.push(point(event));redraw();
+  canvas.addEventListener("pointermove",e=>{
+    if(!activeStroke||!canvas.hasPointerCapture(e.pointerId))return;
+    activeStroke.push(point(e));redraw();
   });
   const stop=()=>{activeStroke=null;};
   canvas.addEventListener("pointerup",stop);
   canvas.addEventListener("pointercancel",stop);
-  const resize=()=>redraw();
-  const observer=new ResizeObserver(resize);observer.observe(box);
-  $("lesson-dialog").addEventListener("close",()=>observer.disconnect(),{once:true});
-  redraw();
+  canvasObserver=new ResizeObserver(redraw);
+  canvasObserver.observe(box);redraw();
 }
 function redraw(){
   const canvas=$("trace-canvas");if(!canvas)return;
-  const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;
+  const r=canvas.getBoundingClientRect();if(!r.width||!r.height)return;
   const dpr=Math.min(3,window.devicePixelRatio||1);
-  canvas.width=Math.round(rect.width*dpr);canvas.height=Math.round(rect.height*dpr);
-  const ctx=canvas.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);
+  canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);
+  const ctx=canvas.getContext("2d");
+  ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.strokeStyle="#346d5c";ctx.fillStyle="#346d5c";ctx.lineWidth=7;
   ctx.lineJoin="round";ctx.lineCap="round";
   for(const stroke of strokes){
     if(!stroke.length)continue;
-    ctx.beginPath();ctx.moveTo(stroke[0].x*rect.width,stroke[0].y*rect.height);
-    if(stroke.length===1){ctx.arc(stroke[0].x*rect.width,stroke[0].y*rect.height,3,0,Math.PI*2);ctx.fill();continue;}
-    for(const pt of stroke.slice(1))ctx.lineTo(pt.x*rect.width,pt.y*rect.height);
+    ctx.beginPath();ctx.moveTo(stroke[0].x*r.width,stroke[0].y*r.height);
+    if(stroke.length===1){
+      ctx.arc(stroke[0].x*r.width,stroke[0].y*r.height,3,0,Math.PI*2);
+      ctx.fill();continue;
+    }
+    for(const p of stroke.slice(1))ctx.lineTo(p.x*r.width,p.y*r.height);
     ctx.stroke();
   }
 }
 document.querySelectorAll("[data-place]").forEach(b=>b.addEventListener("click",()=>selectPlace(b.dataset.place)));
 $("place-action").addEventListener("click",()=>{if(place==="start"||place==="garden")openLesson();});
 $("start-journey").addEventListener("click",()=>{selectPlace("garden");openLesson();});
-$("open-journal").addEventListener("click",openJournal);
+$("open-journal").addEventListener("click",renderJournal);
 $("close-lesson").addEventListener("click",()=>$("lesson-dialog").close());
 $("close-journal").addEventListener("click",()=>$("journal-dialog").close());
-$("journal-garden").addEventListener("click",()=>{$("journal-dialog").close();openLesson();});
+$("journal-garden").addEventListener("click",()=>{
+  const due=dueKana(progress).length;
+  $("journal-dialog").close();openLesson(due?"review":"discover");
+});
+$("previous-row").addEventListener("click",()=>setRow(rowIndex-1));
+$("next-row").addEventListener("click",()=>setRow(rowIndex+1));
 document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>selectTab(b.dataset.tab)));
 document.querySelectorAll(".lesson-tabs [role=tab]").forEach((b,i,all)=>b.addEventListener("keydown",e=>{
-  if(e.key!=="ArrowLeft" && e.key!=="ArrowRight")return;
+  if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight")return;
   e.preventDefault();const next=all[(i+(e.key==="ArrowRight"?1:all.length-1))%all.length];
   selectTab(next.dataset.tab);next.focus();
 }));
-$("lesson-dialog").addEventListener("close",()=>{if("speechSynthesis" in window)speechSynthesis.cancel();});
-window.addEventListener("storage",event=>{if(event.key===STORAGE_KEY){Object.assign(progress,loadProgress());updateProgress();}});
+$("lesson-dialog").addEventListener("close",()=>{
+  if("speechSynthesis" in window)speechSynthesis.cancel();
+  if(canvasObserver){canvasObserver.disconnect();canvasObserver=null;}
+});
+window.addEventListener("storage",event=>{
+  if(event.key!==STORAGE_KEY)return;
+  Object.assign(progress,loadProgress());rowIndex=currentRow(progress);
+  updateProgress();
+  if($("lesson-dialog").open)renderLesson();
+});
 updateProgress();selectPlace("garden");
