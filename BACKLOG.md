@@ -18,6 +18,13 @@
 - [x] Merged via PR #3, deployed app commit `b3abfbf0c007da3ef744983cd27c524151cc32db`, verified container healthy, valid HTTPS, HTTP 200 for `/healthz`, page, modules, SVGs, and production Chromium flow (5 vowel quiz answers → K row, persistence, due review, no JS errors)
 - [ ] Field-test real device touch/voice and keyboard/screen reader
 
+## Third pass — scope prepared (2026-10-10)
+- [x] Document future tasteful opt-in original BL easter eggs, references and copyright safeguards in `docs/CREATIVE_DIRECTION.md`; **not** added to the application.
+- [x] Keep map unchanged; optional hiragana-only vocabulary postcards are reached from My collection and use a separate browser storage key.
+- [x] 13/13 Node tests; local Chromium desktop and mobile simulation: locked/unlocked cards, meaning quiz, separate persistence and unchanged kana progression; earlier V2 full smoke also passed.
+- [ ] PR and isolated deploy only after checks; update the actual deployed SHA and public URL verification.
+- [ ] Let Angela evaluate the current gentle atmosphere and accessibility/audio on her own device before adding story characters.
+
 ## Next slices
 - Optional evaluated handwriting matcher for free drawing; automatic writing verification is **not implemented**
 - More hiragana rows, adaptive review and spaced repetition

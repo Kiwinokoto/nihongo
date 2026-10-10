@@ -15,6 +15,7 @@ Public and dependency-free at runtime.
 - A small travel journal, spaced reviews (1, 3, 7, 14, 30 days) and gentle retry scheduling
 - Optional Japanese speech via **device-installed browser voices**; the app explicitly reports when none is available
 - Preserves the progress saved by the first V1 prototype, under the same localStorage key
+- Optional little word postcards from the kana collection: recognise real words made of kana you have already collected, with separate browser-local progress (does not affect kana unlocks)
 
 **Crucial distinction:** The animation shows the reference stroke order, and drawing
 counts self-reported *practice*. It is **not handwriting recognition**. The app does
@@ -63,4 +64,6 @@ credentials, visitor progress, or private files.
 Before deployment check canonical GitHub main, runtime commit, local state, tests,
 AgentCtl `repo:Kiwinokoto/nihongo` and deployment/service/Docker leases. Never
 force-push or change other applications. See [AGENTS.md](AGENTS.md) and
-[BACKLOG.md](BACKLOG.md) for coordination and next work.
+[BACKLOG.md](BACKLOG.md) for coordination and next work. The future optional
+romance-easter-egg direction (not implemented) is noted in
+[docs/CREATIVE_DIRECTION.md](docs/CREATIVE_DIRECTION.md).
