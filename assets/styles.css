@@ -59,3 +59,53 @@ dialog{border:1px solid #e1e4d7;background:#fffdf7;border-radius:21px;color:#2c5
 .modal-head{padding:12px 16px}.modal-content{padding:21px 15px}.lesson-intro h2{font-size:27px}.lesson-count{display:none}.lesson-tabs{margin:18px 0}.lesson-tabs button{font-size:10px;padding:10px}.kana-picker{gap:6px}.kana-picker button{min-width:52px;padding:6px 10px}.kana-picker button strong{font-size:23px}.lesson-panel{padding:14px}.discover-panel,.trace-layout,.practice-panel{grid-template-columns:1fr}.big-kana{min-height:137px;font-size:100px}.trace-box{justify-self:center}.collection-grid{grid-template-columns:repeat(5,1fr)}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Garden v2 — animated stroke guidance, progressive kana rows and friendly reviews. */
+.lesson-rowbar{display:flex;align-items:center;justify-content:space-between;gap:14px;background:#eaf0e5;border:1px solid #dfe8d9;border-radius:13px;padding:13px 17px;margin-bottom:14px}
+.row-identity{display:flex;flex-direction:column;gap:4px}.row-identity .eyebrow{font-size:9px}.row-identity strong{font-family:"DM Serif Display",Georgia,serif;font-size:22px;font-weight:400;color:#345d50}
+.row-identity small{font-size:11px;color:#899b8b}.row-navigation{display:flex;align-items:center;gap:8px}
+.row-navigation>span{font-size:10px;color:#6e8a77;margin-right:5px;white-space:nowrap}
+.row-navigation .soft-button{padding:9px 12px}.soft-button:disabled{cursor:not-allowed;opacity:.38}
+.guide-card{display:grid;gap:8px;justify-items:center;background:#fffefb;border:1px solid #eae8da;border-radius:16px;padding:10px;overflow:hidden}
+.guide-card .stroke-demo{display:block;width:100%;height:210px;object-fit:contain}
+.guide-card .soft-button{margin-bottom:6px}
+.stroke-demo{background:#fffef9;border-radius:10px;display:block;max-width:100%;aspect-ratio:1;object-fit:contain}
+.mini-stroke-card{display:flex;gap:10px;align-items:center;background:#fffefb;border:1px solid #e8e8dd;border-radius:12px;padding:8px;margin:12px 0}
+.mini-stroke-card .stroke-demo{width:112px;min-width:112px;max-height:116px}
+.mini-stroke-card strong{display:block;font-size:13px;color:#446f60}
+.mini-stroke-card p{font-size:11px;margin:5px 0;line-height:1.5}
+.mini-stroke-card button{padding:8px 11px}
+.trace-ghost[hidden]{display:none}
+.collection-intro h3,.review-header h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:27px;margin:2px 0 7px}
+.collection-intro p,.review-header p{color:#7e9186;font-size:12px;line-height:1.75}
+.collection-sections{display:grid;gap:16px;margin-top:18px}
+.collection-section{border:1px solid #e2e7da;background:#f9faf3;border-radius:14px;padding:13px}
+.collection-row-label{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 10px}
+.collection-row-label strong{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:18px}
+.collection-row-label small{color:#768c7e;font-size:11px}
+.collection-section .collection-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+.collection-grid button{min-width:0}
+.review-list{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}
+.review-token{border:1px solid #dce7d8;border-radius:12px;min-width:90px;padding:12px 14px;background:#fffefa;color:#3b6e5e}
+.review-token:hover,.review-token:focus-visible{background:#e5f2e5}
+.review-token strong{display:block;font-family:Georgia,serif;font-weight:400;font-size:39px}
+.review-token small{display:block;font-size:12px}
+.journal-cards{flex-wrap:wrap}
+@media(max-width:800px){.lesson-rowbar{padding:11px 12px}.row-identity strong{font-size:20px}.row-navigation>span{font-size:10px}.guide-card .stroke-demo{height:175px}}
+@media(max-width:560px){
+ .lesson-rowbar{align-items:flex-start;flex-wrap:wrap;gap:9px}
+ .row-navigation{width:100%;justify-content:flex-end}
+ .discover-panel{grid-template-columns:1fr}
+ .guide-card .stroke-demo{height:170px}
+ .mini-stroke-card .stroke-demo{width:94px;min-width:94px;max-height:96px}
+ .mini-stroke-card p{font-size:10px}
+ .trace-box{max-width:330px}
+ .collection-section .collection-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+ .collection-grid button{padding:8px 0}
+ .collection-grid strong{font-size:27px}
+ .collection-grid small{font-size:9px}
+ .review-token{min-width:65px}
+ .journal-cards span{width:51px;font-size:24px}
+}
+
+@media(max-width:560px){.lesson-tabs{flex-wrap:wrap;overflow:visible}.lesson-tabs button{flex:1 1 40%;white-space:normal}.lesson-intro p{max-width:275px}}

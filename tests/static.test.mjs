@@ -19,9 +19,23 @@ test('starter activities and journey landmarks are present',()=>{
     if(id==='trace-canvas')assert.match(js, /id="trace-canvas"/);
     else assert.ok(html.includes('id="'+id+'"'),id);
   }
-  assert.match(js,/\["あ","a"\],\["い","i"\],\["う","u"\],\["え","e"\],\["お","o"\]/);
+  assert.match(read("assets/progression.js"),/あいうえお/);
   for(const place of ['garden','tea','shrine','train'])assert.ok(html.includes('data-place="'+place+'"'));
 });
+test('all 46 animated stroke SVG files are included with redistribution licence', async()=>{
+  const {KANA} = await import('../assets/progression.js');
+  const counts=JSON.parse(read('assets/kana-guide-counts.json'));
+  assert.equal(Object.keys(counts).length,46);
+  for(const {glyph} of KANA){
+    const pathname='assets/strokes/'+glyph.codePointAt(0)+'.svg';
+    assert.ok(existsSync(join(root,pathname)),pathname);
+    assert.match(read(pathname), /Lesser General Public License/);
+    assert.ok(Number.isInteger(counts[glyph]) && counts[glyph]>0);
+  }
+  assert.ok(existsSync(join(root,'licenses/LGPL-3.0.txt')));
+  assert.ok(existsSync(join(root,'licenses/ANIMCJK-COPYING.txt')));
+});
+
 test('public project does not embed credentials or third-party tracking',()=>{
   const files=['index.html','assets/app.js','deploy/compose.yml','deploy/Dockerfile'];
   for(const file of files){
