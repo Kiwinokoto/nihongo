@@ -26,6 +26,13 @@ Public, lighthearted Japanese-learning microsite for Angela: gentle storybook ma
 - Show visually correct animated stroke order and friendly stroke-count hints. **Never** grade handwriting shape, direction, or stroke order from free drawing: no reliable recogniser is implemented. Self-reported tracing must never unlock a row.
 - Keep the public site as one compact garden; do not reopen unrelated paths until their real content exists.
 
+## Third pass — creative direction and optional word postcards (2026-10-10)
+- Future **BL romance easter-egg** direction is documented in `docs/CREATIVE_DIRECTION.md`, with official publisher references. It is only a design note: nothing romance-specific is visible in the live app yet. Use original, tasteful, optional adult characters and scenes; do not copy copyrighted characters/art or put romance into basic lessons. Do not store individual readers' preferences in this public repository.
+- An extra "Little word postcards" view is accessible from **My collection**, not from the primary map. The main map, initial hero and existing lesson paths must stay untouched.
+- `assets/word-trails.js` owns a limited vetted hiragana-only word list and pure readiness checks. `assets/word-postcards.js` owns the UI. Unlock requires collected kana, while the optional word meaning quiz collects postcards but must **not** unlock hiragana rows.
+- Store these optional collectibles under a **separate localStorage key** `kotoba-no-tabi.word-postcards.v1`. Do not mutate the kana-progress schema or reset V1/V2 saves. No server-side tracking.
+- If a real audio lesson is added later, don't imply a Japanese device TTS voice is universally available; preserve the fallback.
+
 ## Checks
 `node --check assets/app.js`
 `node --test tests/*.test.mjs`

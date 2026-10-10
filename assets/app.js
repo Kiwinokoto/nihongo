@@ -4,6 +4,7 @@ import {
   KANA, ROWS, ALL_KANA, STORAGE_KEY, parseProgress, currentRow,
   isRowUnlocked, completedInRow, dueKana, markTraced, markCorrect, markIncorrect
 } from "./progression.js";
+import {renderWordPostcards,learnedWordCount} from "./word-postcards.js";
 
 const $ = (id) => document.getElementById(id);
 const STARTER_COUNT = ALL_KANA.length;
@@ -66,10 +67,11 @@ function openLesson(nextTab="discover"){
   selectTab(nextTab);$("lesson-dialog").showModal();
 }
 function renderJournal(){
-  const total=progress.mastered.length,due=dueKana(progress).length;
-  $("journal-description").textContent=total
+  const total=progress.mastered.length,due=dueKana(progress).length,words=learnedWordCount();
+  $("journal-description").textContent=(total
     ? `You've collected ${total} of ${STARTER_COUNT} hiragana. ${due?due+" ready for a little review.":"The next discovery is waiting."}`
-    : "Every little discovery counts. Your first sounds are waiting.";
+    : "Every little discovery counts. Your first sounds are waiting.")
+    +(words?` And ${words} little word postcard${words===1?"":"s"}!`:"");
   const cards=$("journal-cards");cards.replaceChildren();
   ALL_KANA.forEach(glyph=>{
     if(!progress.mastered.includes(glyph))return;
@@ -139,6 +141,7 @@ function replayGuide(scope){
   if(target)target.replaceWith(target.cloneNode());
 }
 function renderLesson(){
+  $("lesson-rowbar").hidden=false; $("kana-picker").hidden=false;
   if(canvasObserver){canvasObserver.disconnect();canvasObserver=null;}
   renderRowBar();renderPicker();
   const {glyph,romaji}=KANA[selected];
@@ -330,7 +333,18 @@ function renderCollection(){
   panel.innerHTML=`<div class="collection-intro">
     <h3>Your hiragana collection</h3>
     <p>Finish a row's recognition challenges to open the next. You can always return to practise an unlocked row.</p>
+    <div class="word-teaser">
+      <div class="word-teaser-symbol" aria-hidden="true">🍡</div>
+      <div><strong>Little word postcards</strong><p>Discover real Japanese words with the hiragana you know.</p></div>
+      <button class="soft-button" id="open-word-postcards" type="button">Explore words ↗</button>
+    </div>
   </div><div class="collection-sections" id="collection-sections"></div>`;
+  $("open-word-postcards").addEventListener("click",()=>{
+    $("lesson-rowbar").hidden=true; $("kana-picker").hidden=true;
+    renderWordPostcards(panel,progress.mastered,speakJapanese,()=>{
+      $("lesson-rowbar").hidden=false; $("kana-picker").hidden=false;renderCollection();
+    });
+  });
   ROWS.forEach((row,i)=>{
     const unlocked=isRowUnlocked(progress,i),done=completedInRow(progress,i);
     const section=document.createElement("section");section.className="collection-section";
