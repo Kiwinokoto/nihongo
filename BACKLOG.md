@@ -9,13 +9,13 @@
 - [ ] Test on Angela's real phone/touch device, including actual Japanese speech-synthesis voice
 - [ ] Audit screen-reader/keyboard accessibility, cache/performance and cross-browser appearance
 
-## Second pass — work in progress (2026-10-10)
+## Second pass — released (2026-10-10)
 - [x] 46 official stroke-order animated kana SVGs from pinned AnimCJK source (attribution and LGPL texts bundled)
 - [x] Ten groups of hiragana, progressive unlock, collection rows, retained V1 progress
 - [x] Friendly number-of-strokes guidance, guide replay and deliberate no-grading writing practice
 - [x] Locally scheduled reviews and wrong-answer retry (no account/server DB)
-- [x] Node model tests and Chromium desktop/mobile smoke (pre-deployment)
-- [ ] Ship through PR, deploy isolated Docker stack and verify live browser + HTTPS + certificate
+- [x] Node model tests (9/9), Chromium desktop + simulated mobile and production browser smoke
+- [x] Merged via PR #3, deployed app commit `b3abfbf0c007da3ef744983cd27c524151cc32db`, verified container healthy, valid HTTPS, HTTP 200 for `/healthz`, page, modules, SVGs, and production Chromium flow (5 vowel quiz answers → K row, persistence, due review, no JS errors)
 - [ ] Field-test real device touch/voice and keyboard/screen reader
 
 ## Next slices
