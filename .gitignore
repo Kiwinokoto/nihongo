@@ -1,0 +1,14 @@
+# Never publish personal data or credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.sqlite
+*.sqlite3
+.DS_Store
+node_modules/
+__pycache__/
+*.pyc
+playwright-report/
+test-results/
