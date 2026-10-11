@@ -93,7 +93,7 @@
 - [x] Three previously approved owner-provided panorama scenes integrated as optimized WebP assets in an independent journal gallery, with sakura pastel styling and optional illustrated story details. **No homepage/map/hero rewrite**.
 - [x] Use authentic existing achievements: 1st collected recognition/order → original wide village memory, eight advanced kana → closer two-traveller memory, 46 katakana → original train memory. No story-view tracking; locked images not loaded.
 - [x] Accessible via `My journal → Little Memories`; browse scene/detail, back to gallery/journal, native Escape and close, responsive mobile. Sources/crop/asset sizes documented in `docs/LITTLE_MEMORIES.md`.
-- [ ] Finish all local and production browser regression checks, PR, deployment preflight and checkpoint.
+- [x] PR #21 merged; **application commit `aa90b0d472d00134209a121e7f0c7720775e98df` deployed** in isolated healthy personal-VPS `nihongo-web`. Valid HTTPS/TLS and HTTP 200 for health, journal modules, and three image/webp assets. 48/48 Node tests, all **nine V2–V11 Chromium desktop and simulated-mobile** flows on the actual public domain, including locked-media fetch protection, genuine first/advanced/katakana unlocks, image decoding, journal navigation, no horizontal scroll and preserved previous saves. Prior Docker image retained as `nihongo-rollback:8557e4a`; no new service, DB, secret or CI workflow. This checkpoint changes documentation only; the deployed application SHA stays `aa90b0d`.
 - [ ] Angela real Mac/Safari feedback on visual quality and keyboard/touch navigation; more scenes only after review.
 
 ## Next slices
