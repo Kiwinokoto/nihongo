@@ -5,7 +5,7 @@
 - [x] Keep basic katakana rows and storage keys untouched, no automatic handwriting validation or reward; original map, hero and journal unchanged. Whole-word audio uses existing browser Japanese-voice helper and falls back to written practice without a voice.
 - [x] 54/54 Node tests and JS syntax validation. On an isolated branch, Chromium completed all eight words and checked the shared write-retry in both hiragana and katakana at 1350px and 390px, without page errors or document overflow.
 - [ ] Mac/Safari real-device touch/voice and fluent Japanese-language review remain outstanding. Linux Chromium is not Safari.
-- [ ] Production release pending PR merge and preflight; do not describe this branch as already deployed.
+- [x] PR #32 merged, app fbdd8a68d82176df62ec1525ad285452cafe3019 deployed to only nihongo-web (image c449e613b5f0...). HTTPS 200, health 200, correct public assets, current checkout clean, 71 neighbouring containers unchanged. Rollback image nihongo-rollback:2e4e3a4 retained. Production Chromium (1350px and 390px) independently completed all eight words, verified no persisted word state and the shared katakana writing retry; no JS page errors or horizontal overflow. Deployment made no changes to existing audio files; five vowel fallback recordings remain.
 
 ## Kana self-check quality follow-up — 11 October 2026
 - [x] Identified a learner-friction issue: after seeing the model, repeating the *same* handwriting prompt previously required restarting the entire row. Added **Draw this character again**, resetting canvas/model without moving to the next prompt or modifying progress.
