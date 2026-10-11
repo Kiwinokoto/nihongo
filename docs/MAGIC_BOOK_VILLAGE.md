@@ -20,3 +20,11 @@ Mac Japanese voice setup and voice detection are still presented in the village;
 No database, new dependency, API, telemetry, localStorage key or data migration. Existing key names remain identical; all five parsers normalize corrupt or stale values. Cross-tab storage updates refresh a visible book without overwriting saves. All site artwork and other map stops remain unchanged.
 
 Node **61/61** after introducing four new tests plus update of deprecated journal assertions. Isolated Chromium (1350px and 390px) passed: empty fresh visit, all five discovery groups from seeded legacy saves, earned/unearned memory cards, unlocked scene details, one-book navigation and return, five valid mixed review questions, hidden next control until correct, direct Mac sound help, original key/value data unchanged, no console page errors or document horizontal overflow. Real Safari/Mac human pass and Japanese voice pronunciation remain separately pending.
+
+## Confirmed production — 11 October 2026
+
+PR #36 merged as application commit d666b209ace96f15b47ae9f5caaa1df4e58e739a and deployed to **only** nihongo-web on the personal VPS. Docker sha256:33e5036bac26dc169d6dbe8d17e9e14b2e9b226f1827782deff3f2b198eb89ee healthy; rollback image nihongo-rollback:65046ba retained. HTTPS valid, home and /healthz HTTP 200; 71 other container names unchanged. No database, app keys or audio recordings modified.
+
+61/61 Node tests passed again during deployment. Production Chromium at **1350px and 390px** independently completed a previously-empty and seeded travel book, verified five existing collections and earned memory illustrations, then went through five genuine village questions sourced from five existing collections, including the hidden-next guard and an opened Japanese voice-help guide. No localStorage mutation, JS page errors or horizontal overflow. Native Safari/macOS touch and human Japanese-audio testing remain pending.
+
+Documentation follow-up may put GitHub main one markdown-only commit ahead of the running application; this is expected and does **not** justify a new Docker rollout.
