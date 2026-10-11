@@ -570,7 +570,11 @@ window.addEventListener("storage",event=>{
   }
   if([STORAGE_KEY,KATA_STORAGE_KEY,ADVANCED_STORAGE_KEY,WORD_STORAGE_KEY,FOOD_KEY,null].includes(event.key)){
     refreshStoryScenes();
-    if($("journal-dialog").open)renderMilestoneJournal();
+    if($("memories-dialog").open){
+      const active=$("memories-content").querySelector("[data-book-page][aria-pressed=true]")?.dataset.bookPage||"memories";
+      renderLittleMemories($("memories-content"),earnedMilestones(),
+        ()=>$("memories-dialog").close(),learningSnapshot(stored),active);
+    }
   }
 });
 updateProgress();refreshStoryScenes();selectPlace("garden");
