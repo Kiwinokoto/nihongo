@@ -15,7 +15,7 @@ test('static assets and original illustrations exist',()=>{
 });
 test('starter activities and journey landmarks are present',()=>{
   const html=read('index.html'),js=read('assets/app.js');
-  for(const id of ['lesson-dialog','journal-dialog','trace-canvas','kana-picker','lesson-panel']){
+  for(const id of ['lesson-dialog','memories-dialog','trace-canvas','kana-picker','lesson-panel']){
     if(id==='trace-canvas')assert.match(js, /id="trace-canvas"/);
     else assert.ok(html.includes('id="'+id+'"'),id);
   }

@@ -17,6 +17,7 @@ import {WORD_STORAGE_KEY,parseWordProgress} from "./word-trails.js";
 import {FOOD_KEY,parseFoodProgress} from "./food-lane-data.js";
 import {milestoneStatus,unlockedScenes} from "./story-milestones.js";
 import {renderLittleMemories} from "./little-memories.js";
+import {learningSnapshot} from "./learning-snapshot.js";
 import {renderKanaCheckpoint} from "./kana-checkpoint.js";
 import {renderKanjiShrine} from "./kanji-shrine.js";
 
@@ -47,13 +48,12 @@ function updateProgress(){
   const total=progress.mastered.length;
   const rowTotal=[...ROWS[currentRow(progress)].kana].length;
   const rowDone=completedInRow(progress,currentRow(progress));
-  $("header-progress").textContent=`${total}/${STARTER_COUNT}`;
   $("overview-progress").textContent=`${rowDone} of ${rowTotal} in this row · ${total} total`;
   $("lesson-count").textContent=`${total} / ${STARTER_COUNT} collected`;
   $("progress-fill").style.width=`${Math.round(100*total/STARTER_COUNT)}%`;
 }
 const PLACES={
-  start:{n:"WELCOME · YOUR JOURNEY BEGINS",emoji:"🏡",title:"The starting village",jp:"はじまりの村",description:"Every adventure begins with a small hello. Take the first path towards the blossoms and meet your first sounds.",fact:"Your first steps",status:"READY",button:"Let's begin"},
+  start:{n:"HOME AGAIN · THE STARTING VILLAGE",emoji:"🏡",title:"The starting village",jp:"はじまりの村",description:"Return to where the journey began, revisit discoveries you really collected, and open your magic travel book.",fact:"A gentle homecoming",status:"READY",button:"Return to the village"},
   garden:{n:"STOP 01 · THE HIRAGANA GARDEN",emoji:"🌸",title:"The hiragana garden",jp:"ひらがなの庭",description:"Follow ten little paths of sounds. Listen, learn their stroke order, trace and collect all 46 basic hiragana.",fact:"46 hiragana to discover",status:"READY",button:"Enter the garden"},
   tea:{n:"STOP 02 · A TASTY LITTLE DETOUR",emoji:"🍢",title:"The little food lane",jp:"やたいのこみち",description:"Follow the savoury aromas: grilled fish, chicken skewers, octopus bites and wonderfully sticky nattō. Learn to order a favourite.",fact:"6 dishes to discover",status:"READY",button:"Explore the food lane"},
   shrine:{n:"STOP 04 · THE KANJI SHRINE",emoji:"⛩️",title:"The kanji shrine",jp:"漢字の神社",description:"Follow the red gates through the cedar forest. Read eight meaningful kanji in real Japanese words and little scenes. No prerequisite or handwriting grade.",fact:"8 word scenes · open to all",status:"READY",button:"Enter the shrine"},
@@ -81,21 +81,23 @@ function openKatakana(){
   closeKataSession=renderKatakanaStation($("katakana-content"),speakJapanese,()=>openAdvanced("katakana"));
   $("katakana-dialog").showModal();
 }
-function openVillage(){
+function openVillage(focusVoices=false){
   closeVillageSession?.();
-  const travel=(destination)=>{
-    $("village-dialog").close();
-    if(destination==="garden"){selectPlace("garden");openLesson();}
-    if(destination==="train"){selectPlace("train");openKatakana();}
-    if(destination==="tea"){selectPlace("tea");openFoodLane();}
-  };
   closeVillageSession=renderStartingVillage($("village-content"),{
-    onHiragana:()=>travel("garden"),
-    onKatakana:()=>travel("train"),
-    onFood:()=>travel("tea"),
-    speakJapanese
+    onBook:()=>{
+      $("village-dialog").close();
+      openMagicBook("discoveries");
+    },
+    speakJapanese,
+    snapshot:learningSnapshot(stored)
   });
   $("village-dialog").showModal();
+  if(focusVoices){
+    const details=$("village-content").querySelector(".voice-help");
+    details.open=true;
+    details.scrollIntoView({block:"start"});
+    $("village-content").querySelector("#village-voice-check").focus({preventScroll:true});
+  }
 }
 function openAdvanced(script){
   if($("lesson-dialog").open)$("lesson-dialog").close();
@@ -159,68 +161,10 @@ function selectHeroScene(index){
   heroSceneIndex=index;
   refreshStoryScenes();
 }
-function renderMilestoneJournal(){
-  const status=earnedMilestones();
-  const target=$("journal-milestone-list");
-  target.replaceChildren();
-  for(const milestone of status){
-    const row=document.createElement("section");
-    row.className="milestone-row"+(milestone.unlocked?" complete":" upcoming");
-    const icon=document.createElement("span");
-    icon.className="milestone-symbol";
-    icon.textContent=milestone.unlocked?"✿":"✧";
-    icon.setAttribute("aria-hidden","true");
-    const copy=document.createElement("div");
-    copy.className="milestone-description";
-    const title=document.createElement("strong");title.textContent=milestone.title;
-    const detail=document.createElement("small");
-    detail.textContent=milestone.unlocked?"Unlocked · "+milestone.target:
-      milestone.progress?milestone.target+" · "+milestone.progress.done+"/"+milestone.progress.target:
-      milestone.target;
-    copy.append(title,detail);row.append(icon,copy);
-    if(milestone.unlocked&&milestone.scene){
-      const action=document.createElement("button");
-      action.type="button";action.className="soft-button milestone-open";
-      action.textContent="See scene ↗";
-      action.addEventListener("click",()=>{
-        refreshStoryScenes();
-        const index=visibleScenes.findIndex(scene=>scene.id===milestone.scene);
-        if(index<0)return;
-        $("journal-dialog").close();
-        selectHeroScene(index);
-        $("hero-story").scrollIntoView({behavior:"smooth",block:"center"});
-      });
-      row.append(action);
-    }
-    target.append(row);
-  }
-}
-function openLittleMemories(){
-  // One native modal at a time; never keep two stacked dialogs.
-  $("journal-dialog").close();
-  renderLittleMemories($("memories-content"),earnedMilestones(),()=>{
-    $("memories-dialog").close();
-    renderJournal();
-  });
+function openMagicBook(page="memories"){
+  renderLittleMemories($("memories-content"),earnedMilestones(),
+    ()=>$("memories-dialog").close(),learningSnapshot(stored),page);
   $("memories-dialog").showModal();
-}
-function renderJournal(){
-  const total=progress.mastered.length,due=dueKana(progress).length,words=learnedWordCount();
-  $("journal-description").textContent=(total
-    ? `You've collected ${total} of ${STARTER_COUNT} hiragana. ${due?due+" ready for a little review.":"The next discovery is waiting."}`
-    : "Every little discovery counts. Your first sounds are waiting.")
-    +(words?` And ${words} little word postcard${words===1?"":"s"}!`:"");
-  renderMilestoneJournal();
-  const cards=$("journal-cards");cards.replaceChildren();
-  ALL_KANA.forEach(glyph=>{
-    if(!progress.mastered.includes(glyph))return;
-    const cell=document.createElement("span");cell.className="earned";cell.textContent=glyph;
-    const note=document.createElement("small");note.textContent=dueKana(progress).includes(glyph)?"review ✧":"✓";
-    cell.append(note);cards.append(cell);
-  });
-  if(!cards.childElementCount){const n=document.createElement("p");n.textContent="Your first blossom is waiting 🌸";cards.append(n);}
-  $("journal-garden").textContent=due?"Review my sounds ↗":"Visit the garden ↗";
-  $("journal-dialog").showModal();
 }
 function speakJapanese(text,output=document.querySelector("dialog[open] #audio-feedback")||$("audio-feedback")){
   return playJapanese(text,output);
@@ -583,8 +527,8 @@ $("hero-story").addEventListener("touchend",event=>{
     selectHeroScene(heroSceneIndex+(dx<0?1:-1));
   }
 },{passive:true});
-$("open-journal").addEventListener("click",renderJournal);
-$("open-little-memories").addEventListener("click",openLittleMemories);
+$("open-journal").addEventListener("click",()=>openMagicBook());
+$("open-voice-help").addEventListener("click",()=>openVillage(true));
 $("close-memories").addEventListener("click",()=>$("memories-dialog").close());
 $("close-lesson").addEventListener("click",()=>$("lesson-dialog").close());
 $("close-food").addEventListener("click",()=>$("food-dialog").close());
@@ -593,11 +537,6 @@ $("close-village").addEventListener("click",()=>$("village-dialog").close());
 $("close-katakana").addEventListener("click",()=>$("katakana-dialog").close());
 $("close-advanced").addEventListener("click",()=>$("advanced-dialog").close());
 $("open-hiragana-advanced").addEventListener("click",()=>openAdvanced("hiragana"));
-$("close-journal").addEventListener("click",()=>$("journal-dialog").close());
-$("journal-garden").addEventListener("click",()=>{
-  const due=dueKana(progress).length;
-  $("journal-dialog").close();openLesson(due?"review":"discover");
-});
 $("previous-row").addEventListener("click",()=>setRow(rowIndex-1));
 $("next-row").addEventListener("click",()=>setRow(rowIndex+1));
 document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>selectTab(b.dataset.tab)));
@@ -631,7 +570,11 @@ window.addEventListener("storage",event=>{
   }
   if([STORAGE_KEY,KATA_STORAGE_KEY,ADVANCED_STORAGE_KEY,WORD_STORAGE_KEY,FOOD_KEY,null].includes(event.key)){
     refreshStoryScenes();
-    if($("journal-dialog").open)renderMilestoneJournal();
+    if($("memories-dialog").open){
+      const active=$("memories-content").querySelector("[data-book-page][aria-pressed=true]")?.dataset.bookPage||"memories";
+      renderLittleMemories($("memories-content"),earnedMilestones(),
+        ()=>$("memories-dialog").close(),learningSnapshot(stored),active);
+    }
   }
 });
 updateProgress();refreshStoryScenes();selectPlace("garden");

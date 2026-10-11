@@ -1,5 +1,13 @@
 # Progress / handoff
 
+## One magic book and homecoming village — 11 October 2026
+- [x] Removed the duplicate journal dialog and redundant text-only Scenes along the way milestone list. The illustrated Little Memories design and all five reward scenes remain intact. The direct homepage header button now opens a **single magic book** with two clearly reachable pages: **My Discoveries** (five validated collections: hiragana/katakana/advanced/words/food) and **Little Memories** (all original earned/locked illustrated rewards).
+- [x] Existing progress schemas and all five localStorage keys unchanged. Contents are derived via existing normalizers and fixed editorial dictionaries; never claim an unrecorded kanji/shrine or town-word activity is saved or mastered. Locked memory images never load before unlock.
+- [x] Starting Village now welcomes new learners or offers up to five session-only mixed questions when entries are really recorded, with retriable errors, no added score or progress mutation. Mac voice help preserved and reachable directly from the header.
+- [x] Fixed sticky journal title clipping by removing its duplicate scroll container; fixed stale cross-tab journal handler and hidden-next button CSS. No new dependencies.
+- [x] 61/61 Node tests including mixed-key, corrupt JSON, no progress inflation and five-question diversity; isolated Chromium at 1350px & 390px validated empty/seeded book, art unlocks, gallery/detail/back, all 5 categories, 5 review questions, sound help, unchanged localStorage, no JS page errors or overflow.
+- [ ] Release pending reviewed PR, targeted nihongo-web deploy + verified rollback and public browser recipe. Mac/Safari physical and Japanese voice review remain open.
+
 ## Kanji shrine — first forest walk (11 October 2026)
 - [x] Built optional eight-kanji reading walk: 森 駅 道 店 食 旅 雨 海, each in an actual Japanese word and small situational sentence, with meanings, readings on demand, four-choice meaning check, recoverable wrong answers and optional whole-sentence listen.
 - [x] The exact owner-approved shrine painting is committed as an optimised original local WebP under assets/art/kanji-shrine.webp. The existing map shrine stop is now selectable for everyone, and only one new dialog is introduced; no homepage overhaul or unrelated artwork.

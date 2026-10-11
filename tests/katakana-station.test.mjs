@@ -50,8 +50,10 @@ test("Japanese voice detector is local and filters by language",()=>{
  assert.deepEqual(japaneseVoices(null),[]);
  assert.deepEqual(japaneseVoices({getVoices:()=>[{name:"French",lang:"fr-FR"},{name:"Japanese A",lang:"ja-JP"},{name:"Other",lang:"en-US"},{name:"Japanese B",lang:"JA"}]}).map(v=>v.name),["Japanese A","Japanese B"]);
 });
-test("village contains distinct routes and does not write progress",()=>{
+test("the village now revisits real discoveries and keeps Mac voice help",()=>{
  const s=readFileSync(join(ROOT,"assets/starting-village.js"),"utf8");
- assert.match(s,/village-hiragana/);assert.match(s,/village-katakana/);assert.match(s,/village-food/);
+ assert.match(s,/village-review-start/);
+ assert.match(s,/village-open-book/);
+ assert.match(s,/voice-help/);
  assert.doesNotMatch(s,/localStorage|sessionStorage|fetch\(/);
 });

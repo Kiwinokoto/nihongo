@@ -47,7 +47,8 @@ test("scene artwork is part of the existing original asset collection",()=>{
  assert.equal(new Set(SCENES.map(s=>s.id)).size,SCENES.length);
  const html=read("index.html"),app=read("assets/app.js");
  assert.match(html,/id="hero-scene-controls"/);
- assert.match(html,/id="journal-milestone-list"/);
+ assert.match(html,/id="memories-dialog"/);
+ assert.match(read("assets/little-memories.js"),/Scenes along the way/);
  assert.match(app,/refreshStoryScenes/);
  assert.match(app,/touchend/);
  assert.doesNotMatch(app,/story-milestones\.v1|story-preferences|story-views/);

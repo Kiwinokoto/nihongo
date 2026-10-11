@@ -15,7 +15,7 @@
   <div class="page">
     <header class="site-header" aria-label="Main navigation">
       <a class="brand" href="#journey" aria-label="Kotoba no Tabi, home"><span class="brand-flower" aria-hidden="true">✿</span><span><strong>Kotoba no Tabi</strong><small>ことばの旅</small></span></a>
-      <div class="header-right"><span class="header-subtitle">A LITTLE JOURNEY THROUGH JAPANESE</span><button type="button" id="open-journal" class="pill muted-pill"><span aria-hidden="true">✧</span> My journal <span id="header-progress">0/46</span></button></div>
+      <div class="header-right"><span class="header-subtitle">A LITTLE JOURNEY THROUGH JAPANESE</span><button type="button" id="open-voice-help" class="header-sound-help" aria-label="Japanese audio and Mac voice help"><span aria-hidden="true">♫</span><span class="sound-help-label">Sound help</span></button><button type="button" id="open-journal" class="pill muted-pill" aria-label="Open my magic travel book"><span aria-hidden="true">✿</span> My magic book</button></div>
     </header>
 
     <main id="journey">
@@ -132,22 +132,10 @@
       <div id="food-content"></div>
     </div>
   </dialog>
-  <dialog id="journal-dialog" aria-labelledby="journal-title">
-    <div class="modal-head"><span class="eyebrow">LITTLE DISCOVERIES</span><button id="close-journal" class="icon-button" aria-label="Close journal">×</button></div>
-    <div class="journal-content"><div class="journal-symbol">✿</div><h2 id="journal-title">Your travel journal</h2><p id="journal-description">A collection of the little things you've learned along the way.</p>
-    <button type="button" id="open-little-memories" class="journal-memories-link"><span aria-hidden="true">✿</span><span><strong>Little Memories</strong><small>A secret corner of the journey, with illustrated scenes to discover</small></span><span aria-hidden="true">↗</span></button>
-    <div class="journal-milestones">
-          <h3>Scenes along the way <span aria-hidden="true">✧</span></h3>
-          <p>One first discovery opens a small teaser. Bigger milestones bring more chapters.</p>
-          <div id="journal-milestone-list" class="journal-milestone-list"></div>
-        </div>
-        <h3 class="journal-kana-heading">Your hiragana collection</h3>
-        <div id="journal-cards" class="journal-cards"></div><button id="journal-garden" class="primary">Visit the garden <span aria-hidden="true">↗</span></button><p class="journal-warning">This early version saves progress in this browser only. Don't clear site data if you want to keep it.</p></div>
-  </dialog>
   <dialog id="memories-dialog" aria-labelledby="memories-title">
     <div class="modal-head memories-head">
-      <span class="eyebrow">A QUIET CORNER OF THE JOURNEY · 旅のジャーナル</span>
-      <button type="button" id="close-memories" class="icon-button" aria-label="Close Little Memories">×</button>
+      <span class="eyebrow">MY TRAVEL BOOK · 旅のジャーナル</span>
+      <button type="button" id="close-memories" class="icon-button" aria-label="Close my magic book">×</button>
     </div>
     <div id="memories-content"></div>
   </dialog>
