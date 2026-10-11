@@ -1,10 +1,10 @@
 // Generates an exact, auditable whitelist from the browser curriculum.
 import {writeFileSync} from "node:fs";
-import {KANA} from "../../assets/progression.js";
-import {KATA} from "../../assets/katakana-progress.js";
-import {ADVANCED} from "../../assets/advanced-kana-data.js";
-import {WORDS} from "../../assets/word-trails.js";
-import {DISHES} from "../../assets/food-lane-data.js";
+import {KANA} from "../assets/progression.js";
+import {KATA} from "../assets/katakana-progress.js";
+import {ADVANCED} from "../assets/advanced-kana-data.js";
+import {WORDS} from "../assets/word-trails.js";
+import {DISHES} from "../assets/food-lane-data.js";
 const data={
  hiragana:KANA.map(x=>x.glyph),
  katakana:KATA.map(x=>x.glyph),
