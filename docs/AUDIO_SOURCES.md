@@ -53,3 +53,9 @@ trailing silence). The source files remain unchanged upstream, the checksums
 above still pin the sources, and `tools/fetch_kana_audio.py --force` will
 reproduce the same five trimmed files. This avoids surprising triple audio
 without altering the browser speech-synthesis behaviour.
+
+## Limited verification of further candidate recordings (2026-10-11)
+
+The Commons source pages for [Japanese ki.ogg](https://commons.wikimedia.org/wiki/File:Japanese_ki.ogg) (き / キ; author Hakatanoshio117117, 14 October 2009) and [Japanese shi.ogg](https://commons.wikimedia.org/wiki/File:Japanese_shi.ogg) (し / シ; same author, 31 October 2009) display a public-domain dedication (PD-self). Both original recordings are several seconds long. **These are licence candidates, not shipped samples.** No new MP3s were imported; the count remains five.
+
+Before shipping any more recordings: review exact source, licence and hash; listen to the actual sound and onset/offset; trim only at a verified natural utterance boundary; test MP3 playback on target browsers, and pin provenance. A fixed 0.65-second trim must not be assumed valid for every consonant. Respect Wikimedia limits; never concatenate isolated kana to imitate natural whole-word speech.
