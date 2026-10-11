@@ -46,8 +46,8 @@
 - [x] Add katakana station, 46 original basic katakana in ten unlockable rows, unmodified pinned AnimCJK animated SVGs, mouse/touch tracing, recognition, review and separate local progress.
 - [x] Add diagnostic for Japanese voices exposed by the device/browser, with honest fallback; no microphone or external speech service.
 - [x] Add Nginx no-cache revalidation to help browsers receive new static releases without losing their local progress.
-- [x] Node 26/26 unit/static tests; original AnimCJK SVGs 46/46 parsed; local Chromium desktop and 390px mobile passed village voice check, tracing (ungraded), 5 answers → Katakana K row, progress independence and reload. All previous V2–V5 regression browser flows passed.
-- [ ] Merge PR and deploy the isolated site; verify HTTPS, cache headers, production browser and rollback.
+- [x] Node 27/27 unit/static tests; original AnimCJK SVGs 46/46 parsed; local Chromium desktop and 390px mobile passed village voice check, tracing (ungraded), 5 answers → Katakana K row, progress independence and reload. All previous V2–V5 regression browser flows passed.
+- [x] PR #11 merged, deployed application commit `da894a586fb454f940516e5f33607c02ba307c9c`. Healthy isolated `nihongo-web` container, verified HTTPS/TLS and 200s for new JS/SVG and `/healthz`. Static files return `Cache-Control: no-cache, must-revalidate`. Local 27/27 tests passed; public-domain Chromium desktop/mobile checks passed for Katakana, village voice diagnostic, food lane, hiragana, word postcards and Lantern Evening (no detected JS errors or old-progress modifications). Rollback image kept as `nihongo-rollback:b8fb663`. Initial production browser image test required waiting for SVG decode; rerun passed.
 - [ ] Confirm voice quality, touch usability on Angela's actual device and Japanese proofread before formal teaching.
 - [ ] Consider native/recorded or hosted Japanese audio only after evaluating licensing, quality, offline use and running costs.
 
