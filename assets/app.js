@@ -8,6 +8,8 @@ import {renderWordPostcards,learnedWordCount} from "./word-postcards.js";
 import {renderFoodLane} from "./food-lane.js";
 import {renderKatakanaStation} from "./katakana-station.js";
 import {renderStartingVillage} from "./starting-village.js";
+import {speakJapanese as playJapanese, stopJapaneseAudio} from "./japanese-audio.js";
+import {enableBackdropDismiss} from "./dialog-dismiss.js";
 
 const $ = (id) => document.getElementById(id);
 const STARTER_COUNT = ALL_KANA.length;
@@ -112,16 +114,8 @@ function renderJournal(){
   $("journal-garden").textContent=due?"Review my sounds ↗":"Visit the garden ↗";
   $("journal-dialog").showModal();
 }
-function speakJapanese(text, output=document.querySelector("dialog[open] #audio-feedback")||$("audio-feedback")){
-  if(!output)return;
-  if(!("speechSynthesis" in window)){output.textContent="Japanese audio isn't available in this browser.";return;}
-  const voice=speechSynthesis.getVoices().find(v=>v.lang?.toLowerCase().startsWith("ja"));
-  if(!voice){output.textContent="No Japanese voice is installed on this device. You can still read and practise.";return;}
-  speechSynthesis.cancel();
-  const utterance=new SpeechSynthesisUtterance(text);
-  utterance.lang="ja-JP";utterance.voice=voice;utterance.rate=.72;
-  utterance.onerror=()=>{output.textContent="Couldn't play the Japanese voice this time.";};
-  speechSynthesis.speak(utterance);output.textContent="Listening…";
+function speakJapanese(text,output=document.querySelector("dialog[open] #audio-feedback")||$("audio-feedback")){
+  return playJapanese(text,output);
 }
 function showFeedback(message){const out=$("panel-feedback");if(out)out.textContent=message;}
 function setRow(index){
@@ -464,6 +458,11 @@ document.querySelectorAll(".lesson-tabs [role=tab]").forEach((b,i,all)=>b.addEve
   e.preventDefault();const next=all[(i+(e.key==="ArrowRight"?1:all.length-1))%all.length];
   selectTab(next.dataset.tab);next.focus();
 }));
+// Background clicks dismiss modal dialogs on desktop/fine pointer devices.
+document.querySelectorAll("dialog").forEach(dialog=>{
+  enableBackdropDismiss(dialog,window.matchMedia("(pointer:fine)"));
+  dialog.addEventListener("close",stopJapaneseAudio);
+});
 $("food-dialog").addEventListener("close",()=>{if("speechSynthesis" in window)speechSynthesis.cancel();});
 $("village-dialog").addEventListener("close",()=>{closeVillageSession?.();closeVillageSession=null;if("speechSynthesis" in window)speechSynthesis.cancel();});
 $("katakana-dialog").addEventListener("close",()=>{closeKataSession?.();closeKataSession=null;if("speechSynthesis" in window)speechSynthesis.cancel();});

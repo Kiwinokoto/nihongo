@@ -314,3 +314,24 @@ dialog{border:1px solid #e1e4d7;background:#fffdf7;border-radius:21px;color:#2c5
 .kata-banner{gap:10px;padding:12px}.kata-banner h3{font-size:22px}
 .kata-content{padding:13px}.kata-choices button{font-size:34px}
 .village-intro h3{font-size:27px}}
+
+/* Pass 7: keep the close action visible after scrolling long dialogs. */
+dialog .modal-head{position:sticky;top:0;z-index:12;background:#fffdf7;box-shadow:0 2px 6px #34544908}
+dialog .modal-head .icon-button{flex-shrink:0;cursor:pointer}
+dialog .modal-head .icon-button:focus-visible{outline:3px solid #a3bda8;outline-offset:2px}
+.village-hero{height:225px;background:#deede3}
+.village-hero img{object-fit:cover;object-position:center 52%}
+.kata-banner{display:block;padding:0;overflow:hidden}
+.kata-banner-scene{display:block;width:100%;max-height:195px;object-fit:cover;background:#c2d5cc}
+.kata-banner-copy{display:flex;gap:18px;align-items:center;padding:18px 22px}
+.voice-help{border-top:1px solid #dce5d9;margin-top:12px;padding-top:12px}
+.voice-help summary{cursor:pointer;font-size:12px;font-weight:700;color:#496e5e;outline-offset:4px}
+.voice-help ol{padding-left:19px;color:#6c8577;line-height:1.7;font-size:12px}
+.voice-help li{margin:8px 0}
+.voice-help a{color:#345d52;text-decoration:underline}
+.village-voices .village-fallback-note{font-size:11px;color:#4b7965;margin-top:11px}
+@media(max-width:720px){
+ .village-hero{height:154px}
+ .kata-banner-scene{max-height:140px}
+ .kata-banner-copy{gap:10px;padding:12px}
+}

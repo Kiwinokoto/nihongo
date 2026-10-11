@@ -51,6 +51,16 @@
 - [ ] Confirm voice quality, touch usability on Angela's actual device and Japanese proofread before formal teaching.
 - [ ] Consider native/recorded or hosted Japanese audio only after evaluating licensing, quality, offline use and running costs.
 
+## Seventh pass — macOS/illustrations/UX polish (2026-10-11)
+- [x] Desktop: clicking on backdrop dismisses all five dialogs without closing when clicking inside; sticky header keeps X visible; native Escape remains usable. Touch or pen outside remains intentionally non-dismissable, including on hybrid computers.
+- [x] Village: collapsible macOS Read & Speak / Japanese voice download directions, installed-voice check remains private.
+- [x] Licence-checked public-domain recorded A/I/U/E/O for both initial hiragana and katakana with native Japanese browser TTS first, locally served MP3 fallback second; documented source/checksums in `docs/AUDIO_SOURCES.md`. Other Japanese speech still needs a system voice.
+- [x] New procedural illustration in village and Katakana station, with small original romantic easter-egg motifs; main map/hero unchanged.
+- [x] 32/32 Node tests, local desktop/mobile Chromium interaction and image decoding checks.
+- [ ] Merge PR and deploy after full regression tests; verify static audio/art public URLs and HTTPS.
+- [ ] Field-test real Mac/Safari, macOS voice installation and actual Japanese playback with Angela. Request feedback on quality and artwork before expanding.
+- [ ] Extend vetted recorded syllables and Japanese proofread; see `docs/AUDIO_SOURCES.md`.
+
 ## Next slices
 - Optional evaluated handwriting matcher for free drawing; automatic writing verification is **not implemented**
 - More hiragana rows, adaptive review and spaced repetition

@@ -13,10 +13,12 @@ export function renderKatakanaStation(root,speakJapanese){
   let row=kataCurrentRow(progress),item=KATA.find(k=>k.row===row&&!progress.mastered.includes(k.glyph))||KATA.find(k=>k.row===row);
   let mode="discover",hasAnswered=false,strokes=[],stroke=null,observer=null;
   root.innerHTML=`<section class="kata-station">
-    <div class="kata-banner"><span class="kata-emoji" aria-hidden="true">🚃</span><div>
+    <div class="kata-banner">
+      <img class="kata-banner-scene" src="/assets/art/katakana-platform.svg" alt="A nostalgic train at a lantern-lit mountain station, with cherry blossoms and two travellers" width="1400" height="460">
+      <div class="kata-banner-copy"><span class="kata-emoji" aria-hidden="true">🚃</span><div>
       <span class="panel-kicker">THE KATAKANA STATION · カタカナ</span>
       <h3>Another beautiful set of sounds.</h3>
-      <p>The same sounds as hiragana, dressed in different shapes. Travel one row at a time, listen, trace and collect all 46.</p></div>
+      <p>The same sounds as hiragana, dressed in different shapes. Travel one row at a time, listen, trace and collect all 46.</p></div></div>
     </div>
     <div class="kata-topline"><div><span id="kata-row-index" class="panel-kicker"></span><h4 id="kata-row-title"></h4><p id="kata-row-subtitle"></p></div>
       <div class="kata-controls"><span id="kata-progress"></span><button class="soft-button" id="kata-prev-row" aria-label="Previous katakana row">←</button>
