@@ -1,5 +1,13 @@
 # Progress / handoff
 
+## Kanji shrine — first forest walk (11 October 2026)
+- [x] Built optional eight-kanji reading walk: 森 駅 道 店 食 旅 雨 海, each in an actual Japanese word and small situational sentence, with meanings, readings on demand, four-choice meaning check, recoverable wrong answers and optional whole-sentence listen.
+- [x] The exact owner-approved shrine painting is committed as an optimised original local WebP under assets/art/kanji-shrine.webp. The existing map shrine stop is now selectable for everyone, and only one new dialog is introduced; no homepage overhaul or unrelated artwork.
+- [x] No storage keys, dependencies, persistent grading, automatic handwriting or proficiency claims; no change to 46 kana, meals, postcard or story milestones. Native Japanese audio only when the OS has a voice.
+- [x] 57/57 Node tests on isolated branch checkout; initial Chromium UX pass caught a session-counter render issue, which was corrected before release. Complete browser and production QA must be recorded in the next update.
+- [ ] PR review/merge and isolated deployment to nihongo-web pending full desktop+mobile Chromium acceptance, AgentCtl locks and rollback checks.
+- [ ] Real Mac/Safari and human native-Japanese pronunciation/content review.
+
 ## Katakana town word walk — 11 October 2026
 - [x] An optional eight-word round inside Katakana Station: bus, hotel, menu, ramen, konbini, camera, taxi, ticket. The learner reads the katakana, may uncover romanisation, and matches a genuine English meaning. Wrong answers allow retry; results are session-only.
 - [x] Keep basic katakana rows and storage keys untouched, no automatic handwriting validation or reward; original map, hero and journal unchanged. Whole-word audio uses existing browser Japanese-voice helper and falls back to written practice without a voice.

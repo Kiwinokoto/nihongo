@@ -18,6 +18,7 @@ import {FOOD_KEY,parseFoodProgress} from "./food-lane-data.js";
 import {milestoneStatus,unlockedScenes} from "./story-milestones.js";
 import {renderLittleMemories} from "./little-memories.js";
 import {renderKanaCheckpoint} from "./kana-checkpoint.js";
+import {renderKanjiShrine} from "./kanji-shrine.js";
 
 const $ = (id) => document.getElementById(id);
 const STARTER_COUNT = ALL_KANA.length;
@@ -55,7 +56,7 @@ const PLACES={
   start:{n:"WELCOME · YOUR JOURNEY BEGINS",emoji:"🏡",title:"The starting village",jp:"はじまりの村",description:"Every adventure begins with a small hello. Take the first path towards the blossoms and meet your first sounds.",fact:"Your first steps",status:"READY",button:"Let's begin"},
   garden:{n:"STOP 01 · THE HIRAGANA GARDEN",emoji:"🌸",title:"The hiragana garden",jp:"ひらがなの庭",description:"Follow ten little paths of sounds. Listen, learn their stroke order, trace and collect all 46 basic hiragana.",fact:"46 hiragana to discover",status:"READY",button:"Enter the garden"},
   tea:{n:"STOP 02 · A TASTY LITTLE DETOUR",emoji:"🍢",title:"The little food lane",jp:"やたいのこみち",description:"Follow the savoury aromas: grilled fish, chicken skewers, octopus bites and wonderfully sticky nattō. Learn to order a favourite.",fact:"6 dishes to discover",status:"READY",button:"Explore the food lane"},
-  shrine:{n:"BEYOND THE FOREST · SOON",emoji:"⛩️",title:"The kanji shrine",jp:"かんじの神社",description:"Learn meaningful characters among quiet trees and lanterns. This stop is being prepared.",fact:"Meaning & writing",status:"COMING SOON",button:"The shrine is not ready yet"},
+  shrine:{n:"STOP 04 · THE KANJI SHRINE",emoji:"⛩️",title:"The kanji shrine",jp:"漢字の神社",description:"Follow the red gates through the cedar forest. Read eight meaningful kanji in real Japanese words and little scenes. No prerequisite or handwriting grade.",fact:"8 word scenes · open to all",status:"READY",button:"Enter the shrine"},
   train:{n:"STOP 03 · ALL ABOARD",emoji:"🚃",title:"Katakana station",jp:"カタカナのえき",description:"A second beautiful set of shapes for sounds you already know. Discover and trace all 46 basic katakana, one row at a time.",fact:"46 katakana to collect",status:"READY",button:"Board the katakana train"}
 };
 let place="garden";
@@ -105,6 +106,10 @@ function openAdvanced(script){
     else openLesson("collection");
   });
   $("advanced-dialog").showModal();
+}
+function openShrine(){
+  renderKanjiShrine($("shrine-content"),speakJapanese);
+  $("shrine-dialog").showModal();
 }
 function openFoodLane(){
   renderFoodLane($("food-content"),speakJapanese);
@@ -554,6 +559,7 @@ $("place-action").addEventListener("click",()=>{
   if(place==="start")openVillage();
   else if(place==="garden")openLesson();
   else if(place==="tea")openFoodLane();
+  else if(place==="shrine")openShrine();
   else if(place==="train")openKatakana();
 });
 $("hero-prev").addEventListener("click",()=>selectHeroScene(heroSceneIndex-1));
@@ -582,6 +588,7 @@ $("open-little-memories").addEventListener("click",openLittleMemories);
 $("close-memories").addEventListener("click",()=>$("memories-dialog").close());
 $("close-lesson").addEventListener("click",()=>$("lesson-dialog").close());
 $("close-food").addEventListener("click",()=>$("food-dialog").close());
+$("close-shrine").addEventListener("click",()=>$("shrine-dialog").close());
 $("close-village").addEventListener("click",()=>$("village-dialog").close());
 $("close-katakana").addEventListener("click",()=>$("katakana-dialog").close());
 $("close-advanced").addEventListener("click",()=>$("advanced-dialog").close());

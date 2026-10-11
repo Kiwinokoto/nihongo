@@ -619,3 +619,39 @@ button.memory-card:focus-visible{outline:3px solid #c98a9c;outline-offset:3px}
 .kata-town-actions{display:flex;gap:10px;flex-wrap:wrap;margin:17px 0}
 .kata-town-note{font-size:10px!important}
 @media(max-width:510px){.kata-extra-actions{width:100%}.kata-extra-actions button{flex:1 1 100%}.kata-town-card{padding:16px}.kata-town-choices{grid-template-columns:1fr}.kata-town-actions button{flex:1 1 100%}}
+
+/* Kanji shrine — original illustration remains a quiet destination, not a map redesign. */
+.shrine-modal-content{padding:0!important}
+.shrine-walk{padding-bottom:24px}
+.shrine-scene{position:relative;overflow:hidden;background:#dbe8d8}
+.shrine-scene img{display:block;width:100%;height:clamp(205px,42vw,385px);object-fit:cover;object-position:center 55%}
+.shrine-scene:after{content:"";position:absolute;inset:46% 0 0;background:linear-gradient(transparent,#102921cf);pointer-events:none}
+.shrine-scene-caption{position:absolute;z-index:1;bottom:0;left:0;right:0;padding:22px 28px;color:#fffaf1;text-shadow:0 1px 6px #15372a88}
+.shrine-scene-caption .panel-kicker{color:#ffdfca}
+.shrine-scene-caption h3{font:400 clamp(24px,3vw,36px) "DM Serif Display",Georgia,serif;margin:7px 0 6px}
+.shrine-scene-caption p{font-size:12px;line-height:1.6;margin:0;color:#e5f1e8}
+.shrine-path{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:7px;margin:22px 25px 7px}
+.shrine-path button{min-width:0;border:1px solid #dce5d8;border-radius:11px;background:#fbf8f0;color:#46725b;padding:7px 2px}
+.shrine-path button strong{display:block;font:400 29px Georgia,serif}
+.shrine-path button small{color:#ad8f78;display:block;font-size:10px}
+.shrine-path button[aria-pressed=true]{background:#f7e2d6;border-color:#be8c7e;box-shadow:0 0 0 1px #d6ab9e}
+.shrine-path button:focus-visible{outline:3px solid #75a48f;outline-offset:2px}
+.shrine-lesson{padding:17px 25px}
+.shrine-lesson-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.shrine-context{font-size:13px;color:#7c937e;margin:12px 0}
+.shrine-glyph{font:400 65px Georgia,serif;color:#a6665d}
+.shrine-phrase{padding:18px;background:#f0f4ed;border:1px solid #e4e8dd;border-radius:14px}
+.shrine-phrase>strong{display:block;font:400 clamp(33px,5vw,50px) Georgia,serif;color:#315c4c;margin-bottom:10px}
+.shrine-phrase p,.shrine-example p{font-size:13px;line-height:1.65;color:#6d8273;margin:8px 0}
+.shrine-phrase [lang=ja],.shrine-example [lang=ja]{font-family:Georgia,serif}
+.shrine-example{margin:17px 0;padding:19px;border:1px solid #e7e7dc;border-radius:14px;background:#fffaf4}
+.shrine-example>p[lang=ja]{font-size:23px;color:#315e51}
+.shrine-audio{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:12px}
+.shrine-check>strong{font-size:14px;font-weight:600;color:#385c50}
+.shrine-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0 9px}
+.shrine-choices button{min-width:0;white-space:normal;min-height:44px}
+.shrine-choices button.correct{background:#e0f0e1;border-color:#86b18c}
+.shrine-choices button.wrong{background:#fceae7;border-color:#d7a59a}
+.shrine-actions{display:flex;justify-content:flex-end;margin-top:15px}
+.shrine-footnote{font-size:11px;color:#9aa79c;text-align:center;margin:0 20px}
+@media(max-width:600px){.shrine-scene img{height:245px}.shrine-scene-caption{padding:16px}.shrine-scene-caption h3{font-size:24px}.shrine-path{margin:14px 12px 3px;gap:5px}.shrine-path button strong{font-size:22px}.shrine-lesson{padding:13px 14px}.shrine-choices{grid-template-columns:1fr}.shrine-glyph{font-size:49px}.shrine-example{padding:14px}.shrine-actions .primary{width:100%}}
