@@ -373,3 +373,66 @@ dialog .modal-head .icon-button:focus-visible{outline:3px solid #a3bda8;outline-
  .welcome p.welcome-footnote{margin-top:10px}
  .welcome-illustration{min-height:225px}
 }
+
+/* Pass 9: an independent optional layer for derived kana, and one earned postcard. */
+.advanced-invite,.kata-advanced-invite{display:flex;gap:15px;justify-content:space-between;align-items:center;border:1px solid #e5e8db;border-radius:12px;padding:12px 16px;margin:4px 0 16px;background:linear-gradient(100deg,#f5f2e9,#eaf1e7);color:#7b9185;font-size:11px;line-height:1.65}
+.advanced-invite button,.kata-advanced-invite button{white-space:nowrap;padding:10px 14px}
+.advanced{display:grid;gap:17px}
+.advanced-intro{background:linear-gradient(118deg,#e6efe5,#f7e8da);border-radius:15px;padding:23px 25px 20px}
+.advanced-intro h2{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:36px;color:#365f55;margin:7px 0 10px}
+.advanced-intro p{font-size:12px;line-height:1.8;color:#819489;max-width:670px;margin:0}
+.advanced-toolbar{display:flex;justify-content:space-between;align-items:center;gap:15px}
+.advanced-scripts{display:flex;gap:7px;flex-wrap:wrap}
+.advanced-scripts button,.advanced-category-tabs button{border:1px solid #dce4d9;background:#fdfaf3;border-radius:20px;padding:10px 13px;font-size:11px;color:#738d7d}
+.advanced-scripts button[aria-pressed=true],.advanced-category-tabs button[aria-pressed=true]{background:#356e5b;border-color:#356e5b;color:white}
+#advanced-progress{font-size:11px;color:#7e9586}
+.advanced-category-tabs{display:flex;gap:7px;flex-wrap:wrap}
+.advanced-category-tabs button{padding:9px 12px}
+.advanced-topic-intro{border-left:3px solid #d39f96;padding:8px 14px;background:#f9f5ed;border-radius:0 12px 12px 0;color:#456858}
+.advanced-topic-intro strong{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:22px}
+.advanced-topic-intro p{font-size:12px;line-height:1.65;color:#788c7f;margin:6px 0}
+.advanced-topic-intro small{font-size:11px;color:#b18277}
+.advanced-layout{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:15px;align-items:start}
+.advanced-card-bank{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;max-height:460px;overflow:auto;align-content:start;padding:3px 4px 4px 0}
+.advanced-card{border:1px solid #e0e5d8;background:#fffdf8;border-radius:11px;min-width:0;min-height:80px;padding:10px 2px;color:#356658}
+.advanced-card strong{display:block;font-family:Georgia,serif;font-size:25px;font-weight:400;line-height:1.4}
+.advanced-card small{display:block;margin-top:4px;font-size:10px;color:#82948a;overflow-wrap:anywhere}
+.advanced-card[aria-pressed=true]{background:#f6e7df;border-color:#d59f95;box-shadow:0 0 0 1px #e5c0b7}
+.advanced-card:focus-visible{outline:3px solid #9ab7a4;outline-offset:2px}
+.advanced-lesson{background:linear-gradient(140deg,#fffdf7,#f7f1e7);border:1px solid #e7e5d9;border-radius:15px;padding:20px;min-height:325px}
+.advanced-big-kana{text-align:center;color:#32675a;font-size:64px;font-family:Georgia,serif;line-height:1.3;margin:3px 0}
+.advanced-reading{font-style:italic;text-align:center;color:#bd8a81;font-family:Georgia,serif;font-size:18px;margin:2px 0 10px}
+.advanced-explanation{font-size:12px;line-height:1.75;color:#829588;margin:10px 0}
+.advanced-audio-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.advanced-audio-row button{font-size:11px;padding:9px 12px}
+.advanced-audio-row .feedback{flex:1;min-width:130px;font-size:10px}
+.advanced-question{border-top:1px solid #e5e2d7;margin-top:13px;padding-top:14px;color:#406658}
+.advanced-question>strong{font-size:13px;font-weight:500}
+.advanced-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.advanced-choices button{min-height:45px;white-space:normal!important;padding:10px 6px!important;min-width:0;font-size:12px!important}
+.advanced-choices button.correct{background:#e3f1e2;border-color:#7ca98c;color:#32634e}
+.advanced-choices button.wrong{background:#fae8e3;border-color:#d39c92;color:#976a64}
+#advanced-next{font-size:12px}
+.advanced-reward{display:flex;justify-content:space-between;align-items:center;gap:15px;background:linear-gradient(112deg,#e9f0e4,#fae9db);border:1px solid #e3e9dc;padding:18px;border-radius:15px}
+.advanced-reward h3{font-family:"DM Serif Display",Georgia,serif;color:#366354;font-size:25px;font-weight:400;margin:7px 0}
+.advanced-reward p{font-size:11px;line-height:1.75;color:#7d9182;margin:0}
+.advanced-reward button{white-space:nowrap;padding:12px 16px}
+.advanced-reward button:disabled{opacity:.45}
+.advanced-end{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.advanced-end p{font-size:10px;line-height:1.5;color:#95a49b;max-width:450px;text-align:right}
+.advanced-scene{background:#253f46;border-radius:15px;padding:16px;color:#f7f1e2}
+.advanced-scene>button{margin-bottom:15px}
+.advanced-scene-art{border-radius:12px;overflow:hidden;background:#abc5b6}
+.advanced-scene-art img{width:100%;max-height:540px;object-fit:cover;aspect-ratio:615/409;display:block}
+.advanced-scene-copy{padding:22px 16px 13px;max-width:700px;margin:auto}
+.advanced-scene-copy .panel-kicker{color:#e4c1b4}
+.advanced-scene-copy h3{font-family:"DM Serif Display",Georgia,serif;font-size:34px;font-weight:400;color:#ffdfc4;margin:10px 0}
+.advanced-scene-copy>p{font-size:13px;line-height:1.9;color:#d8e1d8}
+.advanced-scene-japanese{border-left:2px solid #dab4a6;padding:6px 0 6px 20px;margin:20px 0}
+.advanced-scene-japanese p{font-size:25px;font-family:Georgia,serif;margin:4px 0;color:#f6e3d1}
+.advanced-scene-japanese em{font-size:12px;color:#e3bfb0}
+.advanced-scene-copy .advanced-scene-footnote{color:#aec1b8;font-style:italic;font-size:11px}
+@media(max-width:710px){.advanced-layout{grid-template-columns:1fr}.advanced-card-bank{max-height:260px;grid-template-columns:repeat(5,minmax(0,1fr))}.advanced-lesson{padding:15px}.advanced-toolbar{align-items:flex-start;flex-wrap:wrap}}
+@media(max-width:510px){.advanced-invite,.kata-advanced-invite,.advanced-reward,.advanced-end{flex-wrap:wrap}.advanced-invite button,.kata-advanced-invite button,.advanced-reward button{width:100%}.advanced-intro{padding:19px}.advanced-intro h2{font-size:29px}.advanced-card-bank{grid-template-columns:repeat(4,minmax(0,1fr))}.advanced-card{min-height:74px}.advanced-category-tabs button{flex:1 1 42%}.advanced-scripts button{flex:1}.advanced-end p{text-align:left}.advanced-scene-copy{padding:17px 5px}.advanced-scene-copy h3{font-size:29px}}
+
+@media(max-width:510px){.advanced-scripts button{white-space:nowrap;font-size:10px;padding:10px 8px}}

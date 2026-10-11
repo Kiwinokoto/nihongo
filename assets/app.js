@@ -10,6 +10,7 @@ import {renderKatakanaStation} from "./katakana-station.js";
 import {renderStartingVillage} from "./starting-village.js";
 import {speakJapanese as playJapanese, stopJapaneseAudio} from "./japanese-audio.js";
 import {enableBackdropDismiss} from "./dialog-dismiss.js";
+import {renderAdvancedKana} from "./advanced-kana.js";
 
 const $ = (id) => document.getElementById(id);
 const STARTER_COUNT = ALL_KANA.length;
@@ -68,7 +69,7 @@ function selectPlace(id){
 let closeKataSession=null,closeVillageSession=null;
 function openKatakana(){
   closeKataSession?.();
-  closeKataSession=renderKatakanaStation($("katakana-content"),speakJapanese);
+  closeKataSession=renderKatakanaStation($("katakana-content"),speakJapanese,()=>openAdvanced("katakana"));
   $("katakana-dialog").showModal();
 }
 function openVillage(){
@@ -86,6 +87,16 @@ function openVillage(){
     speakJapanese
   });
   $("village-dialog").showModal();
+}
+function openAdvanced(script){
+  if($("lesson-dialog").open)$("lesson-dialog").close();
+  if($("katakana-dialog").open)$("katakana-dialog").close();
+  renderAdvancedKana($("advanced-content"),script,speakJapanese,(returnTo)=>{
+    $("advanced-dialog").close();
+    if(returnTo==="katakana")openKatakana();
+    else openLesson("collection");
+  });
+  $("advanced-dialog").showModal();
 }
 function openFoodLane(){
   renderFoodLane($("food-content"),speakJapanese);
@@ -444,6 +455,8 @@ $("close-lesson").addEventListener("click",()=>$("lesson-dialog").close());
 $("close-food").addEventListener("click",()=>$("food-dialog").close());
 $("close-village").addEventListener("click",()=>$("village-dialog").close());
 $("close-katakana").addEventListener("click",()=>$("katakana-dialog").close());
+$("close-advanced").addEventListener("click",()=>$("advanced-dialog").close());
+$("open-hiragana-advanced").addEventListener("click",()=>openAdvanced("hiragana"));
 $("close-journal").addEventListener("click",()=>$("journal-dialog").close());
 $("journal-garden").addEventListener("click",()=>{
   const due=dueKana(progress).length;

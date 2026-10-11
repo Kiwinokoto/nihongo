@@ -90,13 +90,33 @@ romance-easter-egg direction (not implemented) is noted in
 [docs/CREATIVE_DIRECTION.md](docs/CREATIVE_DIRECTION.md).
 
 
+### Beyond the first kana
+
+The Hiragana Garden and Katakana Station both include an optional
+**Beyond the basics ✧** workshop. It has 70 reading cards for hiragana and
+94 for katakana, grouped into voiced kana (dakuten/handakuten),
+contracted syllables (yōon), small kana, long vowels and consonant pauses;
+the katakana side adds selected modern loanword combinations.
+The workshop tracks its own reading discoveries under
+`kotoba-no-tabi.advanced-kana.v1`. It never awards basic-kana mastery.
+
+After eight distinct advanced readings, an original **close-up postcard**
+featuring the same two travellers may be opened from the workshop. Their
+earlier distant village scene remains on the homepage. No story viewing,
+romance preference or identity is recorded.
+
+See `docs/ADVANCED_KANA.md` for scope and language-review limitations.
+
 ### How complete are the kana?
 
 The two interactive lessons cover **46 basic hiragana** and **46 basic katakana**,
 with writing guides, recognition and separate practice progress. These are
-the foundational signs, not every Japanese sound combination. Voiced variants
-(`が`/`ガ`, `ぱ`/`パ`), small kana, contracted `きゃ`/`キャ`,
-long vowels and the katakana loanword variants are still to be added.
+the foundational signs, not every Japanese sound combination. Voiced variants (`が`/`ガ`, `ぱ`/`パ`), small kana, contracted
+`きゃ`/`キャ`, long vowels, consonant pauses and selected loanword
+variants are now **introduced as reading patterns** in the optional
+advanced workshop, not integrated into stroke-tracing or automatic
+handwriting verification. Uncommon/historical and additional loanword
+spellings, fluent listening and contextual vocabulary remain future work.
 
 Drawing remains **ungraded practice**. The optional recogniser feasibility
 study is documented in `docs/HANDWRITING_POC.md` and is not shipped.

@@ -2,7 +2,7 @@
 // Drawing is ungraded motor practice; only recognition collects a character.
 import {KATA,KATA_ROWS,KATA_STORAGE_KEY,readKata,kataRowOpen,kataCurrentRow,kataDue,traceKata,correctKata,incorrectKata} from "./katakana-progress.js";
 
-export function renderKatakanaStation(root,speakJapanese){
+export function renderKatakanaStation(root,speakJapanese,onAdvanced=()=>{}){
   function load(){try{return readKata(localStorage.getItem(KATA_STORAGE_KEY))}catch{return readKata(null)}}
   const progress=load();
   const store=(feedback)=>{
@@ -19,6 +19,10 @@ export function renderKatakanaStation(root,speakJapanese){
       <span class="panel-kicker">THE KATAKANA STATION · カタカナ</span>
       <h3>Another beautiful set of sounds.</h3>
       <p>The same sounds as hiragana, dressed in different shapes. Travel one row at a time, listen, trace and collect all 46.</p></div></div>
+    </div>
+    <div class="kata-advanced-invite">
+      <span>Meet the tiny marks, voiced sounds, and borrowed words beyond the first 46.</span>
+      <button type="button" id="open-katakana-advanced" class="soft-button">Beyond the basics ✧</button>
     </div>
     <div class="kata-topline"><div><span id="kata-row-index" class="panel-kicker"></span><h4 id="kata-row-title"></h4><p id="kata-row-subtitle"></p></div>
       <div class="kata-controls"><span id="kata-progress"></span><button class="soft-button" id="kata-prev-row" aria-label="Previous katakana row">←</button>
@@ -233,6 +237,7 @@ export function renderKatakanaStation(root,speakJapanese){
       });
     }
   }
+  button("#open-katakana-advanced",onAdvanced);
   button("#kata-prev-row",()=>setRow(row-1));
   button("#kata-next-row",()=>setRow(row+1));
   root.querySelectorAll("[data-kata-mode]").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.kataMode)));

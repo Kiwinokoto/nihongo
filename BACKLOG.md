@@ -71,9 +71,18 @@
 - [x] PR #15 merged; deployed application commit `efd81c3b41de324980421280a0f8e3f0241c0383` to isolated `nihongo-web` on the personal VPS. Healthy container and valid HTTPS; page, JS, CSS and village SVG returned 200. Public-domain Chromium desktop/mobile home+map tests passed (desktop 1440px map starts near y=455px, no horizontal overflow), and all six V2–V7 regression browser flows passed on production, no detected page errors or changed learner saves. Docker rollback image saved as `nihongo-rollback:3a8c79d`. This checkpoint is documentation-only and is not a different runtime release.
 - [ ] On next small pass: experimental 5-vowel writing validator with shape/direction/order hints, **no progress or grading effect**.
 
+## Ninth pass — beyond the basic kana & story reward (2026-10-11)
+- [x] Keep the original wide village/hero art as the introductory moment. Add a **separate, original closer image** of the two travellers, unlocked as an optional reward after eight successful advanced reading recognitions, with no premature reveal and no personal romance-preference tracking.
+- [x] Separate advanced kana workshop reachable from both original learning dialogs, without gating or mutating their 46-base-kana progress. `assets/advanced-kana-data.js` includes **70 hiragana** and **94 katakana** extra reading cards (voiced, yōon, small helpers, modern borrowed sounds and rhythm examples); `assets/advanced-kana.js` supplies independent English explanations and gentle multiple-choice reading review.
+- [x] Distinct browser storage key `kotoba-no-tabi.advanced-kana.v1`; story milestone counts distinct correct answers from either writing system. No automatic writing recogniser, new external audio, services or infrastructure.
+- [ ] Finish all local browser regressions and tests, PR merge and isolated deploy after AgentCtl/Git preflight; record final SHAs and runtime checks.
+- [ ] Get a fluent Japanese language review of romanisation, sound approximations and borrowed spellings; test comprehension and mobile flow with Angela on her actual Mac/phone.
+- [ ] Extend actual speaking/listening with vetted recordings or native Mac voice; add more **contextual** kata reading examples. Small characters/long marks are a convention, not individual spoken syllables.
+- [ ] Handwriting matcher proof-of-concept on five vowels (separate isolated experiment per `docs/HANDWRITING_POC.md`), calibrate false-positive/false-negative rates, never claim validated handwriting grading.
+
 ## Next slices
 - Optional evaluated handwriting matcher for free drawing; automatic writing verification is **not implemented**
-- More hiragana rows, adaptive review and spaced repetition
+- Expand contextual kana reading/real-word practice; progressive reviews remain independent of the new advanced cards
 - Broader food-lane dialogues and restaurant roleplay (initial savoury ordering mini-game implemented in Pass 5)
 - Build contextual katakana word lessons and first kanji in the forest/shrine (basic katakana station now implemented)
 - Optional progress export/backup or sync with a considered privacy model
