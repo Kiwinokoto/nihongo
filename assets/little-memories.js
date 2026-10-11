@@ -1,8 +1,9 @@
 import {memoryAccess} from "./memories-data.js";
+import {renderBookDiscoveries} from "./book-discoveries.js";
 
 // Rendered in its own modal rather than rewriting any page/map/lesson layout.
 // All text and image URLs are fixed editorial constants, never saved user HTML.
-export function renderLittleMemories(root,milestones,onReturn){
+export function renderLittleMemories(root,milestones,onReturn,snapshot,initialPage="memories"){
  const entries=memoryAccess(milestones);
  const total=entries.filter(x=>x.unlocked).length;
  let current=null;
@@ -10,23 +11,44 @@ export function renderLittleMemories(root,milestones,onReturn){
   <aside class="memory-sidebar">
     <div class="memory-sidebar-top"><span class="memory-flower" aria-hidden="true">✿</span>
       <span class="memory-eyebrow">旅のジャーナル</span></div>
-    <h2 id="memories-title">Little Memories</h2>
-    <p class="memory-sidebar-subtitle">A collection of quiet moments from your journey.</p>
+    <h2 id="memories-title">My magic book</h2>
+    <p class="memory-sidebar-subtitle">All your little discoveries and the stories they unlock.</p>
+    <nav class="memory-book-navigation" aria-label="Pages of your travel book">
+      <button type="button" data-book-page="discoveries" aria-pressed="false">✧ My Discoveries</button>
+      <button type="button" data-book-page="memories" aria-pressed="true">✿ Little Memories</button>
+    </nav>
     <p>Every new sound can lead to another discovery. Some stories take a little longer to unfold.</p>
     <div class="memory-sidebar-progress"><span aria-hidden="true">🌸</span>
       <span><strong>${total} / ${entries.length}</strong><small>illustrated memories discovered</small></span></div>
     <p class="memory-small-quote">Every word is a step closer to a new horizon.</p>
-    <button class="soft-button" id="memory-return-journal" type="button">← Back to my journal</button>
+    <button class="soft-button" id="memory-return-journal" type="button">← Back to the map</button>
   </aside>
   <div class="memory-content">
+    <div id="memory-scenes-pane">
     <header class="memory-gallery-heading"><div><span class="memory-eyebrow">STORY SCENES · 小さな思い出</span>
       <h3>Scenes along the way <span aria-hidden="true">✧</span></h3>
       <p>Explore the moments you have earned. The next chapter will wait for you.</p>
     </div><span class="memory-petal" aria-hidden="true">✿</span></header>
     <div id="memory-gallery" class="memory-gallery"></div>
+    </div>
+    <div id="memory-learning-pane" hidden></div>
   </div></div>`;
  const gallery=root.querySelector("#memory-gallery");
  const back=root.querySelector("#memory-return-journal");
+ const scenes=root.querySelector("#memory-scenes-pane");
+ const learning=root.querySelector("#memory-learning-pane");
+ const pageButtons=root.querySelectorAll("[data-book-page]");
+ renderBookDiscoveries(learning,snapshot);
+ let page=initialPage==="discoveries"?"discoveries":"memories";
+ const switchPage=next=>{
+  page=next;current=null;
+  scenes.hidden=next!=="memories";learning.hidden=next!=="discoveries";
+  pageButtons.forEach(button=>button.setAttribute("aria-pressed",String(button.dataset.bookPage===next)));
+  back.textContent="← Back to the map";
+  if(next==="memories")showGallery();
+  const dialog=root.closest("dialog");if(dialog)dialog.scrollTop=0;
+ };
+ pageButtons.forEach(button=>button.addEventListener("click",()=>switchPage(button.dataset.bookPage)));
  back.addEventListener("click",()=>{
   if(current){current=null;showGallery();return;}
   onReturn();
@@ -50,7 +72,7 @@ export function renderLittleMemories(root,milestones,onReturn){
   }
  }
  function showGallery(){
-  back.textContent="← Back to my journal";
+  back.textContent="← Back to the map";
   gallery.replaceChildren();
   for(const memory of entries){
    const card=document.createElement(memory.unlocked?"button":"div");
@@ -101,4 +123,5 @@ export function renderLittleMemories(root,milestones,onReturn){
   back.focus();
  }
  showGallery();
+ switchPage(page);
 }
