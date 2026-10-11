@@ -103,6 +103,14 @@
 - [x] PR #23 merged; **application commit `09e7bd0bbdbae2c325df18df4fc08f04182e7ff1` deployed** to isolated personal VPS `nihongo-web`. Healthy Docker container, HTTPS/TLS valid (HTTP 200 for root, health, JS and all four WebPs). **48/48 Node tests and all nine V2–V12 Chromium desktop + simulated mobile browser suites passed on the public domain**, including 46 hiragana / 46 katakana conjunction and joined diptych, locked media not requested, preserved progress and unchanged hero/map. Previous image retained as `nihongo-rollback:aa90b0d`; no service, DB, CI, secret or user tracking changes. This checkpoint is documentary only; deployed application SHA remains `09e7bd0`.
 - [ ] Real Mac/Safari and actual touch/voice feedback from Angela; no unverified claims.
 
+## Thirteenth pass — UX quieting and kana recognition flow (2026-10-11)
+- [x] Hero simplified without changing approved illustration or map: redundant visible footnote removed (privacy note remains in journal), story caption and scene count accessible but visually hidden, arrow buttons small/translucent until interaction.
+- [x] Recognition `Next sound` now goes directly to the next unanswered quiz; completing all five vowels opens the K row immediately. Discover/Trace remain independent optional tabs.
+- [x] Tracing requires at least one drawn line, then one `I've practised this` click records ungraded tracing **and goes to recognition**; a correct answer alone grants collection. V1 progress storage and old saves unchanged.
+- [x] Targeted Chromium regression from 2/5 verifies all five, next-row opening, single-click trace transition, mastered/traced independence, persistence after reload, mobile layout, zero page errors.
+- [x] Local preflight: 48/48 Node tests, all ten V2–V13 desktop/390px Chromium browser flows passed, including 2/5→5/5, 6th kana, traced-not-mastered until correct answer, reload progress and previous story/food/language flows. No observed browser errors.
+- [ ] Complete PR/production rollout and save deployed SHA, public checks and rollback; real Mac/Safari QA remains separate.
+
 ## Next slices
 - Optional evaluated handwriting matcher for free drawing; automatic writing verification is **not implemented**
 - Expand contextual kana reading/real-word practice; progressive reviews remain independent of the new advanced cards

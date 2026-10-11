@@ -332,12 +332,10 @@ function renderLesson(){
     $("save-trace").addEventListener("click",()=>{
       if(!strokes.some(s=>s.length>1)){showFeedback("Draw at least one line first. There is no rush.");return;}
       markTraced(progress,glyph);saveProgress();
-      const count=strokes.length,expected=guideCounts[glyph];
-      const suggestion=expected && count!==expected
-        ? `You used ${count} movements; the guide shows ${expected}. Feel free to retry!`
-        : "Lovely practice! Your lines are saved.";
-      showFeedback(suggestion+" This is practice, not a handwriting score.");
-      $("save-trace").textContent="Practised ✓";
+      // One click records brush practice and leads straight to recognition.
+      // Tracing stays ungraded: only the recognition challenge earns a kana.
+      selectTab("practice");
+      showFeedback("Brush practice saved — this is practice, not a handwriting score. Choose the matching kana to collect it.");
     });
   }else if(tab==="practice"){
     renderPractice(glyph,romaji,false);
@@ -368,13 +366,13 @@ function nextSound(){
   const next=[...row.kana].find(c=>!progress.mastered.includes(c));
   if(next){
     selected=KANA.findIndex(k=>k.glyph===next);
-    selectTab("discover");
+    selectTab("practice");
     return;
   }
   if(isRowUnlocked(progress,rowIndex+1)){
     rowIndex+=1;
     selected=KANA.findIndex(k=>k.row===rowIndex);
-    selectTab("discover");
+    selectTab("practice");
     return;
   }
   selectTab("collection");
@@ -387,7 +385,7 @@ function renderPractice(glyph,romaji,isReview){
     <div class="panel-copy">
       <span class="panel-kicker">${isReview?"A LITTLE REVISIT":"A TINY CHALLENGE"}</span>
       <h3>Which hiragana sounds like <em>“${romaji}”</em>?</h3>
-      <p>Choose the matching shape. It's fine to try again. You can listen, too.</p>
+      <p>Choose the matching shape. Need a hint? Use Discover or Trace above.</p>
       <button class="soft-button" id="hear-practice">♫ Listen</button>
       <p class="feedback" id="audio-feedback" role="status"></p>
     </div>
@@ -420,7 +418,7 @@ function renderPractice(glyph,romaji,isReview){
         : first?"Beautiful! ✿ A new sound for your collection."
           :"Nicely remembered! Your next review is scheduled.");
       $("next-sound").hidden=false;
-      $("next-sound").textContent=isReview?"Back to my reviews →":unlocked>=0?"Explore the new row →":"Next little discovery →";
+      $("next-sound").textContent=isReview?"Back to my reviews →":unlocked>=0?"Try the next row →":"Next sound →";
     });
     $("practice-choices").append(btn);
   }

@@ -95,6 +95,11 @@ Public, lighthearted Japanese-learning microsite for Angela: gentle storybook ma
 - Add reward for all 46 hiragana and a conjunction of both all 46 hiragana **and** all 46 katakana. Keep first-activity, 8-advanced and 46-katakana achievements unchanged. No storage schema changes or story preference tracking; neither locked art nor locked diptych components may be fetched.
 - Code changes isolated to `assets/memories-data.js`, `assets/little-memories.js`, `assets/styles.css`, new image, tests and handoff. **Never rework or replace the approved hero/map/lesson UI** for this pass. Real device Mac/Safari remains unverified.
 
+## Thirteenth pass — simple hero and frictionless kana flow (2026-10-11)
+- User observed that the hero was too verbose and its scene badge too visible. Preserve its artwork, scene unlock data, manual arrows, keyboard and touch swipe, but remove redundant visible footnote (privacy notice remains in journal), visually hide story caption/scene counter while keeping screen-reader status, and fade small arrow buttons until hover/focus. Do **not** move high-detail narrative art out of Little Memories.
+- Hiragana learning flow: after a correct recognition, `Next sound` enters the next unanswered kana **recognition directly**, including the first unlocked kana of the next row; users may still choose Discover/Trace tabs. After a valid ungraded drawing, one `I've practised this` click stores tracing and navigates directly to recognition. Drawing never grants mastery. The old flow required extra navigation after every answer or trace; this looked like double validation. V1 progress schema and 46-kana unlock thresholds untouched.
+- Browser regression should start from persisted 2/5, complete 5/5 via three recognition answers, unlock K row, test traced-but-not-mastered until answered, reload persistence, mobile width and older saved data. Also verify old V2–V12 flows and unchanged story milestones.
+
 ## Checks
 `node --check assets/app.js`
 `node --test tests/*.test.mjs`

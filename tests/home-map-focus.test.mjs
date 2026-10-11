@@ -15,7 +15,10 @@ test("main landing page encourages map exploration instead of hardwiring hiragan
  assert.match(html,/data-place="garden"/);
  assert.match(html,/data-place="train"/);
  assert.match(html,/data-place="tea"/);
- assert.match(html,/Choose your path below/);
+ assert.doesNotMatch(html,/class="welcome-footnote"/);
+ assert.match(html,/Your little world/);
+ assert.match(html,/id="hero-scene-controls"/);
+ assert.match(read("assets/styles.css"),/hero-scene-controls:hover/);
 });
 test("original scene is shared by compact hero and starting village, never replacing map",()=>{
  const html=read("index.html"),village=read("assets/starting-village.js"),art=read("assets/art/village-path.svg");
