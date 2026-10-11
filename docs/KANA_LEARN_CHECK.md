@@ -25,3 +25,9 @@ The check order is built in `assets/kana-checkpoint.js`, independent of both alp
 ## Future proper handwriting evaluation
 
 A truthful graded writing assessment requires tested shape, strokes/direction/order and forgiving tolerances for mouse/pen, calibration with fluent Japanese writers, and accessibility alternatives. Keep it **a separate technical module**. Until validated, never convert self-check into an automatic pass.
+
+## Immediate retry for ungraded writing (quality follow-up, 2026-10-11)
+
+After a learner has drawn, revealed the reference and compared it, **Draw this character again** resets the *same writing question* to a blank canvas with the model hidden. It does not advance the question index, store a self-rating, call `onRecognised`, or award mastery. The learner still chooses **Looks close** or **Needs more practice** to move forward. This option works in both hiragana and katakana because they share `assets/kana-checkpoint.js`.
+
+This repeat is further practice after seeing the model, **not** an independent proficiency measure. Regression coverage includes 51 Node checks and JS syntax verification. A fresh desktop/mobile browser check of this button, and real Mac/Safari/touch validation, are still pending.

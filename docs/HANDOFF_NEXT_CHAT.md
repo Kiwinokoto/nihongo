@@ -1,5 +1,7 @@
 # Passation — Kotoba no Tabi 🌸 — 11 octobre 2026
 
+> **Mise à jour qualité du 11/10/2026 :** le contrôle mixte offre désormais « Draw this character again » après la révélation du modèle, pour reprendre **la même question d'écriture** sur une feuille vierge sans valider quoi que ce soit. La modification est partagée entre hiragana et katakana, sans changement de progression ni d'illustration. **51/51 tests Node** et vérification syntaxique réussis sur une copie isolée du dépôt ; **pas de nouvelle recette Chromium/Safari** pour ce bouton. Contrôler SHA applicatif, locks AgentCtl, rollback et état de la PR avant tout déploiement.
+
 > **Point d'entrée du prochain chat (sans accès à Mint).** Source de vérité : [Kiwinokoto/nihongo](https://github.com/Kiwinokoto/nihongo), puis `AGENTS.md`, `BACKLOG.md` et ce document. Interface destinée à Angela : **anglais** ; discussion avec Kevin : **français**.
 
 ## État vérifié à la clôture
