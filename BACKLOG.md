@@ -6,7 +6,9 @@
 - [x] Starting Village now welcomes new learners or offers up to five session-only mixed questions when entries are really recorded, with retriable errors, no added score or progress mutation. Mac voice help preserved and reachable directly from the header.
 - [x] Fixed sticky journal title clipping by removing its duplicate scroll container; fixed stale cross-tab journal handler and hidden-next button CSS. No new dependencies.
 - [x] 61/61 Node tests including mixed-key, corrupt JSON, no progress inflation and five-question diversity; isolated Chromium at 1350px & 390px validated empty/seeded book, art unlocks, gallery/detail/back, all 5 categories, 5 review questions, sound help, unchanged localStorage, no JS page errors or overflow.
-- [ ] Release pending reviewed PR, targeted nihongo-web deploy + verified rollback and public browser recipe. Mac/Safari physical and Japanese voice review remain open.
+- [x] PR #36 merged as d666b209ace96f15b47ae9f5caaa1df4e58e739a, isolated nihongo-web release verified. New Docker image sha256:33e5036bac26dc169d6dbe8d17e9e14b2e9b226f1827782deff3f2b198eb89ee healthy; rollback tag nihongo-rollback:65046ba. TLS valid, / and /healthz 200, 71 other containers unchanged.
+- [x] Chromium **against public site** 1350px and 390px: one unified book, earned memory art, 5 saved categories, 5 mixed questions, next hidden until right answer, accessible sound help, no storage differences, no JS page errors and no horizontal overflow. 61/61 Node after deploy.
+- [ ] Physical Mac/Safari touch and Japanese voice human acceptance remain pending; no production audioclips were changed.
 
 ## Kanji shrine — first forest walk (11 October 2026)
 - [x] Built optional eight-kanji reading walk: 森 駅 道 店 食 旅 雨 海, each in an actual Japanese word and small situational sentence, with meanings, readings on demand, four-choice meaning check, recoverable wrong answers and optional whole-sentence listen.
