@@ -1,5 +1,10 @@
 # Progress / handoff
 
+## Maintenance de clôture — 11 octobre 2026
+- [x] Contrôle GitHub complet : **PR #1 à #28 fusionnées**, aucune PR ouverte ; leurs 28 branches distantes pointaient exactement sur les SHA des PR, sans référence additionnelle, puis ont été supprimées à la demande du propriétaire. Les 14 anciennes branches locales Mint ont aussi été supprimées ; Mint `main` a été fast-forward sur le `main` de GitHub, aucun changement local. **Après la PR de cette passation**, supprimer également sa branche temporaire si toujours identique au HEAD PR ; la seule branche à conserver est `main`.
+- [x] Serveur lu en **lecture seule** : site sain, déploiement applicatif `a3a660d`, `main` plus récent uniquement par docs. **Bail Docker d'une autre session actif à l'audit** : aucune intervention VPS ; recontrôler avant tout déploiement ultérieur.
+- [x] Passation compacte autonome `docs/HANDOFF_NEXT_CHAT.md` pour le prochain chat **sans RDC Mint**, avec les travaux proposés, la source de vérité, les tests et les limites (Mac/Safari, audio, écriture).
+
 ## Shipped 2026-10-10
 - [x] Original illustrated responsive storybook map and starter village
 - [x] First five hiragana with reading, optional browser Japanese voice, mouse/touch/pen tracing, 4-choice recognition and local journal
