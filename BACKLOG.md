@@ -57,7 +57,7 @@
 - [x] Licence-checked public-domain recorded A/I/U/E/O for both initial hiragana and katakana with native Japanese browser TTS first, locally served MP3 fallback second; documented source/checksums in `docs/AUDIO_SOURCES.md`. Other Japanese speech still needs a system voice.
 - [x] New procedural illustration in village and Katakana station, with small original romantic easter-egg motifs; main map/hero unchanged.
 - [x] 32/32 Node tests, local desktop/mobile Chromium interaction and image decoding checks.
-- [ ] Merge PR and deploy after full regression tests; verify static audio/art public URLs and HTTPS.
+- [x] PR #13 merged and application commit `3a8c79dd90dc584c35b46c3e7f32ead4018e6c38` deployed to isolated `nihongo-web`. Healthy container, valid HTTPS/TLS; HTTP 200 for `/healthz`, new art, JS and five MP3s (`audio/mpeg`). Production Chromium desktop/mobile passed V7 backdrop/voice/help/art/persistence and all earlier V2–V6 regression flows with no detected JS errors. Previous Docker image retained as `nihongo-rollback:da894a5`. Main may advance with documentation-only checkpoint; compare before the next deployment.
 - [ ] Field-test real Mac/Safari, macOS voice installation and actual Japanese playback with Angela. Request feedback on quality and artwork before expanding.
 - [ ] Extend vetted recorded syllables and Japanese proofread; see `docs/AUDIO_SOURCES.md`.
 
