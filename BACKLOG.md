@@ -111,6 +111,13 @@
 - [x] Local preflight: 48/48 Node tests, all ten V2–V13 desktop/390px Chromium browser flows passed, including 2/5→5/5, 6th kana, traced-not-mastered until correct answer, reload progress and previous story/food/language flows. No observed browser errors.
 - [x] PR #25 merged, **application commit `d6f1fabeee98792e8304b74920656ef2b2e11af8` deployed** to isolated personal-VPS `nihongo-web`. Healthy Docker, valid TLS/HTTPS and HTTP 200 for root, health, JS/CSS. **48/48 Node tests and 10/10 desktop + simulated-mobile Chromium regression flows passed on the public domain**, including redoing the 2/5→5/5 hiragana series, K unlock, one-click trace-to-recognition, not grading handwriting, persistence after reload, keyboard/hero/journal/advanced/food regressions; no detected JS errors/overflow. Prior image retained as `nihongo-rollback:09e7bd0`; no new dependency/service/DB/CI/secret/storage schema. This checkpoint updates documents only; deployed application SHA remains `d6f1fab`.
 
+## Fourteenth pass — Learn / Check / Progress separated (2026-10-11)
+- [x] Shared pedagogical distinction across Hiragana Garden and Katakana Station: Learn & practise (Discover, Draw), Check yourself (mixed sound + write-from-memory, optional single-sound recognition), Your progress (reviews, collection). No forced transition from save drawing to evaluation.
+- [x] Mixed row check uses independent alternating tasks (once per glyph per skill), no immediate visual answer-copy, keeps writing model/stroke animation hidden until attempted, and reports **honest self-ratings** separately from objective sound recognition. Handwriting detection/scoring is **not implemented**; notes in `docs/KANA_LEARN_CHECK.md`.
+- [x] Existing 46-character progression and spaced reviews retained; no new localStorage keys, tracker, image, dependencies or DB. Unit tests cover row composition and last three-kana row, and E2E checks objective recognition vs manual writing ratings on both scripts.
+- [x] Local: **50/50 Node tests** and **10/10 Chromium desktop/mobile test suites** (V2–V13 adjusted only for the scroll-to-drawing automation + new V14) pass; both full mixed checks, stroke animation reveal, objective sound collection, handwriting self-report, legacy progression and journal saves validated.
+- [ ] Complete PR and public deployment after fresh AgentCtl/Git preflight; record exact live SHA, rollback and live browser results. Real Mac/Safari and actual stylus/touch tests still pending.
+
 ## Next slices
 - Optional evaluated handwriting matcher for free drawing; automatic writing verification is **not implemented**
 - Expand contextual kana reading/real-word practice; progressive reviews remain independent of the new advanced cards

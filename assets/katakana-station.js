@@ -1,6 +1,7 @@
 // The katakana train: separate from hiragana and optional for every learner.
 // Drawing is ungraded motor practice; only recognition collects a character.
 import {KATA,KATA_ROWS,KATA_STORAGE_KEY,readKata,kataRowOpen,kataCurrentRow,kataDue,traceKata,correctKata,incorrectKata} from "./katakana-progress.js";
+import {renderKanaCheckpoint} from "./kana-checkpoint.js";
 
 export function renderKatakanaStation(root,speakJapanese,onAdvanced=()=>{}){
   function load(){try{return readKata(localStorage.getItem(KATA_STORAGE_KEY))}catch{return readKata(null)}}
@@ -12,13 +13,14 @@ export function renderKatakanaStation(root,speakJapanese,onAdvanced=()=>{}){
   const completed=(i)=>[...KATA_ROWS[i].kana].filter(c=>progress.mastered.includes(c)).length;
   let row=kataCurrentRow(progress),item=KATA.find(k=>k.row===row&&!progress.mastered.includes(k.glyph))||KATA.find(k=>k.row===row);
   let mode="discover",hasAnswered=false,strokes=[],stroke=null,observer=null;
+  let checkpointCleanup=null;
   root.innerHTML=`<section class="kata-station">
     <div class="kata-banner">
       <img class="kata-banner-scene" src="/assets/art/katakana-platform.svg" alt="A nostalgic train at a lantern-lit mountain station, with cherry blossoms and two travellers" width="1400" height="460">
       <div class="kata-banner-copy"><span class="kata-emoji" aria-hidden="true">🚃</span><div>
       <span class="panel-kicker">THE KATAKANA STATION · カタカナ</span>
       <h3>Another beautiful set of sounds.</h3>
-      <p>The same sounds as hiragana, dressed in different shapes. Travel one row at a time, listen, trace and collect all 46.</p></div></div>
+      <p>The same sounds as hiragana, dressed in different shapes. First listen and draw; then try a separate sound and writing check.</p></div></div>
     </div>
     <div class="kata-advanced-invite">
       <span>Meet the tiny marks, voiced sounds, and borrowed words beyond the first 46.</span>
@@ -28,12 +30,16 @@ export function renderKatakanaStation(root,speakJapanese,onAdvanced=()=>{}){
       <div class="kata-controls"><span id="kata-progress"></span><button class="soft-button" id="kata-prev-row" aria-label="Previous katakana row">←</button>
       <button class="soft-button" id="kata-next-row" aria-label="Next unlocked katakana row">→</button></div>
     </div>
-    <div class="kata-modes" aria-label="Katakana practice modes">
-      <button type="button" data-kata-mode="discover" aria-pressed="true">01 · Discover</button>
-      <button type="button" data-kata-mode="trace" aria-pressed="false">02 · Trace</button>
-      <button type="button" data-kata-mode="quiz" aria-pressed="false">03 · Try yourself</button>
-      <button type="button" data-kata-mode="review" aria-pressed="false">04 · Review</button>
-      <button type="button" data-kata-mode="chart" aria-pressed="false">My collection</button>
+    <div class="kata-modes" aria-label="Katakana learning and checking">
+      <div class="kana-mode-group"><span class="kana-mode-label">LEARN & PRACTISE</span>
+        <button type="button" data-kata-mode="discover" aria-pressed="true">Discover</button>
+        <button type="button" data-kata-mode="trace" aria-pressed="false">Draw</button></div>
+      <div class="kana-mode-group"><span class="kana-mode-label">CHECK YOURSELF</span>
+        <button type="button" data-kata-mode="checkpoint" aria-pressed="false">Sound + writing check</button>
+        <button type="button" data-kata-mode="quiz" aria-pressed="false">Recognise one</button></div>
+      <div class="kana-mode-group"><span class="kana-mode-label">YOUR PROGRESS</span>
+        <button type="button" data-kata-mode="review" aria-pressed="false">Review</button>
+        <button type="button" data-kata-mode="chart" aria-pressed="false">My collection</button></div>
     </div>
     <div class="kata-picker" id="kata-picker"></div>
     <div class="kata-content" id="kata-content"></div>
@@ -48,6 +54,7 @@ export function renderKatakanaStation(root,speakJapanese,onAdvanced=()=>{}){
   };
   function destroyCanvas(){if(observer){observer.disconnect();observer=null}stroke=null}
   function showMode(next){
+    checkpointCleanup?.();checkpointCleanup=null;
     destroyCanvas();mode=next;hasAnswered=false;strokes=[];
     root.querySelectorAll("[data-kata-mode]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.kataMode===next)));
     render();
@@ -55,6 +62,7 @@ export function renderKatakanaStation(root,speakJapanese,onAdvanced=()=>{}){
   function setRow(i){
     if(!kataRowOpen(progress,i))return;
     row=i;item=KATA.find(k=>k.row===i&&!progress.mastered.includes(k.glyph))||KATA.find(k=>k.row===i);
+    checkpointCleanup?.();checkpointCleanup=null;
     destroyCanvas();strokes=[];hasAnswered=false;render();
   }
   function overview(){
@@ -73,7 +81,7 @@ export function renderKatakanaStation(root,speakJapanese,onAdvanced=()=>{}){
       b.addEventListener("click",()=>{item=k;showMode(mode==="chart"||mode==="review"?"discover":mode)});
       picker.append(b);
     }
-    picker.hidden=mode==="chart"||mode==="review";
+    picker.hidden=["chart","review","checkpoint"].includes(mode);
     root.querySelector(".kata-topline").hidden=mode==="chart"||mode==="review";
   }
   const guide=k=>`<img src="/assets/katakana-strokes/${k.glyph.codePointAt(0)}.svg" alt="Animated stroke order for ${k.glyph}" class="kata-guide" lang="ja" width="180" height="180">`;
@@ -187,7 +195,8 @@ export function renderKatakanaStation(root,speakJapanese,onAdvanced=()=>{}){
           <div class="kata-small-guide">${guide(item)}<button class="soft-button" id="kata-replay">↻ Replay</button></div>
           <p>Follow the pale letter. We don't grade your drawing or automatically check your stroke order.</p>
           <div class="kata-actions"><button class="primary" id="kata-practised">I've practised this ↗</button>
-           <button class="soft-button" id="kata-to-quiz">Try recognition instead →</button></div>
+           <button class="soft-button" id="kata-next-shape">Next shape →</button>
+           <button class="soft-button" id="kata-to-quiz">Go to checking →</button></div>
           <p class="feedback" id="kata-feedback" role="status"></p></div>
       </div>`;
       setupCanvas();
@@ -202,9 +211,29 @@ export function renderKatakanaStation(root,speakJapanese,onAdvanced=()=>{}){
         const feedback=panel.querySelector("#kata-feedback");
         if(!strokes.some(s=>s.length>1)){feedback.textContent="Draw at least one line first. No rush.";return;}
         traceKata(progress,item.glyph);
-        if(store(feedback))feedback.textContent="A little practice saved. This isn't a handwriting grade.";
+        if(store(feedback)){
+          feedback.textContent="Drawing saved. This isn't a handwriting grade. Continue learning or choose the separate check.";
+          panel.querySelector("#kata-practised").textContent="Saved ✓";
+          panel.querySelector("#kata-practised").disabled=true;
+        }
       });
-      button("#kata-to-quiz",()=>showMode("quiz"));
+      button("#kata-to-quiz",()=>showMode("checkpoint"));
+      button("#kata-next-shape",()=>{
+        const following=KATA.find(k=>k.row===row && KATA.indexOf(k)>KATA.indexOf(item));
+        if(following)item=following;
+        else if(kataRowOpen(progress,row+1)){row++;item=KATA.find(k=>k.row===row);}
+        showMode("discover");
+      });
+    }else if(mode==="checkpoint"){
+      checkpointCleanup=renderKanaCheckpoint(panel,{
+        items:KATA.filter(k=>k.row===row),script:"katakana",
+        speak:speakJapanese,
+        onRecognised:glyph=>{
+          correctKata(progress,glyph);
+          const feedback=panel.querySelector("#checkpoint-feedback");
+          store(feedback);overview();
+        }
+      });
     }else if(mode==="quiz"){quiz(item);}
     else if(mode==="review"){
       const due=kataDue(progress);
@@ -243,5 +272,5 @@ export function renderKatakanaStation(root,speakJapanese,onAdvanced=()=>{}){
   root.querySelectorAll("[data-kata-mode]").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.kataMode)));
   render();
   // Return a cleanup callback for the parent modal; avoid lingering observers.
-  return ()=>destroyCanvas();
+  return ()=>{checkpointCleanup?.();destroyCanvas()};
 }

@@ -88,13 +88,17 @@
   <dialog id="lesson-dialog" aria-labelledby="lesson-title">
     <div class="modal-head"><span class="eyebrow">THE HIRAGANA GARDEN · ひらがな</span><button id="close-lesson" class="icon-button" aria-label="Close the lesson">×</button></div>
     <div class="modal-content">
-      <div class="lesson-intro"><div><h2 id="lesson-title">Little sounds, beautiful shapes.</h2><p>Explore the hiragana one row at a time, at your own pace.</p></div><div class="lesson-count" id="lesson-count">0 / 46 collected</div></div>
-      <div class="lesson-tabs" role="tablist" aria-label="Practice modes">
-        <button role="tab" aria-selected="true" data-tab="discover">01 · Discover</button>
-        <button role="tab" aria-selected="false" data-tab="trace">02 · Trace</button>
-        <button role="tab" aria-selected="false" data-tab="practice">03 · Try yourself</button>
-        <button role="tab" aria-selected="false" data-tab="review">04 · Review</button>
-        <button role="tab" aria-selected="false" data-tab="collection">My collection</button>
+      <div class="lesson-intro"><div><h2 id="lesson-title">Little sounds, beautiful shapes.</h2><p>Discover and draw at your own pace. When ready, take a separate sound and writing check.</p></div><div class="lesson-count" id="lesson-count">0 / 46 collected</div></div>
+      <div class="lesson-tabs" role="tablist" aria-label="Hiragana learning and checking">
+        <div class="kana-mode-group"><span class="kana-mode-label">LEARN & PRACTISE</span>
+          <button role="tab" aria-selected="true" data-tab="discover">Discover</button>
+          <button role="tab" aria-selected="false" data-tab="trace">Draw</button></div>
+        <div class="kana-mode-group"><span class="kana-mode-label">CHECK YOURSELF</span>
+          <button role="tab" aria-selected="false" data-tab="checkpoint">Sound + writing check</button>
+          <button role="tab" aria-selected="false" data-tab="practice">Recognise one</button></div>
+        <div class="kana-mode-group"><span class="kana-mode-label">YOUR PROGRESS</span>
+          <button role="tab" aria-selected="false" data-tab="review">Review</button>
+          <button role="tab" aria-selected="false" data-tab="collection">My collection</button></div>
       </div>
       <div class="advanced-invite"><span>Ready for more? Voiced kana, tiny letters, and surprising new combinations.</span>
         <button class="soft-button" id="open-hiragana-advanced" type="button">Beyond the basics ✧</button>

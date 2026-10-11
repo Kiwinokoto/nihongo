@@ -567,3 +567,35 @@ button.memory-card:focus-visible{outline:3px solid #c98a9c;outline-offset:3px}
 .memory-diptych-detail{display:grid;grid-template-rows:auto auto;gap:3px;background:#f0d3ca}
 .memory-diptych-detail img{display:block;width:100%;height:auto;max-height:none;object-fit:contain}
 @media(prefers-reduced-motion:reduce){.memory-card.unlocked:hover .memory-diptych-preview img{transform:none}}
+
+/* Keep learning and assessment conceptually separate in both kana modules. */
+.lesson-tabs,.kata-modes{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin-block:19px}
+.kana-mode-group{display:flex;flex:1 1 195px;gap:6px;align-content:start;align-items:center;flex-wrap:wrap;padding:10px 11px;background:#f8f7f0;border:1px solid #e9e8df;border-radius:14px;min-width:0}
+.kana-mode-label{flex:1 0 100%;font-size:9px;font-weight:700;letter-spacing:.13em;color:#9b938b;padding:1px 3px 4px}
+.lesson-tabs .kana-mode-group button,.kata-modes .kana-mode-group button{white-space:normal;min-height:37px;font-size:11px;padding:8px 11px;margin:0;flex:1 1 auto}
+.kana-mode-group:nth-child(2){background:#eef4ed;border-color:#dbe8d9}
+.kana-mode-group:nth-child(2) .kana-mode-label{color:#4f7c66}
+.kana-mode-group:nth-child(3){background:#fcf2ee;border-color:#f0e4de}
+.checkpoint-heading h3,.checkpoint-summary h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:29px;margin:9px 0;color:#315e53}
+.checkpoint-heading p,.checkpoint-prompt p,.checkpoint-summary p{font-size:13px;line-height:1.75;color:#728c7b}
+.checkpoint-heading{margin-bottom:18px}
+.checkpoint-rail{height:5px;background:#e1e8df;border-radius:20px;overflow:hidden;margin-top:12px}
+.checkpoint-rail span{display:block;height:100%;background:#79a48d;transition:width .2s}
+.checkpoint-recognition,.checkpoint-writing{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:22px;align-items:center}
+.checkpoint-prompt strong{font-family:"DM Serif Display",Georgia,serif;font-size:23px;font-weight:400;color:#305f53}
+.checkpoint-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.checkpoint-choices button{padding:13px;min-height:72px;border-radius:13px;border:1px solid #e0e3d6;background:#fffdf8;font-size:35px;color:#315c52}
+.checkpoint-choices button.correct{background:#e4f1e5;border-color:#7fb48a}
+.checkpoint-choices button.wrong{border-color:#d9a7a4;background:#fff0ed}
+.checkpoint-choices button:disabled{cursor:default}
+.checkpoint-paper{width:100%;aspect-ratio:1;border:1px solid #e1e2d5;background:linear-gradient(90deg,transparent 49.9%,#eaede2 50%,transparent 50.1%),linear-gradient(0deg,transparent 49.9%,#eaede2 50%,transparent 50.1%),#fffefa;border-radius:14px;position:relative;max-width:300px}
+.checkpoint-paper canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.checkpoint-drawing-tools{display:flex;gap:8px;margin-top:9px}
+.checkpoint-model{padding:12px 14px;background:#e9f0e6;border-radius:12px;margin:15px 0}
+.checkpoint-model[hidden]{display:none}
+.checkpoint-model>strong{font-family:Georgia,serif;display:block;font-size:90px;line-height:1.2;font-weight:400;color:#275b50;text-align:center}
+.checkpoint-rating{display:flex;gap:8px;flex-wrap:wrap}
+.checkpoint-summary{text-align:center;max-width:440px;margin:12px auto;padding:25px}
+.checkpoint-summary .journal-symbol{display:block}
+@media(max-width:700px){.checkpoint-recognition,.checkpoint-writing{grid-template-columns:1fr}.checkpoint-paper{max-width:280px;margin-inline:auto}.lesson-tabs,.kata-modes{gap:6px}.kana-mode-group{flex-basis:100%;padding:8px}.checkpoint-choices button{min-height:62px}.checkpoint-model>strong{font-size:65px}}
+.checkpoint-stroke-guide{display:block;max-height:140px;width:140px;object-fit:contain;margin:4px auto 7px;background:#fffdf7;border-radius:11px;border:1px solid #e4e8dd}
