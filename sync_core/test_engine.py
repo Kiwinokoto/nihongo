@@ -113,6 +113,24 @@ class SyncTest(unittest.TestCase):
         self.assertEqual(restored.snapshot(self.alice)["hiragana"]["traced"],["い"])
         self.assertEqual(restored.apply_events(self.alice,[e])["state"]["revision"],1)
 
+    def test_consistent_private_backup_restore_export_and_delete(self):
+        from os import stat
+        from stat import S_IMODE
+        self.store.apply_events(self.alice,[self.event(self.phone,"food","yakitori","order")])
+        self.store.apply_events(self.bob,[self.event(self.mac,"words","ie","collect")])
+        self.assertEqual(self.store.export_user(self.alice)["food"]["ordered"],["yakitori"])
+        path=Path(self.tmp.name)/"backup.sqlite3"
+        self.store.backup_database(path)
+        self.assertEqual(S_IMODE(stat(path).st_mode),0o600)
+        restored=SyncStore(path,clock=lambda:self.now[0])
+        self.assertEqual(restored.snapshot(self.alice)["food"]["ordered"],["yakitori"])
+        self.assertEqual(restored.snapshot(self.bob)["words"]["collected"],["ie"])
+        with self.assertRaises(FileExistsError):self.store.backup_database(path)
+        self.store.delete_user(self.alice)
+        with self.assertRaises(SyncError):self.store.snapshot(self.alice)
+        self.assertEqual(self.state(self.bob)["words"]["collected"],["ie"])
+        self.assertEqual(restored.snapshot(self.alice)["food"]["ordered"],["yakitori"])
+
     def test_limits_and_unknown_account(self):
         with self.assertRaises(SyncError): self.store.apply_events(uid(),[])
         huge=[self.event(self.mac,"hiragana","あ","recognize") for _ in range(65)]

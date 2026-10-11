@@ -331,6 +331,40 @@ class SyncStore:
             db.execute("INSERT INTO imports VALUES(?,?,?,?)", (import_id, subject, device_id, revision))
             return {"imported": True, "state": self._snapshot(db, subject)}
 
+    def export_user(self, trusted_subject):
+        """Portable learning data, only after future authenticated export request."""
+        return self.snapshot(trusted_subject)
+
+    def delete_user(self, trusted_subject):
+        """Irreversible erasure. Public route must require reauthentication."""
+        subject = canonical_uuid(trusted_subject)
+        with self._connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            self._has_account(db, subject)
+            for table in ("events", "imports", "reviews", "collections"):
+                db.execute("DELETE FROM " + table + " WHERE subject=?", (subject,))
+            db.execute("DELETE FROM accounts WHERE subject=?", (subject,))
+        return True
+
+    def backup_database(self, destination):
+        """Consistent SQLite online backup, restricted file, never overwrite."""
+        import os
+        target = Path(destination)
+        if target.resolve() == Path(self.db_path).resolve():
+            raise SyncError("Cannot overwrite live database")
+        fd = os.open(str(target), os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+        os.close(fd)
+        try:
+            with self._connect() as live:
+                with sqlite3.connect(str(target)) as backup:
+                    live.backup(backup)
+                    if backup.execute("PRAGMA quick_check").fetchone()[0] != "ok":
+                        raise SyncError("Backup integrity check failed")
+            return str(target)
+        except Exception:
+            target.unlink()
+            raise
+
     def audit_events(self, trusted_subject):
         """For tests/operations only: events are immutable and include decisions."""
         subject = canonical_uuid(trusted_subject)
