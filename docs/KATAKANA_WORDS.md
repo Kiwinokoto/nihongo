@@ -21,3 +21,7 @@ Small characters and long vowels were introduced in the optional advanced-kana w
 - Only Katakana Station opens the activity, not the hero or map. No storage, tracking, reward, mastery, phoneme or handwriting score.
 - Listening calls the existing Japanese speech helper with a full word. An OS/browser ja voice is required for this: the five isolated vowel recordings cannot form words. An unavailable voice is reported rather than substituted.
 - Regression: 54/54 Node; local Chromium at desktop and 390px completed the eight-word session, wrong-answer retry, no word storage and drawing reattempt in both scripts. Real Mac/Safari still untested.
+
+## Verified release
+
+PR #32 was squash-merged and deployed as application commit fbdd8a68d82176df62ec1525ad285452cafe3019 on 11 October 2026. Production Chromium at 1350px and 390px completed all eight words and tested the drawing repeat within Katakana Station. No JavaScript page errors, horizontal overflow, or word-session localStorage changes. Server healthy, HTTPS/healthz 200. Previous image nihongo-rollback:2e4e3a4 retained. The five existing vowel clips are still the only locally bundled recorded kana audio; whole-word listening needs a native Japanese browser voice. Real macOS/Safari and human language validation are pending.
