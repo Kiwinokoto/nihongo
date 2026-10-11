@@ -100,6 +100,11 @@ Public, lighthearted Japanese-learning microsite for Angela: gentle storybook ma
 - Hiragana learning flow: after a correct recognition, `Next sound` enters the next unanswered kana **recognition directly**, including the first unlocked kana of the next row; users may still choose Discover/Trace tabs. After a valid ungraded drawing, one `I've practised this` click stores tracing and navigates directly to recognition. Drawing never grants mastery. The old flow required extra navigation after every answer or trace; this looked like double validation. V1 progress schema and 46-kana unlock thresholds untouched.
 - Browser regression should start from persisted 2/5, complete 5/5 via three recognition answers, unlock K row, test traced-but-not-mastered until answered, reload persistence, mobile width and older saved data. Also verify old V2–V12 flows and unchanged story milestones.
 
+## Fourteenth pass — separate learning from mixed assessment (2026-10-11)
+- Explicit user feedback: the thirteenth-pass trace→quiz transition and quiz→quiz loop conflated **learning** with **checking**. For **both** basic scripts, group UI into Learn & practise (Discover/Draw), Check yourself (mixed Sound + writing check, optional Recognise one), and Your progress (Review/Collection). Save-drawing stays in learning, never launches a quiz automatically; learner can voluntarily switch.
+- Shared no-dependency `assets/kana-checkpoint.js` runs a mixed check of each unlocked row: objective recognition + hidden-model handwritten recall. Offset interleaving prevents simply copying the immediately preceding answer. Writing uses **manual self-comparison** with stroke-order SVG only revealed after a drawing, never an automatically graded result. No changes to original recognition/mastery criteria, saved progress schema, or story rewards. `docs/KANA_LEARN_CHECK.md` explains the limitations and acceptance tests.
+- Scope: `index.html`, `assets/app.js`, `assets/katakana-station.js`, `assets/kana-checkpoint.js`, `assets/styles.css`, `tests/kana-checkpoint.test.mjs`, docs/backlog/handoff. No new external images, data collection, dependency, DB or service. Verify existing stored 2/5 and both alphabets; test real Mac/Safari separately before claiming cross-browser completeness.
+
 ## Checks
 `node --check assets/app.js`
 `node --test tests/*.test.mjs`

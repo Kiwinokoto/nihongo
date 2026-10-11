@@ -17,6 +17,7 @@ import {WORD_STORAGE_KEY,parseWordProgress} from "./word-trails.js";
 import {FOOD_KEY,parseFoodProgress} from "./food-lane-data.js";
 import {milestoneStatus,unlockedScenes} from "./story-milestones.js";
 import {renderLittleMemories} from "./little-memories.js";
+import {renderKanaCheckpoint} from "./kana-checkpoint.js";
 
 const $ = (id) => document.getElementById(id);
 const STARTER_COUNT = ALL_KANA.length;
@@ -29,6 +30,7 @@ let rowIndex = currentRow(progress);
 let selected = KANA.findIndex(k => k.row===rowIndex && !progress.mastered.includes(k.glyph));
 if(selected<0)selected=KANA.findIndex(k=>k.row===rowIndex);
 let tab="discover", answered=false, strokes=[], activeStroke=null, canvasObserver=null;
+let checkpointCleanup=null;
 let guideCounts={};
 fetch("/assets/kana-guide-counts.json")
   .then(res=>res.ok?res.json():{})
@@ -249,6 +251,7 @@ function renderPicker(){
   });
 }
 function selectTab(next){
+  checkpointCleanup?.();checkpointCleanup=null;
   tab=next;answered=false;strokes=[];activeStroke=null;
   document.querySelectorAll(".lesson-tabs [role=tab]").forEach(b=>{
     b.setAttribute("aria-selected",String(b.dataset.tab===tab));
@@ -265,7 +268,8 @@ function replayGuide(scope){
   if(target)target.replaceWith(target.cloneNode());
 }
 function renderLesson(){
-  $("lesson-rowbar").hidden=false; $("kana-picker").hidden=false;
+  checkpointCleanup?.();checkpointCleanup=null;
+  $("lesson-rowbar").hidden=false; $("kana-picker").hidden=tab==="checkpoint";
   if(canvasObserver){canvasObserver.disconnect();canvasObserver=null;}
   renderRowBar();renderPicker();
   const {glyph,romaji}=KANA[selected];
@@ -314,8 +318,9 @@ function renderLesson(){
         </div>
         <p>Follow the pale character on the left. We count your brush movements, but <strong>we don't grade your handwriting</strong>.</p>
         <div class="actions-row">
-          <button class="primary" id="save-trace">I've practised this ↗</button>
-          <button class="soft-button" id="skip-to-quiz">Try recognition instead →</button>
+          <button class="primary" id="save-trace">Save my drawing ✓</button>
+          <button class="soft-button" id="trace-next" type="button">Next shape →</button>
+          <button class="soft-button" id="skip-to-quiz">Go to checking →</button>
         </div>
         <p class="feedback" id="panel-feedback" role="status">${progress.traced.includes(glyph)?"You have practised this shape before.":""}</p>
       </div>
@@ -328,14 +333,27 @@ function renderLesson(){
       const ghost=$("trace-ghost");ghost.hidden=!ghost.hidden;
       $("toggle-guide").textContent=ghost.hidden?"Show guide":"Hide guide";
     });
-    $("skip-to-quiz").addEventListener("click",()=>selectTab("practice"));
+    $("skip-to-quiz").addEventListener("click",()=>selectTab("checkpoint"));
+    $("trace-next").addEventListener("click",()=>{
+      const next=KANA.find(k=>k.row===rowIndex && KANA.indexOf(k)>selected);
+      if(next){selected=KANA.indexOf(next);selectTab("discover");}
+      else if(isRowUnlocked(progress,rowIndex+1)){setRow(rowIndex+1);selectTab("discover");}
+      else selectTab("discover");
+    });
     $("save-trace").addEventListener("click",()=>{
       if(!strokes.some(s=>s.length>1)){showFeedback("Draw at least one line first. There is no rush.");return;}
       markTraced(progress,glyph);saveProgress();
-      // One click records brush practice and leads straight to recognition.
-      // Tracing stays ungraded: only the recognition challenge earns a kana.
-      selectTab("practice");
-      showFeedback("Brush practice saved — this is practice, not a handwriting score. Choose the matching kana to collect it.");
+      // Stay in the learning workshop; never turn a brush exercise into a test.
+      $("save-trace").textContent="Saved ✓";
+      $("save-trace").disabled=true;
+      showFeedback("Drawing saved. This is practice, not a handwriting score. Continue learning or choose a separate check.");
+    });
+  }else if(tab==="checkpoint"){
+    checkpointCleanup=renderKanaCheckpoint(panel,{
+      items:KANA.filter(k=>k.row===rowIndex),script:"hiragana",speak:speakJapanese,
+      onRecognised:got=>{
+        markCorrect(progress,got);saveProgress();renderRowBar();renderPicker();
+      }
     });
   }else if(tab==="practice"){
     renderPractice(glyph,romaji,false);
@@ -596,6 +614,7 @@ $("katakana-dialog").addEventListener("close",()=>{closeKataSession?.();closeKat
 $("lesson-dialog").addEventListener("close",()=>{
   if("speechSynthesis" in window)speechSynthesis.cancel();
   if(canvasObserver){canvasObserver.disconnect();canvasObserver=null;}
+  checkpointCleanup?.();checkpointCleanup=null;
 });
 window.addEventListener("storage",event=>{
   if(event.key===STORAGE_KEY){
