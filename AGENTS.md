@@ -47,6 +47,14 @@ Public, lighthearted Japanese-learning microsite for Angela: gentle storybook ma
 - The ordering quiz demonstrates `Xをください`. The browser's Japanese TTS voice is optional; fallback must be clear. Do not claim complete conversational training, native audio recordings or mastery of kanji from this activity.
 - Keep module independent and rollback-safe. Test current hiragana, postcards, lantern story and food lane together (desktop and simulated mobile).
 
+## Sixth pass — village / katakana and local Japanese voice check (2026-10-11)
+- Real starting village welcome panel (three practical onward paths + local browser voice check) replaces the previous duplicate "start" action. The **hero's Begin exploring still goes to Hiragana** so existing learning flows remain stable.
+- Katakana station is a standalone dialog with 46 **basic** katakana divided into 10 rows, accessible directly from the map. Learner progress lives exclusively under `kotoba-no-tabi.katakana.v1`; no carryover of hiragana mastery. Mastery is by 4-choice recognition only. Tracing remains ungraded.
+- Unmodified AnimCJK katakana SVGs under `assets/katakana-strokes/` sourced from pinned upstream `ec5e17cca76c87587790bcbce5ea0b4d4fb753d6` via `tools/sync_katakana_strokes.py`, with upstream LGPL-3-or-later attribution headers retained. See `licenses/ANIMCJK.md`. Do not pretend artwork is original.
+- `assets/starting-village.js` inspects only voices exposed by `speechSynthesis.getVoices()` (ja*). No microphone, server storage or remote TTS. Unsupported voices must be surfaced honestly, not silently substituted with French/English. Actual device Japanese voice and quality are unverified.
+- Keep source JS/CSS/HTML revalidated: nginx Cache-Control `no-cache, must-revalidate` on stable asset URLs (old page screenshots may be stale, but caching cause unproven). No external infra/service changes.
+- Validate all earlier V2–V5 browser flows after any change. Real touch, Japanese TTS and linguistic proofreading still require field testing.
+
 ## Checks
 `node --check assets/app.js`
 `node --test tests/*.test.mjs`

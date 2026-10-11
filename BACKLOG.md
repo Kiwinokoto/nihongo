@@ -41,11 +41,21 @@
 - [x] PR #9 merged, application commit `b8fb6631840fc6480e9c9e4852b5794af3a08b34` deployed in isolated existing container (`nihongo-web`). Container healthy; HTTPS verified (200 for page, `/healthz`, modules and original SVG). All V2/V3/V4 and food-lane browser flows passed on the **public domain** (desktop/mobile simulation, 0 detected page errors). Rollback Docker image retained as `nihongo-rollback:58c5d17`.
 - [ ] Real-device touch/audio and fluent Japanese culinary copy review.
 
+## Sixth pass — distinct village and katakana (2026-10-11)
+- [x] Give starting village its own welcome panel and three destination links, distinct from the hiragana garden.
+- [x] Add katakana station, 46 original basic katakana in ten unlockable rows, unmodified pinned AnimCJK animated SVGs, mouse/touch tracing, recognition, review and separate local progress.
+- [x] Add diagnostic for Japanese voices exposed by the device/browser, with honest fallback; no microphone or external speech service.
+- [x] Add Nginx no-cache revalidation to help browsers receive new static releases without losing their local progress.
+- [x] Node 26/26 unit/static tests; original AnimCJK SVGs 46/46 parsed; local Chromium desktop and 390px mobile passed village voice check, tracing (ungraded), 5 answers → Katakana K row, progress independence and reload. All previous V2–V5 regression browser flows passed.
+- [ ] Merge PR and deploy the isolated site; verify HTTPS, cache headers, production browser and rollback.
+- [ ] Confirm voice quality, touch usability on Angela's actual device and Japanese proofread before formal teaching.
+- [ ] Consider native/recorded or hosted Japanese audio only after evaluating licensing, quality, offline use and running costs.
+
 ## Next slices
 - Optional evaluated handwriting matcher for free drawing; automatic writing verification is **not implemented**
 - More hiragana rows, adaptive review and spaced repetition
 - Broader food-lane dialogues and restaurant roleplay (initial savoury ordering mini-game implemented in Pass 5)
-- Katakana station and first contextual kanji in the forest/shrine
+- Build contextual katakana word lessons and first kanji in the forest/shrine (basic katakana station now implemented)
 - Optional progress export/backup or sync with a considered privacy model
 
 ## Design / safety
