@@ -60,6 +60,47 @@ def couple(x,y,scale=1):
    <path d="M20 -85q22 8 18 23" stroke="#d99f8c" stroke-width="2" fill="none"/>
    <circle cx="37" cy="-59" r="5" fill="#c27e85"/></g>''')
  return ''.join(people)
+def ikemen_travellers():
+ # Two original adult handsome travelling companions, seated close together.
+ # Gentle eye contact, matching omamori charms; no borrowed anime characters.
+ def traveler(x,scale,coat,hair,highlight,accent,turn=0):
+  return f'''<g transform="translate({x} 455) scale({scale}) rotate({turn} 0 -153)">
+    <ellipse cx="3" cy="-10" rx="105" ry="23" fill="#566f66" opacity=".19"/>
+    <!-- coat silhouette and lapels -->
+    <path d="M-82 1Q-94 -58 -74 -106Q-42 -139 -21 -145L33 -146Q66 -140 87 -97Q101 -50 87 2Z" fill="{coat}" stroke="#516263" stroke-width="3"/>
+    <path d="M-39 -134L0 -84L31 -138L45 -122L10 -72L-7 -72L-52 -119Z" fill="#efe0cc"/>
+    <path d="M-67 -100Q-31 -74 -10 -53M55 -110Q40 -86 12 -59" fill="none" stroke="{highlight}" stroke-width="4" opacity=".7"/>
+    <path d="M-37 -105L-13 -30M40 -102L17 -26" stroke="#4c5a57" opacity=".7" stroke-width="5"/>
+    <path d="M-78 -24Q-55 -9 -36 -7M63 -18Q77 -14 88 -2" fill="none" stroke="{highlight}" stroke-width="3"/>
+    <!-- satchel strap with matching tiny blossom charm -->
+    <path d="M-58 -113Q-15 -81 37 -7" fill="none" stroke="#806a60" stroke-width="11"/>
+    <path d="M-58 -113Q-15 -81 37 -7" fill="none" stroke="#bb9582" stroke-width="4"/>
+    <path d="M33 -28v15" stroke="#bb8787" stroke-width="3"/>
+    <circle cx="33" cy="-10" r="10" fill="#f7d4ca" stroke="#b36f79" stroke-width="2"/>
+    <path d="M33 -17l4 5-4 8-5-8Z" fill="{accent}"/>
+    <!-- neck and face -->
+    <path d="M-16 -152v32Q0 -105 19 -124v-36Z" fill="#dab09a"/>
+    <ellipse cx="2" cy="-197" rx="48" ry="62" fill="#edc6ad" stroke="#b78a80" stroke-width="2"/>
+    <path d="M-43 -189Q-56 -191 -51 -171Q-41 -166 -40 -175" fill="#e8bba3" stroke="#b78a80" stroke-width="2"/>
+    <path d="M43 -190Q54 -194 52 -175Q46 -166 41 -177" fill="#e7b8a4" stroke="#b78a80" stroke-width="2"/>
+    <!-- hair silhouette and individual locks -->
+    <path d="M-51 -194Q-65 -264 -16 -272Q36 -290 54 -247Q69 -231 47 -193L34 -235Q15 -230 5 -237Q-24 -215 -47 -216Z" fill="{hair}"/>
+    <path d="M-49 -226Q-20 -265 8 -267Q-3 -241 -24 -222M-7 -267Q28 -278 47 -244Q28 -252 21 -228M44 -245Q65 -219 45 -202" fill="none" stroke="{highlight}" opacity=".8" stroke-width="5" stroke-linecap="round"/>
+    <!-- swept fringe -->
+    <path d="M-35 -254Q-7 -231 4 -226Q-6 -208 -22 -205L-40 -205M11 -254Q34 -243 41 -225L23 -212L6 -224" fill="{hair}"/>
+    <!-- expressive brows and almond eyes -->
+    <path d="M-28 -194Q-15 -200 -5 -194M12 -197Q25 -203 35 -195" fill="none" stroke="{hair}" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M-28 -187Q-18 -179 -6 -186M14 -187Q25 -180 34 -186" stroke="#66565a" stroke-width="2.5" fill="none"/>
+    <ellipse cx="-17" cy="-184" rx="3.2" ry="4.5" fill="#4d5858"/>
+    <ellipse cx="23" cy="-185" rx="3.2" ry="4.5" fill="#4d5858"/>
+    <path d="M6 -176l-4 10 5 2" fill="none" stroke="#c08e87" stroke-width="2"/>
+    <path d="M-6 -153Q4 -145 17 -155" fill="none" stroke="#9f6f71" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="-31" cy="-166" rx="12" ry="5" fill="#dc9a9c" opacity=".33"/>
+    <ellipse cx="31" cy="-167" rx="12" ry="5" fill="#dc9a9c" opacity=".33"/>
+  </g>'''
+ return (traveler(960,1.21,"#3d6268","#293f47","#627881","#d89099",5)
+       +traveler(1170,1.22,"#e2c8ab","#806554","#b99479","#d89099",-7))
+
 def shrine(x,y,s=.7):
  return f'''<g transform="translate({x} {y}) scale({s})" fill="#af7b76" stroke="#70585e" stroke-width="4">
  <path d="M0 0v-115M120 0v-115M-24 -112h169v18H-24ZM-18 -145h159v17H-18Z"/>
@@ -77,7 +118,7 @@ def village():
     '<path d="M576 383Q690 299 831 383M581 386H828" stroke="#e0ad8b" stroke-width="5" fill="none"/>',
     '<path d="M587 385v33m35-51v51m35-65v64m35-70v75m35-72v70m35-64v45m34-22v30" stroke="#a86b63" stroke-width="6"/>',
     shrine(1013,287,.28),tree(256,358,1.3),tree(1374,375,1.15),
-    lamp(342,382),lamp(981,396),couple(368,416,.70),petals(10,90),
+    lamp(342,382),lamp(981,396),ikemen_travellers(),petals(10,90),
     '<path d="M0 450Q302 421 458 442" stroke="#7e9e83" stroke-width="6" fill="none"/>',
     '</svg>']
  return ''.join(v)

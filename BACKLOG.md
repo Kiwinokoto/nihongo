@@ -61,6 +61,16 @@
 - [ ] Field-test real Mac/Safari, macOS voice installation and actual Japanese playback with Angela. Request feedback on quality and artwork before expanding.
 - [ ] Extend vetted recorded syllables and Japanese proofread; see `docs/AUDIO_SOURCES.md`.
 
+## Eighth pass — landing page / story clue / writing POC prep (2026-10-11)
+- [x] Remove direct-to-hiragana CTA in decorative homepage hero; shrink hero/header/margins so the real destination map appears sooner without changing its artwork or positioning.
+- [x] Enhance the original village panorama with two more legible stylised adult male travellers, distinctive looks and subtle matching-charm motif. Same image shared with hero; source remains reproducible SVG and no external/licensed characters.
+- [x] Add a discreet story breadcrumb in the Hiragana collection's word-postcard teaser; Lantern Evening is still optional and only available after collecting one word.
+- [x] Verify current kana scope: 46 basic hiragana plus 46 basic katakana are interactive, but no dakuten/handakuten, yōon, small kana, long-vowel/loanword variants yet.
+- [x] Scope optional handwriting-recognition proof of concept separately in `docs/HANDWRITING_POC.md`; avoid auto-grading until calibrated against real handwriting samples.
+- [x] 35/35 Node tests and six revised local Chromium desktop/mobile regression flows passed (V2–V7), including preserved learner progress and existing optional story unlock.
+- [ ] PR merge and deploy after preflight; verify production browser and keep Docker rollback.
+- [ ] On next small pass: experimental 5-vowel writing validator with shape/direction/order hints, **no progress or grading effect**.
+
 ## Next slices
 - Optional evaluated handwriting matcher for free drawing; automatic writing verification is **not implemented**
 - More hiragana rows, adaptive review and spaced repetition

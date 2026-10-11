@@ -19,6 +19,7 @@ Public and dependency-free at runtime.
 - **Starting village:** independent illustrated welcome and links to the other playable stops. A Japanese-voice availability check and optional Mac installation instructions do **not** record the user's voice or access the microphone.
 - **Sound fallback:** for the first five vowels (both scripts), we bundle small public-domain human recordings that work without any Japanese device TTS voice. The remaining sounds and phrases still require a Japanese native system voice (see `docs/AUDIO_SOURCES.md`).
 - **Comfort:** desktop backdrop clicks close dialogs, with a sticky X for long content; touch/pen users avoid accidental outside dismissals.
+- **Home:** the banner is a quiet welcome, and the map is the only main destination picker (no redundant instant-Hiragana button). Original village art introduces two travellers. Find small story hints among the Hiragana word postcards.
 
 - Optional little word postcards from the kana collection: recognise real words made of kana you have already collected, with separate browser-local progress (does not affect kana unlocks)
 - A very small **optional Lantern Evening** mini-story appears after the first collected word postcard. Three original illustrated festival scenes and short Japanese lines with translations, no forced participation and no story-tracking. The main map remains unchanged.
@@ -87,3 +88,15 @@ force-push or change other applications. See [AGENTS.md](AGENTS.md) and
 [BACKLOG.md](BACKLOG.md) for coordination and next work. The future optional
 romance-easter-egg direction (not implemented) is noted in
 [docs/CREATIVE_DIRECTION.md](docs/CREATIVE_DIRECTION.md).
+
+
+### How complete are the kana?
+
+The two interactive lessons cover **46 basic hiragana** and **46 basic katakana**,
+with writing guides, recognition and separate practice progress. These are
+the foundational signs, not every Japanese sound combination. Voiced variants
+(`が`/`ガ`, `ぱ`/`パ`), small kana, contracted `きゃ`/`キャ`,
+long vowels and the katakana loanword variants are still to be added.
+
+Drawing remains **ungraded practice**. The optional recogniser feasibility
+study is documented in `docs/HANDWRITING_POC.md` and is not shipped.

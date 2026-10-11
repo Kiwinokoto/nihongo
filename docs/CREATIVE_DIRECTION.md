@@ -88,3 +88,17 @@ private food interests into individual tracking/profiles.
 - Implement behind a separate small feature, never by refactoring the map.
 - Keep it discoverable only after the learner explicitly opts to enter.
 - Mobile/keyboard/accessibility tests and unchanged main learning flow mandatory.
+
+
+## Two travellers — visible art, optional unfolding story (2026-10-11)
+The small adult travellers are now larger in the original village panorama and
+the compact main hero. One has dark hair and a cool-toned coat; the other has
+warm brown hair and lighter clothing. Each carries a matching blossom charm.
+These are deliberately **original** figures with subtle mutual chemistry,
+not existing manga characters. The friendship-versus-romance reading is left
+to the viewer, and neither identity nor reader preference is stored.
+
+A mild, nonspoiler clue in the word-postcard collection makes the optional
+Lantern Evening easier to discover. Preserve its one-word-postcard unlock and
+do not force narrative into literacy challenges. Deeper traveller lore should
+remain elective, human-reviewed and copyright-safe.
