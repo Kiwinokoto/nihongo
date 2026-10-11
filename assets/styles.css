@@ -655,3 +655,30 @@ button.memory-card:focus-visible{outline:3px solid #c98a9c;outline-offset:3px}
 .shrine-actions{display:flex;justify-content:flex-end;margin-top:15px}
 .shrine-footnote{font-size:11px;color:#9aa79c;text-align:center;margin:0 20px}
 @media(max-width:600px){.shrine-scene img{height:245px}.shrine-scene-caption{padding:16px}.shrine-scene-caption h3{font-size:24px}.shrine-path{margin:14px 12px 3px;gap:5px}.shrine-path button strong{font-size:22px}.shrine-lesson{padding:13px 14px}.shrine-choices{grid-template-columns:1fr}.shrine-glyph{font-size:49px}.shrine-example{padding:14px}.shrine-actions .primary{width:100%}}
+
+/* Magic travel book: one illustration-rich modal, discoveries and memories as peer pages. */
+.header-sound-help{background:transparent;border:1px solid #d6dcd2;color:#527466;font-size:11px;border-radius:24px;padding:10px 12px;white-space:nowrap;cursor:pointer}
+.header-sound-help:hover{background:#f2f7ed}
+#open-journal{border-color:#d9bdc4;background:linear-gradient(110deg,#ffe7ef,#fff8ee);box-shadow:0 3px 12px #b16a831c}
+#open-journal:focus-visible,.header-sound-help:focus-visible{outline:3px solid #c18e9c;outline-offset:2px}
+.memory-book-navigation{display:grid;gap:8px;margin:18px 0}
+.memory-book-navigation button{text-align:left;background:#fffaf3d9;border:1px solid #e8d9d0;border-radius:12px;padding:12px 11px;color:#487064;font-weight:700;font-size:12px;cursor:pointer}
+.memory-book-navigation button[aria-pressed=true]{background:#fae0e4;border-color:#d6a4b1;box-shadow:0 0 0 1px #e4bec4}
+.memory-book-navigation button:focus-visible{outline:3px solid #ab8199;outline-offset:2px}
+#memory-learning-pane[hidden],#memory-scenes-pane[hidden]{display:none!important}
+.book-overview{color:#789183;font-size:12px;line-height:1.8;margin:2px 0 20px}
+.book-discovery-section{border:1px solid #e9e4d9;border-radius:14px;background:linear-gradient(140deg,#fffef9,#f8f4ed);padding:15px;margin:13px 0}
+.book-discovery-head{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.book-discovery-head h4{font:400 22px "DM Serif Display",Georgia,serif;color:#315f53;margin:0 0 4px}
+.book-discovery-head p{font-size:11px;line-height:1.5;color:#88998c;margin:0 0 11px}
+.book-discovery-count{font-size:11px;color:#9e7383;white-space:nowrap;border-radius:50px;background:#f8e8e7;padding:6px 9px}
+.book-discovery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:7px}
+.book-discovery-token{background:#fff;border:1px solid #e6e9df;border-radius:11px;text-align:center;padding:9px 5px;min-width:0}
+.book-discovery-token strong{font:400 27px Georgia,serif;color:#376456;display:block;overflow-wrap:anywhere}
+.book-discovery-token small{display:block;font-size:10px;line-height:1.5;color:#8b988c;overflow-wrap:anywhere}
+.book-discovery-empty{font-size:11px;color:#9daba0;margin:6px 0}
+.book-discovery-note{font-size:10px;line-height:1.8;color:#9ca79b;margin-top:17px}
+#memories-dialog .modal-head{position:sticky;top:0;z-index:30}
+@media(max-width:800px){.memory-book-navigation{grid-template-columns:repeat(2,minmax(0,1fr));margin:12px 0}.memory-book-navigation button{font-size:11px;padding:11px 8px}}
+@media(max-width:560px){.header-sound-help{font-size:0;padding:10px}.header-sound-help::first-letter{font-size:15px}.header-right{gap:7px}#open-journal{padding:10px;font-size:10px}.book-discovery-section{padding:11px}.book-discovery-grid{grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:6px}}
+/* The original journal title was scroll-clipped under its sticky header; the old duplicate dialog is gone. */
