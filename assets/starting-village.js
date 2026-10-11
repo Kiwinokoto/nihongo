@@ -1,13 +1,11 @@
 // A genuine welcome stop: not a second entry to the same hiragana lesson.
 // Inspect installed Japanese browser voices locally (never recorded/stored).
-export function japaneseVoices(engine){
- if(!engine||typeof engine.getVoices!=="function")return [];
- return engine.getVoices().filter(v=>v.lang?.toLowerCase().startsWith("ja"));
-}
+import {japaneseVoiceList} from "./japanese-audio.js";
+export const japaneseVoices=japaneseVoiceList;
 export function renderStartingVillage(root,{onHiragana,onKatakana,onFood,speakJapanese}){
  root.innerHTML=`<div class="village-intro">
    <div class="village-hero">
-     <img src="/assets/village.svg" alt="A peaceful Japanese village with blossom trees and little houses" width="1000" height="620">
+     <img src="/assets/art/village-path.svg" alt="A welcoming riverside village with cherry blossoms, traditional houses, a bridge and two travellers" width="1400" height="460">
    </div>
    <span class="panel-kicker">FIRST STOP · はじまりの村</span>
    <h3>Welcome to your little journey.</h3>
@@ -26,6 +24,16 @@ export function renderStartingVillage(root,{onHiragana,onKatakana,onFood,speakJa
        <button type="button" class="soft-button" id="village-voice-test">♫ Try こんにちは</button>
      </div>
      <p class="feedback" id="village-voice-result" role="status">Japanese audio availability hasn't been checked yet.</p>
+     <p class="village-fallback-note">The first five hiragana and katakana also have locally hosted human-recorded sounds, even without an installed Japanese system voice.</p>
+     <details class="voice-help"><summary>Using a Mac? How to install Japanese voices</summary>
+       <ol>
+         <li>Open <strong>Apple menu → System Settings → Accessibility → Read &amp; Speak</strong> (called <em>Spoken Content</em> on some older macOS versions).</li>
+         <li>Next to <strong>System Voice</strong>, open voice settings / <strong>Manage Voices</strong>, choose <strong>Japanese</strong> and download an available voice.</li>
+         <li>Let the download finish, restart this browser, then select <strong>Check Japanese voices</strong> again.</li>
+       </ol>
+       <p>Safari, Firefox, Chrome and Brave are all available on Mac; voice availability can differ. This site cannot install a system voice automatically.</p>
+       <p><a href="https://support.apple.com/guide/mac-help/mchlp2290/mac" target="_blank" rel="noopener noreferrer">Apple's voice installation guide ↗</a></p>
+     </details>
    </div>
  </div>`;
  for(const [id,fn] of [["village-hiragana",onHiragana],["village-katakana",onKatakana],["village-food",onFood]]){
