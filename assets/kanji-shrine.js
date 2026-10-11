@@ -54,6 +54,7 @@ export function renderKanjiShrine(root,speakJapanese){
     if(answered)return;
     if(candidate.id!==entry.id){b.classList.add("wrong");$("#shrine-feedback").textContent="Not this time. Look at the scene, reveal the reading, and try again.";return;}
     answered=true;completed.add(index);
+    lesson.querySelector(".shrine-lesson-head .panel-kicker").textContent=`GATE ${index+1} OF ${SHRINE_KANJI.length} · ${completed.size} EXPLORED`;
     $("#shrine-choices").querySelectorAll("button").forEach(option=>option.disabled=true);
     b.classList.add("correct");
     $("#shrine-revealed").hidden=false;$("#shrine-reveal").hidden=true;
