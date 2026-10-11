@@ -100,7 +100,7 @@
 - [x] Counted owner-provided originals precisely: two independent panoramas + two illustrations embedded in the upper/lower sections of one paired image, alongside two complete UI mockups (references, **not** standalone story art). Corrected the omitted **bridge/village** half with one optimized WebP.
 - [x] Little Memories now offers **five moments** built from four unique illustrations: first learning success; 46 basic hiragana → bridge; 46 basic katakana → station; eight advanced readings → closer view; **46 + 46 basic kana → joined diptych**. Final moment reuses the exact bridge/station assets, not a claimed fifth original.
 - [x] Pure unlock logic, no learner storage changes, locked rewards don't download art, homepage/map untouched; expanded unit/browser tests.
-- [ ] PR merge, public deploy only after Git/AgentCtl checks, record exact runtime commit, public test results, retained rollback image.
+- [x] PR #23 merged; **application commit `09e7bd0bbdbae2c325df18df4fc08f04182e7ff1` deployed** to isolated personal VPS `nihongo-web`. Healthy Docker container, HTTPS/TLS valid (HTTP 200 for root, health, JS and all four WebPs). **48/48 Node tests and all nine V2–V12 Chromium desktop + simulated mobile browser suites passed on the public domain**, including 46 hiragana / 46 katakana conjunction and joined diptych, locked media not requested, preserved progress and unchanged hero/map. Previous image retained as `nihongo-rollback:aa90b0d`; no service, DB, CI, secret or user tracking changes. This checkpoint is documentary only; deployed application SHA remains `09e7bd0`.
 - [ ] Real Mac/Safari and actual touch/voice feedback from Angela; no unverified claims.
 
 ## Next slices
