@@ -45,7 +45,10 @@ test("journal remains isolated from original hero, map, learning and learner tra
  const html=readFileSync(join(root,"index.html"),"utf8");
  const app=readFileSync(join(root,"assets/app.js"),"utf8");
  const journal=readFileSync(join(root,"assets/little-memories.js"),"utf8");
- assert.match(html,/id="open-little-memories"/);
+ assert.match(html,/id="open-journal"/);
+ assert.doesNotMatch(html,/id="journal-dialog"/);
+ assert.match(journal,/data-book-page="discoveries"/);
+ assert.match(journal,/data-book-page="memories"/);
  assert.match(html,/id="memories-dialog"/);
  assert.match(html,/id="hero-scene-image"/);
  assert.match(html,/assets\/landscape\.svg/);

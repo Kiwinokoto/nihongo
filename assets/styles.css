@@ -682,3 +682,5 @@ button.memory-card:focus-visible{outline:3px solid #c98a9c;outline-offset:3px}
 @media(max-width:800px){.memory-book-navigation{grid-template-columns:repeat(2,minmax(0,1fr));margin:12px 0}.memory-book-navigation button{font-size:11px;padding:11px 8px}}
 @media(max-width:560px){.header-sound-help{font-size:0;padding:10px}.header-sound-help::first-letter{font-size:15px}.header-right{gap:7px}#open-journal{padding:10px;font-size:10px}.book-discovery-section{padding:11px}.book-discovery-grid{grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:6px}}
 /* The original journal title was scroll-clipped under its sticky header; the old duplicate dialog is gone. */
+
+@media(max-width:560px){.header-sound-help{font-size:14px}.header-sound-help .sound-help-label{display:none}.header-sound-help::first-letter{font-size:inherit}}
