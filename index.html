@@ -89,12 +89,25 @@
         <button role="tab" aria-selected="false" data-tab="review">04 · Review</button>
         <button role="tab" aria-selected="false" data-tab="collection">My collection</button>
       </div>
+      <div class="advanced-invite"><span>Ready for more? Voiced kana, tiny letters, and surprising new combinations.</span>
+        <button class="soft-button" id="open-hiragana-advanced" type="button">Beyond the basics ✧</button>
+      </div>
       <div class="lesson-rowbar" id="lesson-rowbar">
         <div class="row-identity"><span class="eyebrow" id="row-number">ROW 1 OF 10</span><strong id="row-title">The first vowels</strong><small id="row-subtitle">a · i · u · e · o</small></div>
         <div class="row-navigation"><span id="row-progress">0 / 5</span><button type="button" class="soft-button" id="previous-row" aria-label="Previous row">←</button><button type="button" class="soft-button" id="next-row" aria-label="Next unlocked row">→</button></div>
       </div>
       <div class="kana-picker" id="kana-picker" aria-label="Choose a hiragana"></div>
       <section class="lesson-panel" id="lesson-panel" role="tabpanel" tabindex="0" aria-live="polite"></section>
+    </div>
+  </dialog>
+  <dialog id="advanced-dialog" aria-labelledby="advanced-title">
+    <div class="modal-head">
+      <span class="eyebrow">BEYOND THE FIRST SOUNDS · かなのつづき</span>
+      <button id="close-advanced" class="icon-button" type="button" aria-label="Close advanced kana workshop">×</button>
+    </div>
+    <div class="modal-content">
+      <h2 class="sr-only" id="advanced-title">Advanced kana workshop</h2>
+      <div id="advanced-content"></div>
     </div>
   </dialog>
   <dialog id="food-dialog" aria-labelledby="food-title">

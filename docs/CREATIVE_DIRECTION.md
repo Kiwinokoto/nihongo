@@ -102,3 +102,20 @@ A mild, nonspoiler clue in the word-postcard collection makes the optional
 Lantern Evening easier to discover. Preserve its one-word-postcard unlock and
 do not force narrative into literacy challenges. Deeper traveller lore should
 remain elective, human-reviewed and copyright-safe.
+
+
+## Earned close-up postcard — Pass 9 (2026-10-11)
+Two complementary moments of the same original pair are deliberately
+separated in time. Their distant, quiet appearance stays in the **welcome
+village / hero**. A closer portrait, with matching charms and a small
+continuation of the lantern-festival promise, appears only **after eight
+correct optional advanced kana reading challenges**, counted across both
+hiragana and katakana. The small story is not a primary navigation stop and
+cannot change base-kana progress. It stays modestly romantic, original,
+adult and non-explicit; no licensed manga artwork or characters are used.
+
+The closer image is generated as `assets/art/travellers-closeup.svg` by
+`tools/draw_destinations.py` from our **existing original procedural figures**.
+It is a new original interpretation of the close-up concept; it is **not**
+an import of any externally displayed reference illustration. User feedback
+on final art and original Japanese dialogue is still needed.

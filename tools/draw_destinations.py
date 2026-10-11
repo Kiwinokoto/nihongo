@@ -158,8 +158,18 @@ def train():
  '<rect x="25" y="19" width="9" height="15" rx="3" fill="#dba4ad"/></g>',
  petals(22,85),'</svg>']
  return ''.join(v)
+def travellers_reward():
+    """Tighter second chapter of the *same* original scene, never used as hero."""
+    base=header(1160).replace('viewBox="0 0 1400 460"', 'viewBox="773 33 615 409"')
+    return ''.join([base,
+       '<path d="M750 460Q1070 330 1500 445V510H750Z" fill="#829b8e" opacity=".64"/>',
+       '<path d="M815 460Q1000 369 1180 408Q1300 390 1430 445" stroke="#eedbc7" stroke-width="8" fill="none"/>',
+       tree(843,355,.53), tree(1390,386,.72),
+       lamp(837,395),lamp(1312,400),ikemen_travellers(),petals(116,52),
+       '</svg>'])
+
 if __name__=="__main__":
  OUT.mkdir(parents=True,exist_ok=True)
- for name,svg in [('village-path.svg',village()),('katakana-platform.svg',train())]:
+ for name,svg in [('village-path.svg',village()),('katakana-platform.svg',train()),('travellers-closeup.svg',travellers_reward())]:
   (OUT/name).write_text(svg,encoding='utf8')
   print(name,len(svg))
