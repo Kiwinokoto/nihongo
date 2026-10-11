@@ -96,6 +96,13 @@
 - [x] PR #21 merged; **application commit `aa90b0d472d00134209a121e7f0c7720775e98df` deployed** in isolated healthy personal-VPS `nihongo-web`. Valid HTTPS/TLS and HTTP 200 for health, journal modules, and three image/webp assets. 48/48 Node tests, all **nine V2–V11 Chromium desktop and simulated-mobile** flows on the actual public domain, including locked-media fetch protection, genuine first/advanced/katakana unlocks, image decoding, journal navigation, no horizontal scroll and preserved previous saves. Prior Docker image retained as `nihongo-rollback:8557e4a`; no new service, DB, secret or CI workflow. This checkpoint changes documentation only; the deployed application SHA stays `aa90b0d`.
 - [ ] Angela real Mac/Safari feedback on visual quality and keyboard/touch navigation; more scenes only after review.
 
+## Twelfth pass — complete five memory scenes (2026-10-11)
+- [x] Counted owner-provided originals precisely: two independent panoramas + two illustrations embedded in the upper/lower sections of one paired image, alongside two complete UI mockups (references, **not** standalone story art). Corrected the omitted **bridge/village** half with one optimized WebP.
+- [x] Little Memories now offers **five moments** built from four unique illustrations: first learning success; 46 basic hiragana → bridge; 46 basic katakana → station; eight advanced readings → closer view; **46 + 46 basic kana → joined diptych**. Final moment reuses the exact bridge/station assets, not a claimed fifth original.
+- [x] Pure unlock logic, no learner storage changes, locked rewards don't download art, homepage/map untouched; expanded unit/browser tests.
+- [ ] PR merge, public deploy only after Git/AgentCtl checks, record exact runtime commit, public test results, retained rollback image.
+- [ ] Real Mac/Safari and actual touch/voice feedback from Angela; no unverified claims.
+
 ## Next slices
 - Optional evaluated handwriting matcher for free drawing; automatic writing verification is **not implemented**
 - Expand contextual kana reading/real-word practice; progressive reviews remain independent of the new advanced cards

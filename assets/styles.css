@@ -555,3 +555,11 @@ button.memory-card:focus-visible{outline:3px solid #c98a9c;outline-offset:3px}
 
 /* Fixed-height cards must not inherit an aspect-ratio-imposed minimum width. */
 .memory-card,.memory-card.locked{aspect-ratio:auto;width:100%;min-width:0}
+
+/* Five Little Memories: the final illustration joins the two original diptych panels. */
+.memory-diptych-preview{position:absolute;inset:0;display:grid;grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:3px;background:#f0cfbd;overflow:hidden}
+.memory-card .memory-diptych-preview img{position:static;display:block;width:100%;height:100%;object-fit:cover;object-position:center;min-height:0}
+.memory-card.unlocked:hover .memory-diptych-preview img{transform:scale(1.01)}
+.memory-diptych-detail{display:grid;grid-template-rows:auto auto;gap:3px;background:#f0d3ca}
+.memory-diptych-detail img{display:block;width:100%;height:auto;max-height:none;object-fit:contain}
+@media(prefers-reduced-motion:reduce){.memory-card.unlocked:hover .memory-diptych-preview img{transform:none}}

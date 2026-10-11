@@ -90,6 +90,11 @@ Public, lighthearted Japanese-learning microsite for Angela: gentle storybook ma
 - Gallery milestones are derived solely from `assets/story-milestones.js`: first recognized result unlocks panoramic distant travellers, 8 advanced readings unlocks closer portrait, 46 basic katakana unlocks original railway image. Locked cards contain no image URL in the DOM and no media is requested for unrewarded scenes. Opening/reading has no new saved data.
 - `assets/memories-data.js` owns pure content/unlock mapping; `assets/little-memories.js` owns the static DOM and gallery/detail navigation. Native dialog/backdrop/Escape behaviour retained. Confirmed 48 Node tests; check mobile and real-device behaviour. Keep text in English and the hidden romantic layer gentle and optional.
 
+## Twelfth pass — five Little Memories, completed diptych (2026-10-11)
+- The owner-provided paired high-resolution concept file contained **two distinct standalone illustrations** (village/bridge above, railway below). The original gallery shipped only the lower panel. Add the upper panel as `assets/memories/blossom-bridge.webp`; the gallery now has **four individual artworks, five narrative moments**, with the fifth a *composition of the two existing panels*, not a fifth independent generated image. Never claim otherwise. Full source/crop detail: `docs/LITTLE_MEMORIES.md`.
+- Add reward for all 46 hiragana and a conjunction of both all 46 hiragana **and** all 46 katakana. Keep first-activity, 8-advanced and 46-katakana achievements unchanged. No storage schema changes or story preference tracking; neither locked art nor locked diptych components may be fetched.
+- Code changes isolated to `assets/memories-data.js`, `assets/little-memories.js`, `assets/styles.css`, new image, tests and handoff. **Never rework or replace the approved hero/map/lesson UI** for this pass. Real device Mac/Safari remains unverified.
+
 ## Checks
 `node --check assets/app.js`
 `node --test tests/*.test.mjs`
