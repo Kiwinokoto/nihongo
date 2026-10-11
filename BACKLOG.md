@@ -68,7 +68,7 @@
 - [x] Verify current kana scope: 46 basic hiragana plus 46 basic katakana are interactive, but no dakuten/handakuten, yōon, small kana, long-vowel/loanword variants yet.
 - [x] Scope optional handwriting-recognition proof of concept separately in `docs/HANDWRITING_POC.md`; avoid auto-grading until calibrated against real handwriting samples.
 - [x] 35/35 Node tests and six revised local Chromium desktop/mobile regression flows passed (V2–V7), including preserved learner progress and existing optional story unlock.
-- [ ] PR merge and deploy after preflight; verify production browser and keep Docker rollback.
+- [x] PR #15 merged; deployed application commit `efd81c3b41de324980421280a0f8e3f0241c0383` to isolated `nihongo-web` on the personal VPS. Healthy container and valid HTTPS; page, JS, CSS and village SVG returned 200. Public-domain Chromium desktop/mobile home+map tests passed (desktop 1440px map starts near y=455px, no horizontal overflow), and all six V2–V7 regression browser flows passed on production, no detected page errors or changed learner saves. Docker rollback image saved as `nihongo-rollback:3a8c79d`. This checkpoint is documentation-only and is not a different runtime release.
 - [ ] On next small pass: experimental 5-vowel writing validator with shape/direction/order hints, **no progress or grading effect**.
 
 ## Next slices
