@@ -81,6 +81,7 @@ export function renderKanaCheckpoint(root,{items,script,speak,onRecognised}){
             <strong lang="ja">${glyph}</strong>
             <p>Compare the shape and direction of your strokes. This site cannot grade writing yet.</p>
             <div class="checkpoint-rating">
+              <button class="soft-button" id="checkpoint-try-again" type="button">↶ Draw this character again</button>
               <button class="soft-button" id="checkpoint-yes" type="button">Looks close ✓</button>
               <button class="soft-button" id="checkpoint-retry" type="button">Needs more practice</button>
             </div>
@@ -135,6 +136,8 @@ export function renderKanaCheckpoint(root,{items,script,speak,onRecognised}){
         $("#checkpoint-undo").disabled=true;$("#checkpoint-clear").disabled=true;
         canvas.style.pointerEvents="none";
       });
+      // Stay on the same writing task. This is practice, not a saved result.
+      button("#checkpoint-try-again",()=>startNext());
       button("#checkpoint-yes",()=>{writingYes++;index++;startNext()});
       button("#checkpoint-retry",()=>{writingRetry++;index++;startNext()});
     }
