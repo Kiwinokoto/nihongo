@@ -89,6 +89,13 @@
 - [ ] Download remaining basic kana audio **only when Commons rate limits permit**, from a 41-file PD-self metadata-reviewed set; `tools/sync_basic_kana_audio.py` is a **throttled future importer**, not proof of shipped 46 audio. Provider HTTP 429 prevented this bulk import; no partial files staged.
 - [ ] Real Mac/Safari and phone QA, fluent Japanese review; later create unique high-quality reward scenes for 46 hiragana / 46 katakana, and prepare optional kanji content.
 
+## Eleventh pass — illustrated Little Memories (2026-10-11)
+- [x] Three previously approved owner-provided panorama scenes integrated as optimized WebP assets in an independent journal gallery, with sakura pastel styling and optional illustrated story details. **No homepage/map/hero rewrite**.
+- [x] Use authentic existing achievements: 1st collected recognition/order → original wide village memory, eight advanced kana → closer two-traveller memory, 46 katakana → original train memory. No story-view tracking; locked images not loaded.
+- [x] Accessible via `My journal → Little Memories`; browse scene/detail, back to gallery/journal, native Escape and close, responsive mobile. Sources/crop/asset sizes documented in `docs/LITTLE_MEMORIES.md`.
+- [ ] Finish all local and production browser regression checks, PR, deployment preflight and checkpoint.
+- [ ] Angela real Mac/Safari feedback on visual quality and keyboard/touch navigation; more scenes only after review.
+
 ## Next slices
 - Optional evaluated handwriting matcher for free drawing; automatic writing verification is **not implemented**
 - Expand contextual kana reading/real-word practice; progressive reviews remain independent of the new advanced cards

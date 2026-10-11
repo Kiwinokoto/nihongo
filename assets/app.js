@@ -16,6 +16,7 @@ import {ADVANCED_STORAGE_KEY,parseAdvanced,advancedCount} from "./advanced-kana-
 import {WORD_STORAGE_KEY,parseWordProgress} from "./word-trails.js";
 import {FOOD_KEY,parseFoodProgress} from "./food-lane-data.js";
 import {milestoneStatus,unlockedScenes} from "./story-milestones.js";
+import {renderLittleMemories} from "./little-memories.js";
 
 const $ = (id) => document.getElementById(id);
 const STARTER_COUNT = ALL_KANA.length;
@@ -186,6 +187,15 @@ function renderMilestoneJournal(){
     }
     target.append(row);
   }
+}
+function openLittleMemories(){
+  // One native modal at a time; never keep two stacked dialogs.
+  $("journal-dialog").close();
+  renderLittleMemories($("memories-content"),earnedMilestones(),()=>{
+    $("memories-dialog").close();
+    renderJournal();
+  });
+  $("memories-dialog").showModal();
 }
 function renderJournal(){
   const total=progress.mastered.length,due=dueKana(progress).length,words=learnedWordCount();
@@ -552,6 +562,8 @@ $("hero-story").addEventListener("touchend",event=>{
   }
 },{passive:true});
 $("open-journal").addEventListener("click",renderJournal);
+$("open-little-memories").addEventListener("click",openLittleMemories);
+$("close-memories").addEventListener("click",()=>$("memories-dialog").close());
 $("close-lesson").addEventListener("click",()=>$("lesson-dialog").close());
 $("close-food").addEventListener("click",()=>$("food-dialog").close());
 $("close-village").addEventListener("click",()=>$("village-dialog").close());
