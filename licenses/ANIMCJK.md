@@ -20,3 +20,11 @@ under unrelated licences.
 The original `assets/village.svg` and `assets/landscape.svg` remain separate
 from the AnimCJK SVG data. Incorporating these SVGs does not imply that every
 other part of the public project is under LGPL.
+
+
+## Katakana SVGs (Pass 6)
+The 46 `assets/katakana-strokes/{decimal Unicode}.svg` files are also **unmodified**
+AnimCJK Japanese kana SVGs © FM-SH, LGPL-3.0-or-later, at the identical pinned
+source revision. Copyright and permission headers remain in the files. The
+existing licence texts above apply. Update only via
+`python3 tools/sync_katakana_strokes.py` after reviewing the upstream source.

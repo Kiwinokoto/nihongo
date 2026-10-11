@@ -6,6 +6,8 @@ import {
 } from "./progression.js";
 import {renderWordPostcards,learnedWordCount} from "./word-postcards.js";
 import {renderFoodLane} from "./food-lane.js";
+import {renderKatakanaStation} from "./katakana-station.js";
+import {renderStartingVillage} from "./starting-village.js";
 
 const $ = (id) => document.getElementById(id);
 const STARTER_COUNT = ALL_KANA.length;
@@ -43,7 +45,7 @@ const PLACES={
   garden:{n:"STOP 01 · THE HIRAGANA GARDEN",emoji:"🌸",title:"The hiragana garden",jp:"ひらがなの庭",description:"Follow ten little paths of sounds. Listen, learn their stroke order, trace and collect all 46 basic hiragana.",fact:"46 hiragana to discover",status:"READY",button:"Enter the garden"},
   tea:{n:"STOP 02 · A TASTY LITTLE DETOUR",emoji:"🍢",title:"The little food lane",jp:"やたいのこみち",description:"Follow the savoury aromas: grilled fish, chicken skewers, octopus bites and wonderfully sticky nattō. Learn to order a favourite.",fact:"6 dishes to discover",status:"READY",button:"Explore the food lane"},
   shrine:{n:"BEYOND THE FOREST · SOON",emoji:"⛩️",title:"The kanji shrine",jp:"かんじの神社",description:"Learn meaningful characters among quiet trees and lanterns. This stop is being prepared.",fact:"Meaning & writing",status:"COMING SOON",button:"The shrine is not ready yet"},
-  train:{n:"THE NEXT JOURNEY · SOON",emoji:"🚃",title:"Katakana station",jp:"カタカナのえき",description:"Catch a little train towards the world of katakana. This stop is being prepared.",fact:"A new alphabet",status:"COMING SOON",button:"The station is not ready yet"}
+  train:{n:"STOP 03 · ALL ABOARD",emoji:"🚃",title:"Katakana station",jp:"カタカナのえき",description:"A second beautiful set of shapes for sounds you already know. Discover and trace all 46 basic katakana, one row at a time.",fact:"46 katakana to collect",status:"READY",button:"Board the katakana train"}
 };
 let place="garden";
 function selectPlace(id){
@@ -60,6 +62,28 @@ function selectPlace(id){
     b.classList.toggle("current",b.dataset.place===id);
     b.setAttribute("aria-pressed",String(b.dataset.place===id));
   });
+}
+let closeKataSession=null,closeVillageSession=null;
+function openKatakana(){
+  closeKataSession?.();
+  closeKataSession=renderKatakanaStation($("katakana-content"),speakJapanese);
+  $("katakana-dialog").showModal();
+}
+function openVillage(){
+  closeVillageSession?.();
+  const travel=(destination)=>{
+    $("village-dialog").close();
+    if(destination==="garden"){selectPlace("garden");openLesson();}
+    if(destination==="train"){selectPlace("train");openKatakana();}
+    if(destination==="tea"){selectPlace("tea");openFoodLane();}
+  };
+  closeVillageSession=renderStartingVillage($("village-content"),{
+    onHiragana:()=>travel("garden"),
+    onKatakana:()=>travel("train"),
+    onFood:()=>travel("tea"),
+    speakJapanese
+  });
+  $("village-dialog").showModal();
 }
 function openFoodLane(){
   renderFoodLane($("food-content"),speakJapanese);
@@ -88,8 +112,8 @@ function renderJournal(){
   $("journal-garden").textContent=due?"Review my sounds ↗":"Visit the garden ↗";
   $("journal-dialog").showModal();
 }
-function speakJapanese(text){
-  const output=$("audio-feedback");
+function speakJapanese(text, output=document.querySelector("dialog[open] #audio-feedback")||$("audio-feedback")){
+  if(!output)return;
   if(!("speechSynthesis" in window)){output.textContent="Japanese audio isn't available in this browser.";return;}
   const voice=speechSynthesis.getVoices().find(v=>v.lang?.toLowerCase().startsWith("ja"));
   if(!voice){output.textContent="No Japanese voice is installed on this device. You can still read and practise.";return;}
@@ -415,11 +439,18 @@ function redraw(){
   }
 }
 document.querySelectorAll("[data-place]").forEach(b=>b.addEventListener("click",()=>selectPlace(b.dataset.place)));
-$("place-action").addEventListener("click",()=>{if(place==="start"||place==="garden")openLesson();else if(place==="tea")openFoodLane();});
+$("place-action").addEventListener("click",()=>{
+  if(place==="start")openVillage();
+  else if(place==="garden")openLesson();
+  else if(place==="tea")openFoodLane();
+  else if(place==="train")openKatakana();
+});
 $("start-journey").addEventListener("click",()=>{selectPlace("garden");openLesson();});
 $("open-journal").addEventListener("click",renderJournal);
 $("close-lesson").addEventListener("click",()=>$("lesson-dialog").close());
 $("close-food").addEventListener("click",()=>$("food-dialog").close());
+$("close-village").addEventListener("click",()=>$("village-dialog").close());
+$("close-katakana").addEventListener("click",()=>$("katakana-dialog").close());
 $("close-journal").addEventListener("click",()=>$("journal-dialog").close());
 $("journal-garden").addEventListener("click",()=>{
   const due=dueKana(progress).length;
@@ -434,6 +465,8 @@ document.querySelectorAll(".lesson-tabs [role=tab]").forEach((b,i,all)=>b.addEve
   selectTab(next.dataset.tab);next.focus();
 }));
 $("food-dialog").addEventListener("close",()=>{if("speechSynthesis" in window)speechSynthesis.cancel();});
+$("village-dialog").addEventListener("close",()=>{closeVillageSession?.();closeVillageSession=null;if("speechSynthesis" in window)speechSynthesis.cancel();});
+$("katakana-dialog").addEventListener("close",()=>{closeKataSession?.();closeKataSession=null;if("speechSynthesis" in window)speechSynthesis.cancel();});
 $("lesson-dialog").addEventListener("close",()=>{
   if("speechSynthesis" in window)speechSynthesis.cancel();
   if(canvasObserver){canvasObserver.disconnect();canvasObserver=null;}

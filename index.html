@@ -45,7 +45,7 @@
             <button class="map-stop garden-stop current" data-place="garden" aria-label="Hiragana garden, available"><span class="stop-icon" aria-hidden="true">あ</span><span class="stop-label">Hiragana garden</span></button>
             <button class="map-stop tea-stop" data-place="tea" aria-label="The little food lane, available"><span class="stop-icon" aria-hidden="true">🍢</span><span class="stop-label">The food lane</span></button>
             <button class="map-stop shrine-stop locked" data-place="shrine" aria-label="Shrine of kanji, coming later"><span class="stop-icon" aria-hidden="true">⛩</span><span class="stop-label">Shrine of kanji</span></button>
-            <button class="map-stop train-stop locked" data-place="train" aria-label="Katakana station, coming later"><span class="stop-icon" aria-hidden="true">🚃</span><span class="stop-label">Katakana station</span></button>
+            <button class="map-stop train-stop" data-place="train" aria-label="Katakana station, available"><span class="stop-icon" aria-hidden="true">🚃</span><span class="stop-label">Katakana station</span></button>
           </div>
           <div class="map-footer"><span><span class="legend-dot open-dot"></span> Ready to explore</span><span><span class="legend-dot locked-dot"></span> Still a little further</span><span class="map-footer-note">Made for curious hearts ♡</span></div>
         </div>
@@ -71,6 +71,16 @@
     <footer><span>ことばの旅 <span aria-hidden="true">✿</span> A little at a time, beautifully.</span><a href="https://github.com/Kiwinokoto/nihongo" target="_blank" rel="noopener noreferrer">Public GitHub project ↗</a></footer>
   </div>
 
+  <dialog id="village-dialog" aria-labelledby="village-title">
+    <div class="modal-head"><span class="eyebrow">THE STARTING VILLAGE · はじまり</span>
+      <button id="close-village" class="icon-button" aria-label="Close starting village">×</button></div>
+    <div class="modal-content"><h2 id="village-title" class="sr-only">Welcome to the starting village</h2><div id="village-content"></div></div>
+  </dialog>
+  <dialog id="katakana-dialog" aria-labelledby="katakana-title">
+    <div class="modal-head"><span class="eyebrow">KATAKANA STATION · カタカナ</span>
+      <button id="close-katakana" class="icon-button" aria-label="Close katakana station">×</button></div>
+    <div class="modal-content"><h2 id="katakana-title" class="sr-only">Katakana station</h2><div id="katakana-content"></div></div>
+  </dialog>
   <dialog id="lesson-dialog" aria-labelledby="lesson-title">
     <div class="modal-head"><span class="eyebrow">THE HIRAGANA GARDEN · ひらがな</span><button id="close-lesson" class="icon-button" aria-label="Close the lesson">×</button></div>
     <div class="modal-content">

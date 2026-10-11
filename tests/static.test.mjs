@@ -36,6 +36,14 @@ test('all 46 animated stroke SVG files are included with redistribution licence'
   assert.ok(existsSync(join(root,'licenses/ANIMCJK-COPYING.txt')));
 });
 
+test('new story and practise destinations have working dialog scaffolding and asset revalidation',()=>{
+ const html=read('index.html'),script=read('assets/app.js'),conf=read('deploy/site.conf');
+ for(const id of ['village-dialog','katakana-dialog'])assert.ok(html.includes('id="'+id+'"'));
+ assert.match(script,/renderStartingVillage/);
+ assert.match(script,/renderKatakanaStation/);
+ assert.match(conf,/Cache-Control "no-cache, must-revalidate"/);
+});
+
 test('public project does not embed credentials or third-party tracking',()=>{
   const files=['index.html','assets/app.js','deploy/compose.yml','deploy/Dockerfile'];
   for(const file of files){
