@@ -131,6 +131,24 @@ class SyncTest(unittest.TestCase):
         self.assertEqual(self.state(self.bob)["words"]["collected"],["ie"])
         self.assertEqual(restored.snapshot(self.alice)["food"]["ordered"],["yakitori"])
 
+    def test_true_concurrent_uploads_cannot_double_advance(self):
+        from concurrent.futures import ThreadPoolExecutor
+        from threading import Barrier
+        events=[self.event(self.mac,"hiragana","い","recognize"),
+                self.event(self.phone,"hiragana","い","recognize")]
+        barrier=Barrier(2)
+        def send(item):
+            barrier.wait(timeout=5)
+            return self.store.apply_events(self.alice,[item])
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            futures=[pool.submit(send,e) for e in events]
+            results=[f.result(timeout=10) for f in futures]
+        self.assertEqual(self.state()["hiragana"]["review"]["い"]["level"],1)
+        self.assertEqual(len(self.store.audit_events(self.alice)),2)
+        self.assertEqual(self.state()["revision"],2)
+        self.assertEqual(set(x["decisions"][0] for x in results),
+                         {"recognized","concurrent-recognition-no-extra-level"})
+
     def test_limits_and_unknown_account(self):
         with self.assertRaises(SyncError): self.store.apply_events(uid(),[])
         huge=[self.event(self.mac,"hiragana","あ","recognize") for _ in range(65)]

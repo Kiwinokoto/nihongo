@@ -1,5 +1,14 @@
 # Progress / handoff
 
+## Multi-device accounts — safe staging foundation (11 October 2026)
+- [x] Sync engine under sync_core/: exact curriculum allowlist generated from live Japanese lesson dictionaries (46+46+70+94+19+6 IDs), SQLite WAL transactional event ledger, account scoping, UUID idempotency and per-device sequence checks, review versioning. Importing a stale phone snapshot cannot overwrite an existing server review.
+- [x] Localhost-only staging JSON protocol exercising two different simulated users and Mac/phone, with no real authenticated accounts or live listener.
+- [x] Private online SQLite backup (0600) + restore test, per-user export and deletion. No secrets/config in public web and no dependency or change in static Nginx Compose.
+- [x] Isolated checkout: 12/12 Python tests, 63/63 Node tests, exact manifest drift check.
+- [ ] **Next:** real multi-account email-code auth (optional Argon2id password), SMTP/abuse-prevention, secure cookie sessions + CSRF + revocation + recovery; review with user before making public. Authentication MUST NOT use X-Stage-Subject.
+- [ ] Front-end: existing localStorage keys need per-account isolation, explicit first-login import, durable offline event queue, confirmed server acknowledgements and reliable conflict UI. Test account switching across tabs and stale phone migration.
+- [ ] Then protected API deployment (isolated volume, snapshots/backups), browser + actual Mac/Safari/mobile QA, rollback and privacy notice. **Not deployed in PROD in this pass.**
+
 ## One magic book and homecoming village — 11 October 2026
 - [x] Removed the duplicate journal dialog and redundant text-only Scenes along the way milestone list. The illustrated Little Memories design and all five reward scenes remain intact. The direct homepage header button now opens a **single magic book** with two clearly reachable pages: **My Discoveries** (five validated collections: hiragana/katakana/advanced/words/food) and **Little Memories** (all original earned/locked illustrated rewards).
 - [x] Existing progress schemas and all five localStorage keys unchanged. Contents are derived via existing normalizers and fixed editorial dictionaries; never claim an unrecorded kanji/shrine or town-word activity is saved or mastered. Locked memory images never load before unlock.
