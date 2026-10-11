@@ -335,3 +335,41 @@ dialog .modal-head .icon-button:focus-visible{outline:3px solid #a3bda8;outline-
  .kata-banner-scene{max-height:140px}
  .kata-banner-copy{gap:10px;padding:12px}
 }
+
+
+/* Pass 8: a quiet, compact hero — the map, not a shortcut lesson, invites the first click. */
+.site-header{height:84px}
+.welcome{min-height:238px;margin:20px 0 28px;grid-template-columns:44% 56%}
+.welcome-copy{padding:27px 0 22px 38px;align-self:center}
+.welcome h1{font-size:clamp(34px,3.75vw,55px);line-height:1.04;margin:10px 0 11px}
+.welcome p{font-size:12px;line-height:1.65;max-width:440px}
+.welcome p.welcome-footnote{margin-top:14px;font-size:10px;line-height:1.6;color:#7b8b81}
+.welcome-illustration{min-height:238px;overflow:hidden}
+.welcome-illustration img{height:100%;width:100%;right:0;bottom:0;object-fit:cover;object-position:61% center;mix-blend-mode:normal}
+.welcome-illustration:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,#edf2e9 0%,transparent 28%);pointer-events:none}
+.hero-kanji{font-size:136px;top:-70px;right:49%}
+.section-heading{margin-bottom:16px}
+@media(max-width:840px){
+ .welcome{grid-template-columns:1fr;min-height:0}
+ .welcome-copy{padding:22px 24px 9px}
+ .welcome-illustration{min-height:155px;height:155px}
+ .welcome-illustration:before{background:linear-gradient(180deg,#eef2e6 0%,transparent 32%)}
+ .welcome h1{font-size:clamp(35px,5vw,49px)}
+}
+@media(max-width:560px){
+ .site-header{height:74px}
+ .welcome{margin:15px 0 23px}
+ .welcome-copy{padding:19px 19px 5px}
+ .welcome p{font-size:12px}
+ .welcome-illustration{min-height:125px;height:125px}
+ .section-heading{margin-bottom:13px}
+}
+
+/* Keep the invitation compact enough that the first part of the map is visible. */
+@media(min-width:841px){
+ .welcome-copy{padding-top:19px;padding-bottom:17px}
+ .welcome h1{font-size:clamp(34px,3.35vw,49px);margin:8px 0}
+ .welcome p{margin:8px 0}
+ .welcome p.welcome-footnote{margin-top:10px}
+ .welcome-illustration{min-height:225px}
+}

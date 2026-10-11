@@ -358,7 +358,7 @@ function renderCollection(){
     <p>Finish a row's recognition challenges to open the next. You can always return to practise an unlocked row.</p>
     <div class="word-teaser">
       <div class="word-teaser-symbol" aria-hidden="true">🍡</div>
-      <div><strong>Little word postcards</strong><p>Discover real Japanese words with the hiragana you know.</p></div>
+      <div><strong>Little word postcards</strong><p>Discover real Japanese words with the hiragana you know. Some postcards lead to quiet stories beyond the lanterns ✧</p></div>
       <button class="soft-button" id="open-word-postcards" type="button">Explore words ↗</button>
     </div>
   </div><div class="collection-sections" id="collection-sections"></div>`;
@@ -439,7 +439,6 @@ $("place-action").addEventListener("click",()=>{
   else if(place==="tea")openFoodLane();
   else if(place==="train")openKatakana();
 });
-$("start-journey").addEventListener("click",()=>{selectPlace("garden");openLesson();});
 $("open-journal").addEventListener("click",renderJournal);
 $("close-lesson").addEventListener("click",()=>$("lesson-dialog").close());
 $("close-food").addEventListener("click",()=>$("food-dialog").close());
