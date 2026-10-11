@@ -464,3 +464,94 @@ dialog .modal-head .icon-button:focus-visible{outline:3px solid #a3bda8;outline-
 /* Reserve a steady two-line subtitle area to prevent hero jumps between scenes. */
 .hero-story-caption{min-height:2.9em}
 @media(prefers-reduced-motion:reduce){.welcome-illustration img{animation:none!important}}
+
+/* Little Memories — deliberately a separate richer space; no changes to homepage/map. */
+.journal-memories-link{display:flex;align-items:center;text-align:left;gap:12px;width:min(100%,680px);margin:18px auto 10px;padding:14px 16px;background:linear-gradient(110deg,#fae7e8,#fcf4eb 72%,#f0f4ed);border:1px solid #eed8d5;border-radius:14px;color:#43675c;box-shadow:0 5px 18px #cb9da51c;cursor:pointer}
+.journal-memories-link>span:first-child{font-size:29px;color:#cf8898}
+.journal-memories-link>span:nth-child(2){flex:1}
+.journal-memories-link strong,.journal-memories-link small{display:block}
+.journal-memories-link strong{font-family:"DM Serif Display",Georgia,serif;font-size:22px;font-weight:400}
+.journal-memories-link small{font-size:11px;line-height:1.55;color:#8d9287;margin-top:2px}
+.journal-memories-link>span:last-child{font-size:22px;color:#b18084}
+.journal-memories-link:hover,.journal-memories-link:focus-visible{border-color:#cd9ba5;background:#f9e4e5}
+#memories-dialog{width:min(1080px,calc(100vw - 32px));max-width:1080px;max-height:90dvh;padding:0;border-radius:22px;background:#fffaf4;overflow:auto}
+#memories-dialog::backdrop{background:#1a3332a8;backdrop-filter:blur(6px)}
+#memories-dialog .modal-head{padding:13px 22px;background:#fffaf4f5;border-bottom:1px solid #f2e6dd}
+.memory-shell{display:grid;grid-template-columns:minmax(210px,255px) minmax(0,1fr);min-width:0}
+.memory-sidebar{padding:35px 22px 24px;background:radial-gradient(circle at 22% 9%,#ffd4dcaa 0,transparent 32%),radial-gradient(circle at 95% 90%,#f6d9d99e 0,transparent 30%),linear-gradient(#fff8f2,#fcf1e7);border-right:1px solid #f0e3de;color:#617a70;position:relative;overflow:hidden}
+.memory-sidebar:before{content:"✿";position:absolute;right:4px;top:16px;color:#eebdc77a;font-size:100px;line-height:1;pointer-events:none}
+.memory-sidebar-top{display:flex;gap:9px;align-items:center;color:#bc8290;font-size:12px}
+.memory-flower{font-size:27px;color:#e291a4}
+.memory-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;color:#b88085}
+.memory-sidebar h2{font-family:"DM Serif Display",Georgia,serif;font-size:35px;color:#305d54;font-weight:400;line-height:1.03;margin:11px 0}
+.memory-sidebar p{font-size:12px;line-height:1.8;margin:10px 0}
+.memory-sidebar .memory-sidebar-subtitle{font-size:14px;color:#3d6a5d}
+.memory-sidebar-progress{border-top:1px solid #eededb;margin:26px 0 20px;padding-top:20px;display:flex;gap:12px;align-items:center}
+.memory-sidebar-progress>span:first-child{font-size:28px}
+.memory-sidebar-progress strong{display:block;font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:24px;color:#305e53}
+.memory-sidebar-progress small{display:block;font-size:10px;color:#889d90}
+.memory-sidebar .memory-small-quote{font-family:Georgia,serif;font-style:italic;font-size:15px;line-height:1.55;color:#745d60;margin:20px 0 25px}
+#memory-return-journal{font-size:12px;padding:10px 12px}
+.memory-content{position:relative;min-width:0;padding:32px 25px 28px;background:radial-gradient(circle at 95% 0%,#f8cdda6b,transparent 21%),linear-gradient(#fffdf8,#fffaf5)}
+.memory-content:before{content:"✿  ✿  ✿";position:absolute;right:22px;top:7px;color:#e8b5bb9e;font-size:19px;letter-spacing:9px;pointer-events:none}
+.memory-gallery-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:19px;position:relative}
+.memory-gallery-heading h3{font-family:"DM Serif Display",Georgia,serif;color:#315f55;font-weight:400;font-size:28px;margin:6px 0}
+.memory-gallery-heading p{font-size:12px;color:#7c9787;line-height:1.65;margin:0}
+.memory-petal{font-size:34px;color:#e59ab1}
+.memory-gallery{display:grid;gap:13px}
+.memory-card{position:relative;display:block;min-width:0;min-height:205px;aspect-ratio:3.4/1;border:1px solid #e9dbd5;border-radius:15px;overflow:hidden;text-align:left;padding:0;background:#ece8df;color:#315e54}
+button.memory-card{width:100%;cursor:pointer}
+button.memory-card:focus-visible{outline:3px solid #c98a9c;outline-offset:3px}
+.memory-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .3s ease}
+.memory-card.unlocked:hover img{transform:scale(1.025)}
+.memory-card:after{content:"";pointer-events:none;position:absolute;inset:0;background:linear-gradient(90deg,transparent 15%,#1f373300 38%,#292b2b53 100%);z-index:1}
+.memory-card.locked{background:radial-gradient(circle at 12% 25%,#f6cfd5 0,transparent 30%),linear-gradient(120deg,#e9e5df,#d9e9df);min-height:160px;aspect-ratio:4/1}
+.memory-card.locked:before{content:"✿";font-size:88px;position:absolute;color:#ddb5bc80;top:-23px;left:18%}
+.memory-card.locked:after{background:linear-gradient(90deg,transparent,#fff9f0a6)}
+.memory-status{position:absolute;z-index:2;top:12px;left:14px;padding:6px 11px;border-radius:30px;font-size:10px;font-weight:700;background:#f8fff0e8;color:#456d59;box-shadow:0 2px 8px #22362a2b}
+.memory-card.locked .memory-status{background:#5d5a5cca;color:white}
+.memory-card-caption{position:absolute;z-index:2;bottom:10px;right:12px;width:min(245px,58%);border-radius:13px;padding:13px 15px;background:#fffaf3e9;backdrop-filter:blur(9px);box-shadow:0 4px 14px #25342d12;display:flex;flex-direction:column;gap:4px}
+.memory-card-caption small{font-size:10px;letter-spacing:.07em;color:#b17d87}
+.memory-card-caption strong{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:22px;color:#2f584e;line-height:1.05}
+.memory-card-caption span{font-size:11px;line-height:1.5;color:#6f8476}
+.memory-card.locked .memory-card-caption{background:#fffdf9d9}
+.memory-detail{background:#fff8f1;border:1px solid #ebdbd5;border-radius:15px;overflow:hidden;box-shadow:0 7px 23px #a47b7d1c}
+.memory-detail>img{display:block;width:100%;height:auto;max-height:420px;object-fit:contain;background:#e8e4dc}
+.memory-detail-copy{padding:20px 24px 23px}
+.memory-detail-copy h3{font-family:"DM Serif Display",Georgia,serif;font-size:31px;font-weight:400;color:#31594f;margin:9px 0 6px}
+.memory-detail-copy p{font-size:14px;color:#5f796e;line-height:1.85;margin:10px 0}
+.memory-detail-copy .memory-detail-intro{font-family:Georgia,serif;font-style:italic;color:#aa7c82;font-size:17px}
+.memory-detail-copy small{color:#9a9e91;font-size:11px}
+@media(max-width:720px){
+ .memory-shell{grid-template-columns:1fr}
+ .memory-sidebar{padding:19px 20px 15px;border-right:0;border-bottom:1px solid #ebdad9}
+ .memory-sidebar h2{font-size:28px;margin:6px 0}
+ .memory-sidebar p:not(.memory-sidebar-subtitle){display:none}
+ .memory-sidebar-progress{margin:11px 0;padding-top:11px}
+ .memory-sidebar .memory-small-quote{display:none}
+ .memory-content{padding:23px 15px}
+ .memory-card{min-height:165px;aspect-ratio:2.7/1}
+ .memory-card-caption{padding:9px 11px;width:min(220px,60%)}
+ .memory-card-caption strong{font-size:19px}
+}
+@media(max-width:480px){
+ #memories-dialog{width:calc(100vw - 16px);border-radius:15px;max-height:94dvh}
+ #memories-dialog .modal-head{padding:10px 13px}
+ .memory-sidebar{padding:13px 15px 12px}
+ .memory-sidebar h2{font-size:24px}
+ .memory-sidebar-progress{margin:8px 0 0;padding-top:7px}
+ #memory-return-journal{padding:7px 10px;margin-top:8px}
+ .memory-content{padding:18px 11px}
+ .memory-gallery-heading h3{font-size:24px}
+ .memory-card{min-height:195px;aspect-ratio:auto}
+ .memory-card img{object-position:center}
+ .memory-card-caption{left:10px;right:10px;bottom:10px;width:auto}
+ .memory-card-caption strong{font-size:19px}
+ .memory-card-caption span{font-size:10px}
+ .memory-status{top:8px;left:10px}
+ .memory-detail-copy{padding:17px}
+}
+@media(prefers-reduced-motion:reduce){.memory-card img{transition:none}.memory-card.unlocked:hover img{transform:none}}
+
+/* Fixed-height cards must not inherit an aspect-ratio-imposed minimum width. */
+.memory-card,.memory-card.locked{aspect-ratio:auto;width:100%;min-width:0}

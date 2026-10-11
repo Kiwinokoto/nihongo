@@ -90,6 +90,17 @@ romance-easter-egg direction (not implemented) is noted in
 [docs/CREATIVE_DIRECTION.md](docs/CREATIVE_DIRECTION.md).
 
 
+### Little Memories — illustrated journal
+
+Open **My journal → Little Memories** for a separate, pastel-sakura
+illustrated gallery using three high-detail original concept panoramas
+previously supplied by the project owner. The original main map/hero and
+all learning activities are unchanged. The distant village is unlocked
+after one successful recognition/order; a closer view of the two travellers
+after eight advanced readings; a train image after completing all 46 basic
+katakana. Locked art is not downloaded until earned; the gallery records
+no views or personal preferences. See `docs/LITTLE_MEMORIES.md`.
+
 ### Story scenes and milestones
 
 The quiet village hero now has an optional, manual story carousel. One

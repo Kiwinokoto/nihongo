@@ -84,6 +84,12 @@ Public, lighthearted Japanese-learning microsite for Angela: gentle storybook ma
 - 41 further basic-sound files were identified with public-domain metadata on Commons, including aliases `hu` for ふ and `Japanese N` for ん, but bulk import was **rate-limited (HTTP 429)**. Do **not** claim 46 locally recorded sounds or publish an incomplete manifest. `tools/sync_basic_kana_audio.py` is a future **throttled sequential** importer; review sources, retry only after provider permits, verify individual samples and licensing prior to enabling runtime mapping. Existing five-vowel audio remains the fallback for missing native Japanese voices.
 - Preserve source-of-truth GitHub, AgentCtl leases and latest Docker image rollback; real Mac/Safari audio, Japanese educational copy and touch usability still need field validation.
 
+## Eleventh pass — illustrated Little Memories gallery (2026-10-11)
+- New **optional separate journal dialog** from `My journal → Little Memories`. It uses three earlier owner-provided AI-generated concept panoramas, optimized to `assets/memories/*.webp`, with real illustrated narrative in a soft pink sakura theme. Their authorial provenance, crop and dimensions are documented in `docs/LITTLE_MEMORIES.md`. No new image generation or scraped manga assets.
+- **Do not touch existing hero, map, lessons or progress formats**. Original SVG map and the existing hero carousel still work as before. The story gallery is meant to have a different, richer visual language.
+- Gallery milestones are derived solely from `assets/story-milestones.js`: first recognized result unlocks panoramic distant travellers, 8 advanced readings unlocks closer portrait, 46 basic katakana unlocks original railway image. Locked cards contain no image URL in the DOM and no media is requested for unrewarded scenes. Opening/reading has no new saved data.
+- `assets/memories-data.js` owns pure content/unlock mapping; `assets/little-memories.js` owns the static DOM and gallery/detail navigation. Native dialog/backdrop/Escape behaviour retained. Confirmed 48 Node tests; check mobile and real-device behaviour. Keep text in English and the hidden romantic layer gentle and optional.
+
 ## Checks
 `node --check assets/app.js`
 `node --test tests/*.test.mjs`
