@@ -109,7 +109,7 @@
 - [x] Tracing requires at least one drawn line, then one `I've practised this` click records ungraded tracing **and goes to recognition**; a correct answer alone grants collection. V1 progress storage and old saves unchanged.
 - [x] Targeted Chromium regression from 2/5 verifies all five, next-row opening, single-click trace transition, mastered/traced independence, persistence after reload, mobile layout, zero page errors.
 - [x] Local preflight: 48/48 Node tests, all ten V2–V13 desktop/390px Chromium browser flows passed, including 2/5→5/5, 6th kana, traced-not-mastered until correct answer, reload progress and previous story/food/language flows. No observed browser errors.
-- [ ] Complete PR/production rollout and save deployed SHA, public checks and rollback; real Mac/Safari QA remains separate.
+- [x] PR #25 merged, **application commit `d6f1fabeee98792e8304b74920656ef2b2e11af8` deployed** to isolated personal-VPS `nihongo-web`. Healthy Docker, valid TLS/HTTPS and HTTP 200 for root, health, JS/CSS. **48/48 Node tests and 10/10 desktop + simulated-mobile Chromium regression flows passed on the public domain**, including redoing the 2/5→5/5 hiragana series, K unlock, one-click trace-to-recognition, not grading handwriting, persistence after reload, keyboard/hero/journal/advanced/food regressions; no detected JS errors/overflow. Prior image retained as `nihongo-rollback:09e7bd0`; no new dependency/service/DB/CI/secret/storage schema. This checkpoint updates documents only; deployed application SHA remains `d6f1fab`.
 
 ## Next slices
 - Optional evaluated handwriting matcher for free drawing; automatic writing verification is **not implemented**
