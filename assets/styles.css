@@ -684,3 +684,6 @@ button.memory-card:focus-visible{outline:3px solid #c98a9c;outline-offset:3px}
 /* The original journal title was scroll-clipped under its sticky header; the old duplicate dialog is gone. */
 
 @media(max-width:560px){.header-sound-help{font-size:14px}.header-sound-help .sound-help-label{display:none}.header-sound-help::first-letter{font-size:inherit}}
+
+/* CSS display:inline-flex on .primary must not override the native hidden attribute. */
+#village-review-next[hidden]{display:none!important}

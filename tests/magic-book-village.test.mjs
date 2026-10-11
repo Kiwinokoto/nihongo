@@ -62,5 +62,6 @@ test("one magic book has two views, no old journal modal, and village writes no 
  assert.match(app,/openMagicBook/);
  assert.doesNotMatch(app,/renderMilestoneJournal|renderJournal\(/);
  assert.match(village,/villageReview\(snapshot\)/);
+ assert.match(readFileSync(new URL("assets/styles.css",root),"utf8"),/#village-review-next\\[hidden\\]\\{display:none!important\\}/);
  assert.doesNotMatch(village,/localStorage|sessionStorage|setItem/);
 });
