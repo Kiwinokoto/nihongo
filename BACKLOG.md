@@ -1,5 +1,12 @@
 # Progress / handoff
 
+## Katakana town word walk — 11 October 2026
+- [x] An optional eight-word round inside Katakana Station: bus, hotel, menu, ramen, konbini, camera, taxi, ticket. The learner reads the katakana, may uncover romanisation, and matches a genuine English meaning. Wrong answers allow retry; results are session-only.
+- [x] Keep basic katakana rows and storage keys untouched, no automatic handwriting validation or reward; original map, hero and journal unchanged. Whole-word audio uses existing browser Japanese-voice helper and falls back to written practice without a voice.
+- [x] 54/54 Node tests and JS syntax validation. On an isolated branch, Chromium completed all eight words and checked the shared write-retry in both hiragana and katakana at 1350px and 390px, without page errors or document overflow.
+- [ ] Mac/Safari real-device touch/voice and fluent Japanese-language review remain outstanding. Linux Chromium is not Safari.
+- [ ] Production release pending PR merge and preflight; do not describe this branch as already deployed.
+
 ## Kana self-check quality follow-up — 11 October 2026
 - [x] Identified a learner-friction issue: after seeing the model, repeating the *same* handwriting prompt previously required restarting the entire row. Added **Draw this character again**, resetting canvas/model without moving to the next prompt or modifying progress.
 - [x] Same shared component for hiragana and katakana; prior recognition/correctness, localStorage schemas, artwork and homepage unchanged.

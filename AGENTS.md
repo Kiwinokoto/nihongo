@@ -1,5 +1,7 @@
 # Kotoba no Tabi — working agreement
 
+> **Katakana town word walk (11/10/2026):** Optional Words around town enters from Katakana Station only, away from the homepage/map. Eight authentic katakana words, hidden-until-requested readings, four-choice meanings and Japanese whole-word audio only when the OS/browser supplies a ja voice. The quiz is session-only: no storage, achievement, basic-kana recognition or handwriting-grade changes. See docs/KATAKANA_WORDS.md; human Japanese proofreading, real Mac/Safari and a full recorded-audio set remain pending.
+
 > **Déploiement confirmé (11/10/2026) :** PR #30 fusionnée, application `2e4e3a41ccafc77b67c636c91e94fd5bdbe7207d` sur `nihongo.kiwinokoto.fr`, conteneur `nihongo-web` sain, HTTPS/healthz `200`, nouvel asset vérifié, autres conteneurs inchangés. Image de retour arrière `nihongo-rollback:a3a660d`. **51 tests Node** et syntaxe OK ; pas de nouvelle E2E Chromium, ni test Safari/Mac réel. Un futur commit uniquement documentaire ne justifie pas de redéploiement.
 
 
