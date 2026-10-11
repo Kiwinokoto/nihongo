@@ -1,5 +1,8 @@
 # Kotoba no Tabi — working agreement
 
+> **Déploiement confirmé (11/10/2026) :** PR #30 fusionnée, application `2e4e3a41ccafc77b67c636c91e94fd5bdbe7207d` sur `nihongo.kiwinokoto.fr`, conteneur `nihongo-web` sain, HTTPS/healthz `200`, nouvel asset vérifié, autres conteneurs inchangés. Image de retour arrière `nihongo-rollback:a3a660d`. **51 tests Node** et syntaxe OK ; pas de nouvelle E2E Chromium, ni test Safari/Mac réel. Un futur commit uniquement documentaire ne justifie pas de redéploiement.
+
+
 > **Quality follow-up (11/10/2026):** In the shared hiragana/katakana mixed check, a learner can now choose **Draw this character again** after revealing the reference. This restarts the *same unsaved writing prompt*, blank canvas and hidden model; it never collects a kana, increments the checkpoint, changes self-ratings, or grades handwriting. Keep this escape hatch while reviewing pedagogy and accessibility.
 
 > **Passation actuelle (11/10/2026) :** lire d'abord [docs/HANDOFF_NEXT_CHAT.md](docs/HANDOFF_NEXT_CHAT.md). Les 28 branches des PR #1–#28, toutes fusionnées, ont été nettoyées ; `main` est la seule branche à conserver après la PR de documentation. Prochaine session : **sans RDC Mint**, avec connecteur GitHub et accès VPS autorisé. Le commit déployé `a3a660d` peut être derrière `main` pour des raisons **documentaires**, ne pas redéployer de simples docs. Vérifier AgentCtl ; une session concurrente utilisait `host:vps-personal/docker` pendant la clôture. Ne pas confondre contrôle sonore automatique et autoévaluation de l'écriture.

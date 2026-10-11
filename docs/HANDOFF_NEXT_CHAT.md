@@ -1,5 +1,8 @@
 # Passation — Kotoba no Tabi 🌸 — 11 octobre 2026
 
+> **Livraison validée le 11/10/2026 :** PR [#30](https://github.com/Kiwinokoto/nihongo/pull/30) fusionnée (`2e4e3a41ccafc77b67c636c91e94fd5bdbe7207d`) et effectivement déployée dans `nihongo-web` (image `5b0816e...`). Domaine public et `/healthz` : HTTPS `200`, nouvel asset présent, conteneur sain, 71 autres conteneurs inchangés. Retour arrière : `nihongo-rollback:a3a660d`. **51/51 tests Node réussis** après mise à jour du checkout. Contrôle Chromium réel du nouveau bouton et Mac/Safari **toujours en attente**. Après cette mise à jour documentaire GitHub sera en avance sur l'image uniquement pour les docs : ne pas redéployer pour cette raison.
+
+
 > **Mise à jour qualité du 11/10/2026 :** le contrôle mixte offre désormais « Draw this character again » après la révélation du modèle, pour reprendre **la même question d'écriture** sur une feuille vierge sans valider quoi que ce soit. La modification est partagée entre hiragana et katakana, sans changement de progression ni d'illustration. **51/51 tests Node** et vérification syntaxique réussis sur une copie isolée du dépôt ; **pas de nouvelle recette Chromium/Safari** pour ce bouton. Contrôler SHA applicatif, locks AgentCtl, rollback et état de la PR avant tout déploiement.
 
 > **Point d'entrée du prochain chat (sans accès à Mint).** Source de vérité : [Kiwinokoto/nihongo](https://github.com/Kiwinokoto/nihongo), puis `AGENTS.md`, `BACKLOG.md` et ce document. Interface destinée à Angela : **anglais** ; discussion avec Kevin : **français**.

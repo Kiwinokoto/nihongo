@@ -5,7 +5,7 @@
 - [x] Same shared component for hiragana and katakana; prior recognition/correctness, localStorage schemas, artwork and homepage unchanged.
 - [x] 51/51 Node tests on isolated branch checkout, plus `node --check` of the checkpoint and both calling modules. Existing VPS application checkout remains clean.
 - [ ] Browser E2E of the new repeat button (no Chromium browser installed on VPS); real Mac/Safari/touch and Japanese pronunciation also remain unverified. Do not present Node tests as browser acceptance.
-- [ ] Independently verify deployed app SHA and rollback readiness before any production release.
+- [x] **PR #30 merged to `main`** as `2e4e3a41ccafc77b67c636c91e94fd5bdbe7207d`; deployed on personal VPS to only `nihongo-web`. Node 51/51 passed again on deployment host. Healthy, TLS verified, `/` and `/healthz` return HTTP 200; public checkpoint JS includes retry control. Other 71 running containers unchanged. Prior image retained as `nihongo-rollback:a3a660d` (image ID `b8332a15f264...`), current image `5b0816e1a124...`. Git checkout clean. The application and GitHub matched at release time; later documentation-only commits need no image rebuild.
 
 ## Maintenance de clôture — 11 octobre 2026
 - [x] Contrôle GitHub complet : **PR #1 à #28 fusionnées**, aucune PR ouverte ; leurs 28 branches distantes pointaient exactement sur les SHA des PR, sans référence additionnelle, puis ont été supprimées à la demande du propriétaire. Les 14 anciennes branches locales Mint ont aussi été supprimées ; Mint `main` a été fast-forward sur le `main` de GitHub, aucun changement local. **Après la PR de cette passation**, supprimer également sa branche temporaire si toujours identique au HEAD PR ; la seule branche à conserver est `main`.
