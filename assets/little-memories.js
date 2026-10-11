@@ -31,6 +31,24 @@ export function renderLittleMemories(root,milestones,onReturn){
   if(current){current=null;showGallery();return;}
   onReturn();
  });
+ function appendMemoryArt(container,memory,detail=false){
+  // Locked cards never call this function: no preview or fetch before unlock.
+  if(memory.panels){
+   const joined=document.createElement("div");
+   joined.className=detail?"memory-diptych-detail":"memory-diptych-preview";
+   for(const panel of memory.panels){
+    const img=document.createElement("img");
+    img.src=panel.source;img.alt=panel.alt;
+    img.loading="eager";img.decoding="async";
+    joined.append(img);
+   }
+   container.append(joined);
+  }else{
+   const img=document.createElement("img");
+   img.src=memory.source;img.alt=memory.alt;img.loading="eager";img.decoding="async";
+   container.append(img);
+  }
+ }
  function showGallery(){
   back.textContent="← Back to my journal";
   gallery.replaceChildren();
@@ -40,9 +58,7 @@ export function renderLittleMemories(root,milestones,onReturn){
    card.dataset.memoryId=memory.id;
    if(memory.unlocked){
     card.type="button";
-    const image=document.createElement("img");
-    image.src=memory.source;image.alt=memory.alt;image.loading="eager";image.decoding="async";
-    card.append(image);
+    appendMemoryArt(card,memory);
     card.setAttribute("aria-label","Read "+memory.title);
     card.addEventListener("click",()=>showDetail(memory));
    }else{
@@ -70,8 +86,7 @@ export function renderLittleMemories(root,milestones,onReturn){
   gallery.replaceChildren();
   const article=document.createElement("article");
   article.className="memory-detail";
-  const img=document.createElement("img");
-  img.src=memory.source;img.alt=memory.alt;img.decoding="async";
+  appendMemoryArt(article,memory,true);
   const info=document.createElement("div");info.className="memory-detail-copy";
   const kicker=document.createElement("span");
   kicker.className="memory-eyebrow";kicker.textContent="MEMORY "+memory.number+" · UNLOCKED";
@@ -80,7 +95,7 @@ export function renderLittleMemories(root,milestones,onReturn){
   const story=document.createElement("p");story.textContent=memory.copy;
   const hint=document.createElement("small");hint.textContent="A small story, just for the journey. ✿";
   info.append(kicker,h,intro,story,hint);
-  article.append(img,info);
+  article.append(info);
   gallery.append(article);
   const dialog=root.closest("dialog");if(dialog)dialog.scrollTop=0;
   back.focus();

@@ -93,13 +93,15 @@ romance-easter-egg direction (not implemented) is noted in
 ### Little Memories — illustrated journal
 
 Open **My journal → Little Memories** for a separate, pastel-sakura
-illustrated gallery using three high-detail original concept panoramas
-previously supplied by the project owner. The original main map/hero and
-all learning activities are unchanged. The distant village is unlocked
-after one successful recognition/order; a closer view of the two travellers
-after eight advanced readings; a train image after completing all 46 basic
-katakana. Locked art is not downloaded until earned; the gallery records
-no views or personal preferences. See `docs/LITTLE_MEMORIES.md`.
+illustrated gallery with five story moments from **four original
+high-detail illustrations**: two separate panoramas, the bridge and the
+train from a paired scene, plus a reunited diptych assembled from those
+same two panels. The existing main map/hero and lessons are unchanged.
+The first panorama unlocks after one collected learning result, the bridge
+after 46 hiragana, the train after 46 katakana, the closer travellers after
+eight advanced readings, and the complete diptych after both alphabets
+are mastered. Locked images are not downloaded; no views or reader
+preferences are tracked. See `docs/LITTLE_MEMORIES.md`.
 
 ### Story scenes and milestones
 
