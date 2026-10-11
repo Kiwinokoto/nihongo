@@ -80,6 +80,15 @@
 - [ ] Extend actual speaking/listening with vetted recordings or native Mac voice; add more **contextual** kata reading examples. Small characters/long marks are a convention, not individual spoken syllables.
 - [ ] Handwriting matcher proof-of-concept on five vowels (separate isolated experiment per `docs/HANDWRITING_POC.md`), calibrate false-positive/false-negative rates, never claim validated handwriting grading.
 
+## Tenth pass — story milestones, hero scenes and single pronunciation (2026-10-11)
+- [x] Keep the approved map-first hero and use only existing original art; a manual 3-scene carousel begins with village, unlocks the station teaser after one **genuinely completed/recognised** learning result, and the two travellers' close-up after 8 distinct advanced kana readings. Unlocks derive from prior local saves — no extra tracking or account.
+- [x] Journal shows achievements for first success, **46/46 hiragana**, **46/46 katakana**, 8 advanced readings, and labels kanji **not yet available**. Keyboard buttons/arrows and mobile swipe; animation respects reduced-motion preference.
+- [x] Fix existing 5 Commons public-domain vowel MP3s that contained 3 repeated pronunciations: local files now contain first utterance (0.65-second audio + MP3 delay), so one tap yields one spoken sound. Source checksums/attribution and reproducible importer documented.
+- [x] 45/45 Node tests; eight local desktop/mobile Chromium legacy + new story/audio scenarios pass, with existing learner saves preserved and no detected JS errors.
+- [ ] PR merge and isolated public deployment; record exact app SHA, production browser tests and rollback.
+- [ ] Download remaining basic kana audio **only when Commons rate limits permit**, from a 41-file PD-self metadata-reviewed set; `tools/sync_basic_kana_audio.py` is a **throttled future importer**, not proof of shipped 46 audio. Provider HTTP 429 prevented this bulk import; no partial files staged.
+- [ ] Real Mac/Safari and phone QA, fluent Japanese review; later create unique high-quality reward scenes for 46 hiragana / 46 katakana, and prepare optional kanji content.
+
 ## Next slices
 - Optional evaluated handwriting matcher for free drawing; automatic writing verification is **not implemented**
 - Expand contextual kana reading/real-word practice; progressive reviews remain independent of the new advanced cards

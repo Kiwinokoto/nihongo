@@ -19,7 +19,7 @@ test("main landing page encourages map exploration instead of hardwiring hiragan
 });
 test("original scene is shared by compact hero and starting village, never replacing map",()=>{
  const html=read("index.html"),village=read("assets/starting-village.js"),art=read("assets/art/village-path.svg");
- assert.match(html,/welcome-illustration[^\n]+village-path\.svg/);
+ assert.match(html,/welcome-illustration[\s\S]{0,220}village-path\.svg/);
  assert.match(village,/village-path\.svg/);
  assert.match(html,/class="map-art" src="\/assets\/landscape\.svg"/);
  assert.match(art,/xmlns="http:\/\/www\.w3\.org\/2000\/svg"/);

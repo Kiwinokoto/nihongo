@@ -25,8 +25,16 @@
           <h1 id="hero-title">A little Japanese,<br><em>every day.</em></h1>
           <p>Follow the lanterns, collect little discoveries, and make every new word your own. No rush. Just the joy of learning.</p>
           <p class="welcome-footnote"><span aria-hidden="true">✦</span> Your progress stays on this device. Choose your path below.</p>
+          <div class="hero-story-caption" id="hero-story-caption" aria-live="polite">The first horizon · Every journey begins somewhere.</div>
         </div>
-        <div class="welcome-illustration" aria-hidden="true"><img src="/assets/art/village-path.svg" alt="" loading="eager"></div>
+        <div class="welcome-illustration" id="hero-story" tabindex="0" aria-label="Illustrated story scenes. Use arrow keys or scene buttons to browse unlocked chapters">
+          <img id="hero-scene-image" src="/assets/art/village-path.svg" alt="A peaceful village with two travellers" loading="eager">
+          <div class="hero-scene-controls" id="hero-scene-controls" hidden>
+            <button type="button" id="hero-prev" aria-label="Previous unlocked scene">‹</button>
+            <span id="hero-scene-number" aria-live="polite">Scene 1 of 1</span>
+            <button type="button" id="hero-next" aria-label="Next unlocked scene">›</button>
+          </div>
+        </div>
         <span class="hero-kanji" aria-hidden="true">旅</span>
       </section>
 
@@ -119,7 +127,13 @@
   </dialog>
   <dialog id="journal-dialog" aria-labelledby="journal-title">
     <div class="modal-head"><span class="eyebrow">LITTLE DISCOVERIES</span><button id="close-journal" class="icon-button" aria-label="Close journal">×</button></div>
-    <div class="journal-content"><div class="journal-symbol">✿</div><h2 id="journal-title">Your travel journal</h2><p id="journal-description">A collection of the little things you've learned along the way.</p><div id="journal-cards" class="journal-cards"></div><button id="journal-garden" class="primary">Visit the garden <span aria-hidden="true">↗</span></button><p class="journal-warning">This early version saves progress in this browser only. Don't clear site data if you want to keep it.</p></div>
+    <div class="journal-content"><div class="journal-symbol">✿</div><h2 id="journal-title">Your travel journal</h2><p id="journal-description">A collection of the little things you've learned along the way.</p><div class="journal-milestones">
+          <h3>Scenes along the way <span aria-hidden="true">✧</span></h3>
+          <p>One first discovery opens a small teaser. Bigger milestones bring more chapters.</p>
+          <div id="journal-milestone-list" class="journal-milestone-list"></div>
+        </div>
+        <h3 class="journal-kana-heading">Your hiragana collection</h3>
+        <div id="journal-cards" class="journal-cards"></div><button id="journal-garden" class="primary">Visit the garden <span aria-hidden="true">↗</span></button><p class="journal-warning">This early version saves progress in this browser only. Don't clear site data if you want to keep it.</p></div>
   </dialog>
 </body>
 </html>
