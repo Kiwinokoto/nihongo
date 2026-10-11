@@ -5,7 +5,8 @@
 - [x] The exact owner-approved shrine painting is committed as an optimised original local WebP under assets/art/kanji-shrine.webp. The existing map shrine stop is now selectable for everyone, and only one new dialog is introduced; no homepage overhaul or unrelated artwork.
 - [x] No storage keys, dependencies, persistent grading, automatic handwriting or proficiency claims; no change to 46 kana, meals, postcard or story milestones. Native Japanese audio only when the OS has a voice.
 - [x] 57/57 Node tests on isolated branch checkout; initial Chromium UX pass caught a session-counter render issue, which was corrected before release. Complete browser and production QA must be recorded in the next update.
-- [ ] PR review/merge and isolated deployment to nihongo-web pending full desktop+mobile Chromium acceptance, AgentCtl locks and rollback checks.
+- [x] **PR #34 merged**; only application commit 65046ba221c0f95fa24727a0636d227a5635afe0 deployed to nihongo-web on personal VPS. Healthy, HTTPS/TLS valid, / and /healthz HTTP 200, live original asset checksum matches. Docker image sha256:72051fc9220856a957ab965ce7235ae871268406be877ae1548e2c447a45896f. Prior image saved as nihongo-rollback:fbdd8a6; 71 other container names unchanged.
+- [x] **Production Chromium 1350 and 390px:** all eight gates and original image decoded (naturalWidth=1200); wrong answer retry, sentence reveal, live 8 explored, no localStorage writes, old Katakana Station remains accessible, no detected JS page errors or document overflow. Desktop/mobile branch tests also validated audio-control availability and a close/reopen path. Node 57/57 passed both isolated and deploy host.
 - [ ] Real Mac/Safari and human native-Japanese pronunciation/content review.
 
 ## Katakana town word walk — 11 October 2026
