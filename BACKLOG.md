@@ -1,5 +1,12 @@
 # Progress / handoff
 
+## Kana self-check quality follow-up — 11 October 2026
+- [x] Identified a learner-friction issue: after seeing the model, repeating the *same* handwriting prompt previously required restarting the entire row. Added **Draw this character again**, resetting canvas/model without moving to the next prompt or modifying progress.
+- [x] Same shared component for hiragana and katakana; prior recognition/correctness, localStorage schemas, artwork and homepage unchanged.
+- [x] 51/51 Node tests on isolated branch checkout, plus `node --check` of the checkpoint and both calling modules. Existing VPS application checkout remains clean.
+- [ ] Browser E2E of the new repeat button (no Chromium browser installed on VPS); real Mac/Safari/touch and Japanese pronunciation also remain unverified. Do not present Node tests as browser acceptance.
+- [ ] Independently verify deployed app SHA and rollback readiness before any production release.
+
 ## Maintenance de clôture — 11 octobre 2026
 - [x] Contrôle GitHub complet : **PR #1 à #28 fusionnées**, aucune PR ouverte ; leurs 28 branches distantes pointaient exactement sur les SHA des PR, sans référence additionnelle, puis ont été supprimées à la demande du propriétaire. Les 14 anciennes branches locales Mint ont aussi été supprimées ; Mint `main` a été fast-forward sur le `main` de GitHub, aucun changement local. **Après la PR de cette passation**, supprimer également sa branche temporaire si toujours identique au HEAD PR ; la seule branche à conserver est `main`.
 - [x] Serveur lu en **lecture seule** : site sain, déploiement applicatif `a3a660d`, `main` plus récent uniquement par docs. **Bail Docker d'une autre session actif à l'audit** : aucune intervention VPS ; recontrôler avant tout déploiement ultérieur.

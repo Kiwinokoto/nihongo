@@ -34,3 +34,11 @@ test("new learning/check separation does not introduce graded handwriting claims
  assert.match(html,/CHECK YOURSELF/);
  assert.doesNotMatch(check,/correctKata|markCorrect/);
 });
+
+test("revealed writing model permits an unsaved repeat before self-rating",()=>{
+ const source=readFileSync(new URL("../assets/kana-checkpoint.js",import.meta.url),"utf8");
+ assert.match(source,/id="checkpoint-try-again"/);
+ assert.match(source,/button\("#checkpoint-try-again",\(\)=>startNext\(\)\)/);
+ assert.match(source,/button\("#checkpoint-yes",\(\)=>\{writingYes\+\+;index\+\+;startNext\(\)\}\)/);
+ assert.match(source,/button\("#checkpoint-retry",\(\)=>\{writingRetry\+\+;index\+\+;startNext\(\)\}\)/);
+});
