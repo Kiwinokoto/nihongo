@@ -119,3 +119,13 @@ The closer image is generated as `assets/art/travellers-closeup.svg` by
 It is a new original interpretation of the close-up concept; it is **not**
 an import of any externally displayed reference illustration. User feedback
 on final art and original Japanese dialogue is still needed.
+
+
+## Scene milestones — Pass 10
+The optional hero carousel tells a small story using only **existing
+original illustrations**: distant village to a railway teaser after the
+first real learning success, then the close-up postcard after eight advanced
+kana readings. The journal celebrates complete basic hiragana and katakana
+separately. Kanji is a later chapter, never unlocked by a placeholder.
+Do not force romance into lessons, store reading preferences, or auto-advance
+the imagery. See `docs/STORY_MILESTONES.md` for the exact milestone contract.

@@ -42,3 +42,14 @@ No browser voice pack is installed by the application; no microphone,
 user recording, remote TTS request, key, API quota, or voice-vendor account
 is needed. Adding more licensed recordings requires checking each
 file's licensing and pronunciation carefully. Do not scrape unlicensed media.
+
+
+## One tap, one pronunciation (2026-10-11)
+
+The original five Commons recordings contain **three repetitions of the same
+vowel** (about 2.5–2.8 seconds each). The distributed local MP3 clips are
+now **the first 0.65 seconds only** (first complete utterance and a little
+trailing silence). The source files remain unchanged upstream, the checksums
+above still pin the sources, and `tools/fetch_kana_audio.py --force` will
+reproduce the same five trimmed files. This avoids surprising triple audio
+without altering the browser speech-synthesis behaviour.

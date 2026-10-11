@@ -90,6 +90,25 @@ romance-easter-egg direction (not implemented) is noted in
 [docs/CREATIVE_DIRECTION.md](docs/CREATIVE_DIRECTION.md).
 
 
+### Story scenes and milestones
+
+The quiet village hero now has an optional, manual story carousel. One
+**correctly completed** recognition/ordering result from any activity
+unlocks a quick railway teaser; after eight distinct advanced readings the
+existing close-up of the two travellers is available there too.
+Arrow buttons, keyboard and touch swipe navigate earned scenes; no autoplay.
+The travel journal celebrates separate 46-hiragana and 46-katakana milestones
+and marks Kanji Shrine as future. No new learner profile, story history or
+extra save key is needed: earlier achievements are recognised immediately.
+See `docs/STORY_MILESTONES.md`.
+
+The five locally hosted public-domain vowel recordings are now **one sound
+per click**: the original source audio repeated each vowel three times,
+so the first complete utterance is retained. A reviewed 41-clip extension
+is planned but Wikimedia rate limits prevented this bulk import;
+the remaining basic kana still need a Japanese browser voice.
+See `docs/AUDIO_SOURCES.md`.
+
 ### Beyond the first kana
 
 The Hiragana Garden and Katakana Station both include an optional

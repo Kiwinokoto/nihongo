@@ -6,7 +6,7 @@ Check current Commons file pages before redistributing. Pinned URLs listed in li
 from pathlib import Path
 from hashlib import md5,sha256
 from subprocess import run
-import urllib.request,urllib.parse,time
+import urllib.request,urllib.parse,time,sys
 root=Path(__file__).resolve().parents[1]
 output=root/'assets'/'audio'/'kana'
 output.mkdir(parents=True,exist_ok=True)
@@ -24,7 +24,7 @@ for n,c in enumerate("AEIOU"):
     digest=md5(name.encode()).hexdigest()
     url=f"https://upload.wikimedia.org/wikipedia/commons/{digest[0]}/{digest[:2]}/{urllib.parse.quote(name)}"
     dest=output/(c.lower()+".mp3")
-    if dest.exists(): continue
+    if dest.exists() and "--force" not in sys.argv: continue
     req=urllib.request.Request(url,headers={'User-Agent':'Kotoba-no-Tabi/1.0 (educational website; https://github.com/Kiwinokoto/nihongo)'})
     try:
         with urllib.request.urlopen(req,timeout=12) as r: raw=r.read(150_000)
@@ -33,7 +33,11 @@ for n,c in enumerate("AEIOU"):
         src=output/(c.lower()+'.ogg')
         src.write_bytes(raw)
         try:
-            run(['ffmpeg','-loglevel','error','-y','-i',str(src),'-ac','1','-ar','22050','-codec:a','libmp3lame','-qscale:a','4',str(dest)],check=True)
+            # Originals repeat the same isolated sound three times.
+            # Keep the first utterance (+ small trailing silence): one tap = one sound.
+            temp=dest.with_suffix(".pending.mp3")
+            run(['ffmpeg','-loglevel','error','-y','-i',str(src),'-af','atrim=end=0.65,asetpts=PTS-STARTPTS','-ac','1','-ar','22050','-codec:a','libmp3lame','-qscale:a','4',str(temp)],check=True)
+            temp.replace(dest)
         finally:
             src.unlink(missing_ok=True)
         print(c,'OK',sha256(raw).hexdigest(),dest.stat().st_size,flush=True)

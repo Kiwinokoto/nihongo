@@ -11,6 +11,11 @@ import {renderStartingVillage} from "./starting-village.js";
 import {speakJapanese as playJapanese, stopJapaneseAudio} from "./japanese-audio.js";
 import {enableBackdropDismiss} from "./dialog-dismiss.js";
 import {renderAdvancedKana} from "./advanced-kana.js";
+import {KATA_STORAGE_KEY,readKata} from "./katakana-progress.js";
+import {ADVANCED_STORAGE_KEY,parseAdvanced,advancedCount} from "./advanced-kana-data.js";
+import {WORD_STORAGE_KEY,parseWordProgress} from "./word-trails.js";
+import {FOOD_KEY,parseFoodProgress} from "./food-lane-data.js";
+import {milestoneStatus,unlockedScenes} from "./story-milestones.js";
 
 const $ = (id) => document.getElementById(id);
 const STARTER_COUNT = ALL_KANA.length;
@@ -108,12 +113,87 @@ function openLesson(nextTab="discover"){
   selected=first>=0?first:KANA.findIndex(k=>k.row===rowIndex);
   selectTab(nextTab);$("lesson-dialog").showModal();
 }
+// Derive story access from existing results, never from an invented click counter.
+const stored=(key)=>{try{return localStorage.getItem(key);}catch{return null;}};
+let heroSceneIndex=0;
+let visibleScenes=[];
+function earnedMilestones(){
+  const hira=parseProgress(stored(STORAGE_KEY)).mastered.length;
+  const kata=readKata(stored(KATA_STORAGE_KEY)).mastered.length;
+  const advanced=advancedCount(parseAdvanced(stored(ADVANCED_STORAGE_KEY)));
+  const words=parseWordProgress(stored(WORD_STORAGE_KEY)).collected.length;
+  const food=parseFoodProgress(stored(FOOD_KEY)).ordered.length;
+  return milestoneStatus({hiragana:hira,katakana:kata,advanced,words,food});
+}
+function refreshStoryScenes(){
+  visibleScenes=unlockedScenes(earnedMilestones());
+  heroSceneIndex=Math.min(heroSceneIndex,visibleScenes.length-1);
+  const scene=visibleScenes[heroSceneIndex];
+  const image=$("hero-scene-image");
+  if(image.getAttribute("src")!==scene.src){
+    image.src=scene.src;
+    if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+      image.animate([{opacity:.5,transform:"scale(1.018)"},{opacity:1,transform:"scale(1)"}],
+        {duration:280,easing:"ease-out"});
+    }
+  }
+  image.alt=scene.alt;
+  $("hero-story-caption").textContent=scene.title+" · "+scene.subtitle;
+  const nav=$("hero-scene-controls");
+  nav.hidden=visibleScenes.length<2;
+  $("hero-scene-number").textContent="Scene "+(heroSceneIndex+1)+" of "+visibleScenes.length;
+  $("hero-prev").disabled=heroSceneIndex===0;
+  $("hero-next").disabled=heroSceneIndex>=visibleScenes.length-1;
+}
+function selectHeroScene(index){
+  refreshStoryScenes();
+  if(!Number.isInteger(index)||index<0||index>=visibleScenes.length)return;
+  heroSceneIndex=index;
+  refreshStoryScenes();
+}
+function renderMilestoneJournal(){
+  const status=earnedMilestones();
+  const target=$("journal-milestone-list");
+  target.replaceChildren();
+  for(const milestone of status){
+    const row=document.createElement("section");
+    row.className="milestone-row"+(milestone.unlocked?" complete":" upcoming");
+    const icon=document.createElement("span");
+    icon.className="milestone-symbol";
+    icon.textContent=milestone.unlocked?"✿":"✧";
+    icon.setAttribute("aria-hidden","true");
+    const copy=document.createElement("div");
+    copy.className="milestone-description";
+    const title=document.createElement("strong");title.textContent=milestone.title;
+    const detail=document.createElement("small");
+    detail.textContent=milestone.unlocked?"Unlocked · "+milestone.target:
+      milestone.progress?milestone.target+" · "+milestone.progress.done+"/"+milestone.progress.target:
+      milestone.target;
+    copy.append(title,detail);row.append(icon,copy);
+    if(milestone.unlocked&&milestone.scene){
+      const action=document.createElement("button");
+      action.type="button";action.className="soft-button milestone-open";
+      action.textContent="See scene ↗";
+      action.addEventListener("click",()=>{
+        refreshStoryScenes();
+        const index=visibleScenes.findIndex(scene=>scene.id===milestone.scene);
+        if(index<0)return;
+        $("journal-dialog").close();
+        selectHeroScene(index);
+        $("hero-story").scrollIntoView({behavior:"smooth",block:"center"});
+      });
+      row.append(action);
+    }
+    target.append(row);
+  }
+}
 function renderJournal(){
   const total=progress.mastered.length,due=dueKana(progress).length,words=learnedWordCount();
   $("journal-description").textContent=(total
     ? `You've collected ${total} of ${STARTER_COUNT} hiragana. ${due?due+" ready for a little review.":"The next discovery is waiting."}`
     : "Every little discovery counts. Your first sounds are waiting.")
     +(words?` And ${words} little word postcard${words===1?"":"s"}!`:"");
+  renderMilestoneJournal();
   const cards=$("journal-cards");cards.replaceChildren();
   ALL_KANA.forEach(glyph=>{
     if(!progress.mastered.includes(glyph))return;
@@ -450,6 +530,27 @@ $("place-action").addEventListener("click",()=>{
   else if(place==="tea")openFoodLane();
   else if(place==="train")openKatakana();
 });
+$("hero-prev").addEventListener("click",()=>selectHeroScene(heroSceneIndex-1));
+$("hero-next").addEventListener("click",()=>selectHeroScene(heroSceneIndex+1));
+$("hero-story").addEventListener("keydown",event=>{
+  if(!["ArrowLeft","ArrowRight"].includes(event.key))return;
+  event.preventDefault();
+  selectHeroScene(heroSceneIndex+(event.key==="ArrowRight"?1:-1));
+});
+let touchX=null,touchY=null;
+$("hero-story").addEventListener("touchstart",event=>{
+  if(event.touches.length!==1)return;
+  touchX=event.touches[0].clientX;touchY=event.touches[0].clientY;
+},{passive:true});
+$("hero-story").addEventListener("touchend",event=>{
+  if(touchX===null||!event.changedTouches.length)return;
+  const dx=event.changedTouches[0].clientX-touchX;
+  const dy=event.changedTouches[0].clientY-touchY;
+  touchX=null;touchY=null;
+  if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.3){
+    selectHeroScene(heroSceneIndex+(dx<0?1:-1));
+  }
+},{passive:true});
 $("open-journal").addEventListener("click",renderJournal);
 $("close-lesson").addEventListener("click",()=>$("lesson-dialog").close());
 $("close-food").addEventListener("click",()=>$("food-dialog").close());
@@ -470,6 +571,10 @@ document.querySelectorAll(".lesson-tabs [role=tab]").forEach((b,i,all)=>b.addEve
   e.preventDefault();const next=all[(i+(e.key==="ArrowRight"?1:all.length-1))%all.length];
   selectTab(next.dataset.tab);next.focus();
 }));
+// Refresh newly earned scenes when any learning dialog closes. No new storage writes.
+for(const dialog of document.querySelectorAll("dialog")){
+  dialog.addEventListener("close",refreshStoryScenes);
+}
 // Background clicks dismiss modal dialogs on desktop/fine pointer devices.
 document.querySelectorAll("dialog").forEach(dialog=>{
   enableBackdropDismiss(dialog,window.matchMedia("(pointer:fine)"));
@@ -483,9 +588,14 @@ $("lesson-dialog").addEventListener("close",()=>{
   if(canvasObserver){canvasObserver.disconnect();canvasObserver=null;}
 });
 window.addEventListener("storage",event=>{
-  if(event.key!==STORAGE_KEY)return;
-  Object.assign(progress,loadProgress());rowIndex=currentRow(progress);
-  updateProgress();
-  if($("lesson-dialog").open)renderLesson();
+  if(event.key===STORAGE_KEY){
+    Object.assign(progress,loadProgress());rowIndex=currentRow(progress);
+    updateProgress();
+    if($("lesson-dialog").open)renderLesson();
+  }
+  if([STORAGE_KEY,KATA_STORAGE_KEY,ADVANCED_STORAGE_KEY,WORD_STORAGE_KEY,FOOD_KEY,null].includes(event.key)){
+    refreshStoryScenes();
+    if($("journal-dialog").open)renderMilestoneJournal();
+  }
 });
-updateProgress();selectPlace("garden");
+updateProgress();refreshStoryScenes();selectPlace("garden");
