@@ -1,5 +1,7 @@
 # Kotoba no Tabi — working agreement
 
+> **Passation actuelle (11/10/2026) :** lire d'abord [docs/HANDOFF_NEXT_CHAT.md](docs/HANDOFF_NEXT_CHAT.md). Les 28 branches des PR #1–#28, toutes fusionnées, ont été nettoyées ; `main` est la seule branche à conserver après la PR de documentation. Prochaine session : **sans RDC Mint**, avec connecteur GitHub et accès VPS autorisé. Le commit déployé `a3a660d` peut être derrière `main` pour des raisons **documentaires**, ne pas redéployer de simples docs. Vérifier AgentCtl ; une session concurrente utilisait `host:vps-personal/docker` pendant la clôture. Ne pas confondre contrôle sonore automatique et autoévaluation de l'écriture.
+
 ## Purpose
 Public, lighthearted Japanese-learning microsite for Angela: gentle storybook map, short audio/reading challenges, beginner kana tracing, future katakana/kanji spaces. The UI is in English.
 
