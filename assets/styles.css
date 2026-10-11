@@ -599,3 +599,23 @@ button.memory-card:focus-visible{outline:3px solid #c98a9c;outline-offset:3px}
 .checkpoint-summary .journal-symbol{display:block}
 @media(max-width:700px){.checkpoint-recognition,.checkpoint-writing{grid-template-columns:1fr}.checkpoint-paper{max-width:280px;margin-inline:auto}.lesson-tabs,.kata-modes{gap:6px}.kana-mode-group{flex-basis:100%;padding:8px}.checkpoint-choices button{min-height:62px}.checkpoint-model>strong{font-size:65px}}
 .checkpoint-stroke-guide{display:block;max-height:140px;width:140px;object-fit:contain;margin:4px auto 7px;background:#fffdf7;border-radius:11px;border:1px solid #e4e8dd}
+
+/* Optional eight-word katakana town walk; no changes to the map or basic learning layout. */
+.kata-extra-actions{display:flex;gap:8px;flex-wrap:wrap}
+.kata-town{max-width:720px;margin:auto;padding:13px 3px 22px;color:#496b5b}
+.kata-town h3{font-family:"DM Serif Display",Georgia,serif;font-size:29px;font-weight:400;color:#315e53;margin:9px 0}
+.kata-town>p{font-size:12px;line-height:1.75;color:#7a8f7d}
+.kata-town-card{border:1px solid #e5e7d9;border-radius:15px;padding:24px;background:linear-gradient(130deg,#fffaf0,#eaf1e7);text-align:center;margin:17px 0}
+.kata-town-place{display:block;font-size:11px;color:#9a8172;letter-spacing:.09em;text-transform:uppercase}
+.kata-town-kana{display:block;font-family:Georgia,serif;font-weight:400;font-size:clamp(39px,7vw,63px);color:#315f52;margin:15px 0 9px;line-height:1.3}
+.kata-town-reading{font-size:18px!important;color:#a17d71!important;font-style:italic;margin:9px 0}
+.kata-town-audio{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:13px}
+.kata-town-audio .feedback{font-size:11px;min-width:140px}
+.kata-town-question>strong{font-size:14px;font-weight:500}
+.kata-town-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:13px 0}
+.kata-town-choices button{white-space:normal;min-width:0;min-height:48px;font-size:13px}
+.kata-town-choices button.correct{background:#e4f1e5;border-color:#7fb48a}
+.kata-town-choices button.wrong{background:#fff0ed;border-color:#d9a7a4}
+.kata-town-actions{display:flex;gap:10px;flex-wrap:wrap;margin:17px 0}
+.kata-town-note{font-size:10px!important}
+@media(max-width:510px){.kata-extra-actions{width:100%}.kata-extra-actions button{flex:1 1 100%}.kata-town-card{padding:16px}.kata-town-choices{grid-template-columns:1fr}.kata-town-actions button{flex:1 1 100%}}
